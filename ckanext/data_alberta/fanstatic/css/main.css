@@ -2380,7 +2380,7 @@ ol.search-results h3.title > a { display: inline-block; margin-bottom: 12px; bor
 @media screen and (max-width: 992px) { .alberta-theme ul.topics li a p { max-width: 85%; white-space: normal; } }
 @media screen and (max-width: 768px) { .alberta-theme header.site-header #site-search { width: 100%; margin-top: 12px; }
     .alberta-theme header.site-header #site-search .form-item { width: 320px; }
-    .alberta-theme a h2, .alberta-theme a a, .alberta-theme h2 h2, .alberta-theme h2 a { max-width: 310px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .alberta-theme a h2, .alberta-theme a a, .alberta-theme h2 h2, .alberta-theme h2 a { max-width: 310px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; }
     .alberta-theme .feature { margin-bottom: 12px; } }
 /* ============= BODY RESPONSIVE ============= */
 @media screen and (max-width: 992px) { .alberta-theme main { padding-bottom: 0; }
