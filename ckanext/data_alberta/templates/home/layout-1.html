@@ -1,0 +1,26 @@
+{# {% ckan_extends %} #}
+<main>
+<div role="main" class="hero"
+  <div class="container block">
+      <div class="row row1"
+          {% block search %}
+          {% snippet 'home/snippets/search.html' %}
+        {% endblock %}
+        </div>
+  </div>
+</div>
+
+<div role="main" class="hero">
+  <div class="container block">
+    <div class="row row2">
+      <div class="span6 col1">
+        {% block promoted %}
+          {% snippet 'home/snippets/promoted.html' %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+

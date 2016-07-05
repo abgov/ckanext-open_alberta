@@ -1,0 +1,9 @@
+{% set tags = h.get_facet_items_dict('tags', limit=3) %}
+{% set placeholder = _('Enter search terms...') %}
+{% set input_class = input_class or 'search-giant' %}
+<form class="dataset-search {{ form_class }}" method="GET" data-module="select-switch" id="small_search">
+   <span class="control-group {{ input_class }}">
+        <input type="text" class="search_sm form-control" name="q" value="{{ q }}" autocomplete="off" placeholder="{{ placeholder }}" />
+    <a href="javascript:{}" class="search-submit" onclick="document.getElementById('small_search').submit();"><i class="fa fa-search"></i></a>
+    </span>
+</form>

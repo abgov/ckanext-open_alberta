@@ -1,0 +1,354 @@
+{% macro fieldVal(fieldList,lookupValue) -%}{% for field in fieldList['choices'] %}{% if field['label'] == lookupValue %}{{field['value']}}{% endif %}{% endfor %}{%- endmacro %}
+{% macro fieldLabel(fieldList,lookupValue) -%}{% for field in fieldList['choices'] %}{% if field['value'] == lookupValue %}{{field['label']}}{% endif %}{% endfor %}{%- endmacro %}
+
+
+{% set alt_titles = [
+{
+"field_name": "metadata_created",
+"label": "Date Added",
+},
+{
+"field_name": "metadata_modified",
+"label": "Date Modified",
+},
+{
+"field_name": "license_title",
+"label": "Licence",
+}
+] %}
+
+
+{% set details_by_type = {
+  "dataset":{},
+  "documentation":{},
+
+  "opendata":{
+    "groups":[
+      {"Title and Dataset Information":{
+        "label":"true",
+        "fields":["alternatetitle","date_modified","updatefrequency"],
+        "meta":{
+            "alternatetitle":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"},
+            "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "updatefrequency":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+        }
+      }},
+      {"Publisher / Creator Information":{
+        "label":"true",
+        "fields":["creator","owner_org"],
+        "meta":{
+            "creator":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "owner_org":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","lookup":"organization.title"},
+        }
+      }},
+      {"Subject Information":{
+        "label":"true",
+        "fields":["topic","time_coverage_from","time_coverage_to","spatialcoverage1"],
+        "meta":{
+            "topic":{"columns":"12","linked":"?topic=","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "time_coverage_from":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "time_coverage_to":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "spatialcoverage1":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+        }
+      }},
+        {"Resource Dates":{
+            "label":"true",
+            "fields":["date_created","metadata_created","date_issued","date_modified","archive_date"],
+            "meta":{
+                "date_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+                "metadata_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","wrapperclass":"format_as_date_simple","showblank":"true","nullvalue":"N/A","alt":"Date Added to catalogue"},
+                "date_issued":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+                "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+                "archive_date":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            }
+        }},
+        {"Audience information":{
+            "label":"true",
+            "fields":["audience"],
+            "meta":{
+                "audience":{"columns":"12","linked":"?audience=","label":"false","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+            }
+        }},
+      {"Language":{
+        "label":"true",
+        "fields":["language"],
+        "meta":{
+          "language":{"columns":"12","linked":"true","label":"false","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+        }
+      }},
+      {"Identifiers":{
+        "label":"true",
+        "fields":["identifier"],
+        "meta":{
+          "identifier":{"columns":"10","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+        }
+      }},
+        {"Usage / Licence":{
+            "label":"true",
+            "fields":["usage","license_title"],
+            "meta":{
+                "usage":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+                "license_title":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A","link_lookup":"license_url"}
+            }
+        }},
+        {"Contact":{
+            "label":"true",
+            "fields":["contact","contact_email","contactother"],
+            "meta":{
+                "contact":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+                "contact_email":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+                "contactother":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+            }
+        }}
+      ]
+    },
+  "publications":{
+    "groups":[
+      {"Title and publication information":{
+        "label":"true",
+        "fields":["pubtype","seriestitle","seriestitle2","seriestitle3","alternatetitle1","alternatetitle2","alternatetitle3","Extent","Extent2","Extent3","updatefrequency"],
+        "meta":{
+            "pubtype":{"groupstart":"true","columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"},
+            "seriestitle":{"groupstart":"true","columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"},
+            "seriestitle2":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "seriestitle3":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "alternatetitle1":{"groupstart":"true","columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"},
+            "alternatetitle2":{"columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "alternatetitle3":{"columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "Extent":{"groupstart":"true","columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "Extent2":{"columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "Extent3":{"columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "updatefrequency":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"}
+        }
+      }},
+      {"Publisher / Creator Information":{
+        "label":"true",
+        "fields":["creator","owner_org","contributor","contributor2","contributor3","contributor4","contributor5","contributor6","placeofpub"],
+        "meta":{
+            "creator":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "owner_org":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","lookup":"organization.title"},
+            "contributor":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"},
+            "contributor2":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "contributor3":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "contributor4":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "contributor5":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "contributor6":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "placeofpub":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"true"},
+        }
+      }},
+      {"Subject Information":{
+        "label":"true",
+        "fields":["topic","spatialcoverage","spatialcoverage2","spatialcoverage3","time_coverage_from","time_coverage_to","subject","subject2","subject3","subject4","subject5","subject6"],
+        "meta":{
+            "topic":{"columns":"12","linked":"?topic=","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "spatialcoverage":{"groupstart":"true","columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "spatialcoverage2":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "spatialcoverage3":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "time_coverage_from":{"groupstart":"true","columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "time_coverage_to":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "subject":{"groupstart":"true","columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "subject2":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "subject3":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "subject4":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "subject5":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "subject6":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+        }
+      }},
+      {"Resource Dates":{
+            "label":"true",
+            "fields":["createdate","metadata_created","date_modified","issuedate","archivedate"],
+            "meta":{
+            "createdate":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "metadata_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","wrapperclass":"format_as_date_simple","showblank":"true","nullvalue":"N/A"},
+            "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "issuedate":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "archivedate":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+        }
+      }},
+      {"Audience information":{
+        "label":"true",
+        "fields":["audience"],
+        "meta":{
+        "audience":{"columns":"12","linked":"?audience=","label":"false","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+        }
+      }},
+      {"Language":{
+        "label":"true",
+        "fields":["language","hastranslation_title","istranslation_title"],
+        "meta":{
+            "language":{"columns":"12","linked":"true","label":"false","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "hastranslation_title":{"columns":"6","linked":"true","link_lookup":"hastranslation_uri","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "istranslation_title":{"columns":"6","linked":"true","link_lookup":"replaces_uri","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+        }
+      }},
+      {"Identifiers":{
+        "label":"true",
+        "fields":["identifier-AGDEX-number","identifier-ALIS-catno","identifier-ISBN-cdrom","identifier-ISBN-dvd","identifier-ISBN-html","identifier-ISBN-pdf","identifier-ISBN-print","identifier-ISSN-online","identifier-ISSN-print","identifier-NEOS-catkey","identifier-local"],
+        "meta":{
+            "identifier-AGDEX-number":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-ALIS-catno":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-ISBN-cdrom":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-ISBN-dvd":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-ISBN-html":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-ISBN-pdf":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-ISBN-print":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-ISSN-online":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-ISSN-print":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-NEOS-catkey":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-local":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+        }
+      }},
+      {"Usage / Licence":{
+        "label":"true",
+        "fields":["usageconsiderations","license_title"],
+        "meta":{
+          "usageconsiderations":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+          "license_title":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A","link_lookup":"license_url"}
+        }
+      }},
+        {"Contact":{
+            "label":"true",
+            "fields":["contact","contact_email","contactother"],
+            "meta":{
+                "contact":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+                "contact_email":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+                "contactother":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+            }
+        }}
+      ]
+  }
+} %}
+
+<section class="additional-info">
+    <div class="row">
+        {% for group_item in details_by_type[dataset_type]["groups"] %}
+           {% for key, value in group_item.items() %}
+           <div class="col-sm-12 summary-section">
+              {% if value['label'] == "true" %}
+              <h2>{{key}}</h2>
+              {% endif %}
+              <div class="row">
+              {% for f in value['fields'] %}
+                  {% for field in alt_titles if field.field_name == f %}
+
+                  
+                  {% if value['meta'][f]['groupstart'] == "true" %}
+               </div><div class="row">
+               {% endif %}
+               {% if pkg_dict[field.field_name]|length > 0 or value['meta'][f]['showblank'] == "true" %}
+               <div class="col-sm-12 col-md-{{ value['meta'][f]['columns']}} col">
+                   {% if value['meta'][f]['label'] == "true" %}
+                   <h5 class="sm">
+                       {% if value['meta'][f]['alt'] %}
+                           {{ value['meta'][f]['alt'] }}
+                       {% else %}
+                           {{ h.scheming_language_text(field.label) }}
+                       {% endif %}
+                    </h5>
+                   {% endif %}
+                   <{{value['meta'][f]['wrapper']}} class="{{value['meta'][f]['wrapperclass']}}">
+                       {% if value['meta'][f]['link_lookup'] %}
+                           <a href='{{pkg_dict[value['meta'][f]['link_lookup']]}}'>{{pkg_dict[field.field_name]}}</a>
+                       {% else %}
+                        {{pkg_dict[field.field_name]}}
+                       {% endif %}
+                       
+                       </{{value['meta'][f]['wrapper']}}>
+               </div>
+               {% endif %}
+                  
+                  
+                  
+                  
+                  {% endfor %}
+                  {% for field in schema.dataset_fields if field.field_name == f %}
+                  {% if value['meta'][f]['groupstart'] == "true" %}
+                       </div><div class="row">
+                   {% endif %}
+                    {% if pkg_dict[field.field_name]|length > 0 or value['meta'][f]['showblank'] == "true" %}
+                        <div class="col-sm-12 col-md-{{ value['meta'][f]['columns']}} col">
+                            {% if value['meta'][f]['label'] == "true" %}
+                            <h5 class="sm">{{ h.scheming_language_text(field.label) }}</h5>
+                            {% endif %}
+                            {% if pkg_dict[field.field_name]|length == 0 and value['meta'][f]['showblank'] == "true" %}
+                                {% if value['meta'][f]['linked'] != "false" %}
+                                    {% if pkg_dict[field.field_name].__class__.__name__ != 'list' and pkg_dict[field.field_name] != "" %}
+                                    <{{value['meta'][f]['wrapper']}}>
+                                        {% if value['meta'][f]['linked'] == "true" %}
+                                            <a href='/dataset?q="{{pkg_dict[field.field_name]}}"'>{{pkg_dict[field.field_name]}}</a>
+                                        {% else %}
+                                            <a href='{{value['meta'][f]['linked']}}{{pkg_dict[field.field_name]}}'>{{pkg_dict[field.field_name]}}</a>
+                                        {% endif %}
+                                    </{{value['meta'][f]['wrapper']}}>
+                                    {% else %}
+                                        {{value['meta'][f]['nullvalue']}}
+                                {% endif %}
+                               {% else %}
+                                    <{{value['meta'][f]['wrapper']}}>{{value['meta'][f]['nullvalue']}}</{{value['meta'][f]['wrapper']}}>
+                               {% endif %}
+                            {% else %}
+                                {% if pkg_dict[field.field_name].__class__.__name__ == 'list' %}
+                                 <span class="tags">
+                                  {% for flv in pkg_dict[field.field_name] %}
+                                    {% if value['meta'][f]['linked'] != "false" %}
+                                         {% if value['meta'][f]['linked'] == "true" %}
+                                             <a class="btn btn-default btn-sm" href='/dataset?q="{{flv}}"'>{{fieldLabel(field,flv)}}</a>
+                                         {% else %}
+                                             <a class="btn btn-default btn-sm" href="/{{dataset_type}}{{value['meta'][f]['linked']}}{{flv}}">{{fieldLabel(field,flv)}}</a>
+                                         {% endif %}
+                                    {% else %}
+                                     {% snippet 'scheming/snippets/display_field.html',field=field, data=pkg_dict, schema=schema %}
+                                    {% endif %}
+                                  {% endfor %}
+                                </span>
+                                {% else %}
+                                  <{{value['meta'][f]['wrapper']}}>
+                                      {% if value['meta'][f]['linked'] != "false" %}
+                                          {% if value['meta'][f]['linked'] == "true" %}
+                                              {% if value['meta'][f]['link_lookup'] %}
+                                                  <a href='{{pkg_dict[value['meta'][f]['link_lookup']]}}'>{{pkg_dict[field.field_name]}}</a>
+                                              {% else %}
+                                                  <a href='/dataset?q="{{pkg_dict[field.field_name]}}"'>{{pkg_dict[field.field_name]}}</a>
+                                              {% endif %}
+                                          {% else %}
+                                              <a href='{{value['meta'][f]['linked']}}{{pkg_dict[field.field_name]}}'>{{pkg_dict[field.field_name]}}</a>
+                                          {% endif %}
+                                      {% else %}
+                                          {% if value['meta'][f]['lookup'] %}
+                                              {% set lookup_path = value['meta'][f]['lookup'].split(".") %}
+                                              {% set dct = pkg_dict %}
+                                              {% set look_output = {'val':''} %}
+                                              {% for lk in lookup_path %}
+                                                 {% set dct = dct[lk] %}
+                                                  {% if look_output.update({'val':dct}) %}{% endif %}
+                                              {% endfor %}
+                                              {{look_output.val}}
+                                          {% else %}
+                                              {% snippet 'scheming/snippets/display_field.html',field=field, data=pkg_dict, schema=schema %}
+                                          {% endif %}
+                                      {% endif %}
+                                  </{{value['meta'][f]['wrapper']}}>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+              {% endfor %}
+              </div>
+            </div>
+           {% endfor %}
+        {% endfor %}
+
+        
+        <div class="col-sm-12" style="display: none"><h2>Available Fields</h2>
+            <ul>
+                {% for field in schema.dataset_fields %}
+                <li>{{field.field_name}} | {{ h.scheming_language_text(field.label) }}<br><pre>{% snippet 'scheming/snippets/display_field.html',field=field, data=pkg_dict, schema=schema %}</pre></li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
+        {% endif %}
+    </div>
+</section>

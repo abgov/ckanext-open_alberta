@@ -1,0 +1,14 @@
+{# Latest datasets #}
+<div>
+  <header class="module-heading link-transitions">
+    <h3 class="media-heading"><a href="{% url_for controller='package', action='search', dataset_type='dataset', sort='metadata_created desc' %}">{{ _("Latest Open Datasets") }}</a></h3>
+  </header>
+  <section class="module-content">
+            {% set list_class = "unstyled" %}
+            {% set item_class = "unstyled" %}
+            {% set truncate = 120 %}
+            {% set truncate_title = 50 %}
+            {% snippet 'snippets/latestdataset_list.html', packages=h.data_alberta_latest_datasets(), list_class=list_class, item_class=item_class, truncate=truncate, truncate_title=truncate_title %}
+  <section>
+</div>
+

@@ -1,0 +1,65 @@
+{% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+{% set url_action = 'resource_edit' if url_is_edit and can_edit else 'resource_read' %}
+{% set url = h.url_for(controller='package', action=url_action, id=pkg.name, resource_id=res.id) %}
+<li class="resource-item" data-id="{{ res.id }}">
+	
+  {% block resource_item_title %}
+  {% set resource_icon = "fa-file-o" %}
+  {% if res.format.lower() == "pdf" %}
+    {% set resource_icon = "fa-file-pdf-o" %}
+  {% elif res.format.lower() == "zip" %}
+    {% set resource_icon = "fa-file-archive-o" %}
+  {% elif res.format.lower() == "xls" or res.format.lower() == "csv" or res.format.lower() == "xslx" %}
+    {% set resource_icon = "fa-file-excel-o" %}
+  {% elif res.format.lower() == "doc" or res.format.lower() == "docx" %}
+    {% set resource_icon = "fa-file-word-o" %}
+  {% elif res.format.lower() == "xml" or res.format.lower() == "json" or res.format.lower() == "odata" %}
+    {% set resource_icon = "fa-file-code-o" %}
+  {% elif res.format.lower() == "" %}
+  {% endif %}
+  
+  <h3>
+  <a class="heading" href="{{ res.url }}" title="{{ res.name or res.description }}">{% if resource_icon != "" %}<i class="fa {{ resource_icon }}"></i>{% endif %}
+    {{ h.resource_display_name(res) | truncate(300) }}
+    {{ h.popular('views', res.tracking_summary.total, min=10) }}
+  </a>
+  </h3>
+  {% endblock %}
+  {% block resource_item_description %}
+    <p class="description">
+      {% if res.description %}
+        {{ h.markdown_extract(res.description, extract_length=80) }}
+      {% endif %}
+    </p>
+  {% endblock %}
+  {% block resource_item_explore %}
+  {% if not url_is_edit %}
+      {% block resource_item_explore_links %}
+        <a href="{{ url }}" class="btn btn-primary">
+          {% if res.has_views %}
+            <i class="icon-bar-chart"></i>
+            {{ _('Preview') }}
+          {% else %}
+            <i class="icon-info-sign"></i>
+            {{ _('More information') }}
+          {% endif %}
+        </a>
+        <a href="{{ res.url }}" class="btn btn-primary" target="_blank">
+          {% if res.has_views %}
+            <i class="fa fa-download"></i>
+            {{ _('Download') }}
+          {% else %}
+            <i class="fa fa-download"></i>
+            {{ _('Download') }}
+          {% endif %}
+        </a>
+      {% if can_edit %}
+        <a href="{{ h.url_for(controller='package', action='resource_edit', id=pkg.name, resource_id=res.id) }}" class="btn btn-primary">
+          <i class="icon-edit"></i>
+          {{ _('Edit') }}
+        </a>
+      {% endif %}
+      {% endblock %}
+  {% endif %}
+  {% endblock %}
+</li>

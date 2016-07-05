@@ -1,0 +1,10 @@
+{#
+render a list of tags linking to the dataset search page
+tags: list of tags
+#}
+{% set _class = _class or 'tag-list' %}
+{% block tag_list %}
+    {% for tag in tags %}
+        <a class="btn btn-default btn-sm" href="{% url_for controller='package', action='search', tags=tag.name %}">{{ tag.display_name }}</a>
+    {% endfor %}
+{% endblock %}

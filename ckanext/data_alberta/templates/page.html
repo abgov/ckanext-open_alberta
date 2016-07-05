@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% set show_left_col = ["dataset","publications","ckan-admin","documentation","opendata", "licence"] %}
+{% set show_left_level_two = ["trash","config","admin","new","activity","edit"] %}
+{% set section_terms = {"dataset":"All Resources","publications":"Publications","documentation":"Documentation","opendata":"Open Data","ckan-admin":"Admin"} %}
+{% set path_length = c.environ.PATH_INFO.split("/")|length %}
+{%- set rss_feed = h.url(controller='feed', action='custom', q=c.q) -%}
+
+{% if path_length > 1 %}
+    {% set level_one_section = c.environ.PATH_INFO.split("/")[1] %}
+{% else %}
+    {% set level_one_section = "" %}
+{% endif %}
+
+{% if path_length > 2 %}
+    {% set level_two_section = c.environ.PATH_INFO.split("/")[2] %}
+{% else %}
+    {% set level_two_section = "" %}
+{% endif %}
+
+{% set page_title = "" %}
+{% set page_parent_title = "Open Government" %}
+
+{% if path_length == 2 %}
+    {% if level_one_section != "" and level_one_section in show_left_col %}
+        {% set page_title = section_terms[level_one_section] %}
+    {% endif %}
+{% else %}
+    {% if level_one_section != "" and level_one_section in show_left_col %}
+        {% set page_parent_title = section_terms[level_one_section] %}
+    {% endif %}
+{% endif %}
+
+{% if c.pkg_dict %}
+    {% if page_title == "" and c.pkg_dict.title != "" %}
+        {% set page_title = c.pkg_dict.title %}
+    {% endif %}
+{% endif %}
+
+
+
+{%- block page -%}
+
+{% block skip %}
+<div class="hide"><a href="#content">{{ _('Skip to content') }}</a></div>
+{% endblock %}
+
+{#
+Override the header on a page by page basis by extending this block. If
+making sitewide header changes it is preferable to override the header.html
+file.
+#}
+{%- block header %}
+{% include "header.html" %}
+{% endblock -%}
+
+{# The content block allows you to replace the content of the page if needed #}
+{%- block content %}
+{% block maintag %}<div role="main">{% endblock %}
+
+{% block toolbar %}
+<header>
+    <div class="container-fluid" id="breadcrumbs-share">
+        <div class="row">
+            <div class="col-sm-12 col-md-8 nopadding">
+                <section id="breadcrumbs" class="hidden-xs hidden-sm">
+                    {% block breadcrumb %}
+                    <ul>
+                        <li><a href="http://alberta.ca"><span>Alberta.ca</span></a></li>
+                        <li><a href="/"><span>Open Government</span></a></li>
+                        {% if path_length > 2 %}
+                        <li><a href="/{{ level_one_section }}">{{ page_parent_title }}</a></li>
+                        {% endif %}
+                    </ul>
+                    {% endblock %}
+                </section>
+            </div>
+            <div class="col-sm-12 col-md-4 nopadding">
+                <ul class="addthis_toolbox addthis_custom_sharing social visible-md visible-lg">
+                    <li><a class="addthis_button_facebook" title="Facebook" href="#"><i class="fa fa-fw fa-facebook"></i><span>Facebook</span></a></li>
+                    <li><a class="addthis_button_twitter" title="Tweet" href="#"><i class="fa fa-fw fa-twitter"></i><span>Twitter</span></a></li>
+                    <li><a title="RSS" href="{{rss_feed}}"><i class="fa fa-fw fa-rss"></i><span>RSS</span></a></li>
+                    <div class="atclear"></div></ul>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+<div id="content" class="container">
+    {% block main_content %}
+    {% block flash %}
+    <div class="flash-messages">
+        {% block flash_inner %}
+        {% for message in h.flash.pop_messages() | list %}
+        <div class="alert fade in {{ message.category }}">
+            {{ h.literal(message) }}
+        </div>
+        {% endfor %}
+        {% endblock %}
+    </div>
+    {% endblock %}
+    <div class="row">
+        <div class="col-xs-12 page-title-box">
+            {% if path_length > 2 %}
+                    <a href="/{{ level_one_section }}" id="pageParentStub">{{ page_parent_title }}</a>
+            {% else %}
+                    <a href="/" id="pageParentStub">{{ page_parent_title }}</a>
+            {% endif %}
+            
+            <h1 id="pageTitleStub">{{ page_title }}</h1>
+        </div>
+        {% if path_length == 2 %}
+        <div class="col-xs-12">
+            {% if dataset_type == 'dataset' %}
+            <p>Search a listing of Government of Alberta open datasets and publications. Can’t find what you are looking for? <a href="/suggest">Suggest a resource</a>.</p>
+            {% elif dataset_type == 'opendata' %}
+            <p>Search a listing of Government of Alberta open datasets. Can’t find what you are looking for? <a href="/suggest">Suggest a resource</a>.</p>
+            {% elif dataset_type == 'publications' %}
+            <p>Search a listing of Government of Alberta publications. Can’t find what you are looking for? <a href="/suggest"> Suggest a resource</a>.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <div class="row wrapper nopadding{% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' %} no-nav{% endif %}">
+
+        {#
+        The pre_primary block can be used to add content to before the
+        rendering of the main content columns of the page.
+        #}
+        {% block pre_primary %}
+        {% endblock %}
+    
+        {% block secondary %}
+        {% if (level_one_section in show_left_col and path_length <= 2) or level_two_section in show_left_level_two %}
+      <div class="col-md-3 left-sidebar">
+          <div class="hidden-md hidden-lg hidden-xl sidebar-nav-top">
+              <a class="btn btn-primary expand hidden-md hidden-lg hidden-xl" href="javascript:void(0);" onclick="toggleFilters()">Close</a>
+              <h2>Filter Results</h2>
+          </div>
+      <aside class="secondary">
+	<section class="module module-narrow module-shallow">
+        </section>
+                {% block secondary_content %}{% endblock %}
+            </aside>
+        </div>
+        {% endif %}
+        {% endblock %}
+        
+        {% endblock %}
+       
+        {% block primary %}
+        <div class="primary col-md-9">
+           <div class="row">
+               {% if self.content_action() | trim %}
+               <div class="col-xs-12 nopadding">
+               <div class="content_action">
+                   {% block content_action %}{% endblock %}
+               </div>
+               </div>
+               {% endif %}
+               {% block page_header %}
+                   {% if c["user"] != "" %}
+                   <header class="module-content page-header">
+                       <ul class="nav nav-tabs">
+                           {% block content_primary_nav %}{% endblock %}
+                       </ul>
+                   </header>
+                   {% endif %}
+               {% endblock %}
+               <div class="col-xs-12 nopadding">
+                   {% block primary_content %}
+                   <article class="module">
+                       <div class="module-content">
+                           {% if self.page_primary_action() | trim %}
+                           <div class="page_primary_action">
+                               {% block page_primary_action %}{% endblock %}
+                           </div>
+                           {% endif %}
+                           {% block primary_content_inner %}
+                           {% endblock %}
+                       </div>
+                   </article>
+                   {% endblock %}
+               </div>
+           </div>
+        </div>
+        {% endblock %}
+        
+    </div>
+</div>
+</div>
+{% endblock -%}
+
+{#
+Override the footer on a page by page basis by extending this block. If
+making sitewide header changes it is preferable to override the footer.html-u
+file.
+#}
+{%- block footer %}
+{% include "footer.html" %}
+{% endblock -%}
+{%- endblock -%}
+
+{%- block scripts %}
+{% resource 'base/main' %}
+{% resource 'base/ckan' %}
+{% if g.tracking_enabled %}
+{% resource 'base/tracking.js' %}
+{% endif %}
+{{ super() }}
+{% endblock -%}

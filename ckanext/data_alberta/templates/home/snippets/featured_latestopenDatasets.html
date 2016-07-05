@@ -1,0 +1,7 @@
+{% set recent = h.get_recent_datasets() %}
+
+{% for dataset in recent %}
+  <div>
+    {% snippet 'snippets/organization_item.html', organization=organization, truncate=50, truncate_title=35 %}
+  </div>
+{% endfor %}

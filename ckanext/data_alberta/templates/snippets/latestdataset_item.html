@@ -1,0 +1,55 @@
+{#
+Displays a single of dataset.
+
+package        - A package to display.
+item_class     - The class name to use on the list item.
+hide_resources - If true hides the resources (default: false).
+banner         - If true displays a popular banner (default: false).
+truncate       - The length to trucate the description to (default: 180)
+truncate_title - The length to truncate the title to (default: 80).
+
+Example:
+
+  {% snippet 'snippets/package_item.html', package=c.datasets[0] %}
+
+#}
+{% set truncate = truncate or 80 %}
+{% set truncate_title = truncate_title or 80 %}
+{% set title = package.title or package.name %}
+{% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
+{% set pubdate = package.metadata_created %}
+{% set ministry = package.organization.title %}
+
+{% block package_item %}
+  <li class='{{ item_class or "dataset-item" }}'>
+    {% block content %}
+      <div>
+      {% block resources %}
+        {% if package.resources %}
+          {% block resources_outer %}
+                {% block resources_inner %}
+                {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+                   <a href="{{ h.url_for(controller='package', action='read', id=package.name) }}" class="btn btn-default btn-sm" data-format="{{ resource.lower() }}">{{ resource }}</a>
+                {% endfor %}
+              {% endblock %}
+          {% endblock %}
+        {% endif %}
+      {% endblock %}
+        {% block heading %}
+            {% block heading_title %}
+          <span class="link-transitions">
+          <h3 class="pub-header">{{ h.link_to(h.truncate(title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }}</h3>
+          </span>
+            {% endblock %}
+        {% endblock %}
+        {% block notes %}
+          {% if notes %}
+            <div>Description: {{ notes|urlize }}</div>
+          {% else %}
+            <p class="empty">{{ _("This dataset has no description") }}</p>
+          {% endif %}
+        {% endblock %}
+      </div>
+    {% endblock %}
+  </li>
+{% endblock %}

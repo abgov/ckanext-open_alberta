@@ -1,0 +1,29 @@
+[
+    {
+        "domain_content": false,
+        "domain_data": true,
+        "domain_software": false,
+        "family": "",
+        "id": "OGLA",
+        "is_okd_compliant": true,
+        "is_osi_compliant": false,
+        "maintainer": "",
+        "status": "active",
+        "title": "Open Government Licence -Alberta",
+        "url": "http://open.alberta.ca/licence"
+    },
+    {
+        "domain_content": false,
+        "domain_data": true,
+        "domain_software": false,
+        "family": "",
+        "id": "QPTU",
+        "is_okd_compliant": true,
+        "is_osi_compliant": false,
+        "maintainer": "",
+        "status": "active",
+        "title": "Alberta Queens Printer Terms of Use",
+        "url": "http://www.qp.alberta.ca/copyright.cfm"
+    }
+]
+

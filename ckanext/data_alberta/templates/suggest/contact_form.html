@@ -1,0 +1,21 @@
+{% import 'macros/form.html' as form %}
+
+<form class="dataset-form form-horizontal" method="post">
+  {{ form.errors(error_summary) }}
+<h1 class="page-heading">Contact Open Government</h1>
+
+  <fieldset>
+    {{ form.input('email', label=_('Email'), id='field-email', type='email', value=data.email, error=errors.email, classes=['control-medium'], is_required=true) }}
+<p>Please provide us with your email address so we can share our response with you.</p>
+    {{ form.input('name', label=_('Contact Name'), id='field-name', value=data.name, error=errors.name, classes=['control-medium'], is_required=true) }}
+    {{ form.input('summary', label=_('Subject'), id='field-summary', value=data.summary, error=errors.summary, classes=['control-medium'], is_required=true) }}
+    {{ form.markdown('description', label=_('Description'), id='field-description', value=data.description, error=errors.description, placeholder=_('Please include your inquiry here.'), is_required=true) }}
+  {% if g.recaptcha_publickey %}
+    {% snippet "user/snippets/recaptcha.html", public_key=g.recaptcha_publickey %}
+  {% endif %}
+  </fieldset>
+  <div class="form-actions">
+    {{ form.required_message() }}
+    <button class="btn btn-primary" type="submit" name="save">{{ _('Submit') }}</button>
+  </div>
+</form>

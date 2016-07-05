@@ -1,0 +1,21 @@
+{% set intro = g.site_intro_text %}
+<div class="col-sm-12 home-promoted">
+    <div>
+  <header>
+    {% if intro %}
+      <div class="page-title-box margin-lg-top margin-lg-bottom">
+          <a href="http://alberta.ca">Alberta.ca</a>
+          <h1 id="pageTitleStub"></h1>
+      </div>
+      {{ h.render_markdown(intro) }}
+    {% else %}
+      <h1 class="page-heading">{{ _("Open Government Portal") }}</h1>
+      <p>
+        {% trans %}This is a nice introductory paragraph about CKAN or the site
+        in general. We don't have any copy to go here yet but soon we will
+        {% endtrans %}
+      </p>
+    {% endif %}
+  </header>
+    </div>
+</div>

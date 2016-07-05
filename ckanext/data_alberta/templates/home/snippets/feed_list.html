@@ -1,0 +1,20 @@
+{% if number_of_entries %}
+  {%- set feed = h.rss_fetch_feed(feed_url, number_of_entries) -%}
+{% else %}
+  {%- set feed = h.rss_fetch_feed(feed_url) -%}
+{% endif %}
+
+  {%- set entries = feed['entries'] -%}
+  <div class="col-sm-12 col-md-12">
+  {% for entry in entries %}
+      <h2 class="article-title">
+        <a href="{{ entry.link }}" target="_blank">{{ entry.title }}</a>
+      </h2>
+        <span class="feed-item-date">{{ entry.published.split(' +', 1)[0] }}</span>
+      <p>{{ entry.summary |striptags }}</p>
+    {% if g.debug %}
+    Debug Mode
+    <pre>{{ entry | pprint }}</pre>
+    {% endif %}
+  {% endfor %}
+  </div>

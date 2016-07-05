@@ -1,0 +1,90 @@
+{% extends "package/read_base.html" %}
+{% set pkg = c.pkg_dict %}
+{# Display notes on package/read.html#}
+{% set notes = h.markdown_extract(pkg.notes,extract_length=5000) %}
+{% block primary_content_inner %}
+<div class="container nopadding">
+    <div class="row">
+        <div class="col-sm-12">
+            {% block package_description %}
+            {% if pkg.private %}
+            <span class="dataset-private label label-inverse pull-right">
+                <i class="icon-lock"></i>
+                {{ _('Private') }}
+            </span>
+            {% endif %}
+            {# This section isn't required with how we are generating page titles.
+            <h1>
+                {% block page_heading %}
+                {{ pkg.title or pkg.name }}
+                {% if pkg.state.startswith('draft') %}
+                [{{ _('Draft') }}]
+                {% endif %}
+                {% if pkg.state == 'deleted' %}
+                [{{ _('Deleted') }}]
+                {% endif %}
+                {% endblock %}
+            </h1>
+            #}
+        </div>
+        {% if pkg.archive_date|length > 0 or pkg.archivedate|length > 0  %}
+          <div class="col-sm-12">
+              <h3 class="archived-item"><i class="fa fa-archive"></i> Archived</h3>
+		<div class="archived-item-explanation">This item has been replaced by a more recent resource or the content may be otherwise out of date. It is provided for informational and research purposes.</div>
+          </div>
+          {% endif %}
+            {% if pkg.replacedby_title and pkg.replacedby_uri %}
+                <div class="col-sm-12">
+                    <h4 class="replaced-by">Replaced by: <a href="{{pkg.replacedby_uri}}">{{pkg.replacedby_title}}</a></h4>
+                </div>
+            {% endif %}
+           <div class="col-sm-12">
+            <ul class="nav nav-tabs resource-tabs">
+                <li role="presentation" class="active" data-tab-group="data-results" data-tab-name="tab-summary"><a href="#summary">Summary</a></li>
+                <li role="presentation" data-tab-group="data-results" data-tab-name="tab-detailed"><a href="#detailed">Detailed Information</a></li>
+		{{ h.build_nav_icon('related_list', _('Related'), id=pkg.name) }}
+            </ul>
+            <div id="result-summary" class="active tab-box tab-summary box" data-tab-group="data-results">
+                <div class="summary-section">
+                    {# Display notes on package/read.html#}
+                    {% block notes %}
+                    {% if notes %}
+                    <h5 class="sm">Description</h5>
+                    <p>{{ notes }}</p>
+                    {% else %}
+                    <p class="empty">{{ _("This dataset has no description") }}</p>
+                    {% endif %}
+                    {% endblock %}
+                    {% endblock %}
+                    <h5 class="sm margin-md-top">Tags</h5>
+                    {% block package_tags %}
+                    {% snippet "package/snippets/tags.html", tags=pkg.tags %}
+                    {% endblock %}
+                    {% block package_notes %}
+                    {% if c.pkg_notes_formatted %}
+                    <div class="notes embedded-content">
+                        {{ c.pkg_notes_formatted }}
+                    </div>
+                    {% endif %}
+                    {% endblock %}
+                    {# FIXME why is this here? seems wrong #}
+                    <span class="insert-comment-thread"></span>
+                </div>
+
+
+                <div class="summary-section">
+                {% snippet "package/snippets/resources_list.html", pkg=pkg, resources=pkg.resources %}
+                </div>
+            </div>
+            <div id="result-detailed-info" class="tab-box tab-detailed box" data-tab-group="data-results">
+                {% block package_additional_info %}
+                {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
+                {% endblock %}
+            </div>
+        </div>
+        {% block package_resources %}
+
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

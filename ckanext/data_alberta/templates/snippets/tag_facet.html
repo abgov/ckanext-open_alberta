@@ -1,0 +1,12 @@
+{#
+render a list of tags linking to the dataset search page
+tags: list of tags
+#}
+{% set _class = _class or 'tag-list' %}
+{% block tag_list %}
+    {% for tag in tags %}
+    {% set url = h.add_url_param(new_params={'tags':  tag.name }) %}
+    <a href="{{ url }}" class="btn btn-default btn-sm">{{ tag.display_name }}</a>
+    {% endfor %}
+{% endblock %}
+

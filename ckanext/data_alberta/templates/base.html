@@ -1,0 +1,15 @@
+{# base.html #}
+{% ckan_extends %}
+{% block styles %}
+<link rel="stylesheet" href="/css/font-awesome.css">
+{% resource 'data_alberta/css/main.css' %}
+{% resource 'data_alberta/css/ab-opengov.css' %}
+{% endblock %}
+{% block scripts %}
+{% resource 'data_alberta/js/ckan-wk.js' %}
+{% resource 'data_alberta/js/addthis.js' %}
+{% resource 'data_alberta/js/abca.js' %}
+{% endblock %}
+{% block bodytag %}
+class="alberta-theme" {{ super() }}
+{% endblock %}

@@ -1,0 +1,2 @@
+include README.rst
+recursive-include ckanext/data_alberta *.html *.json *.js *.less *.css

@@ -1,0 +1,145 @@
+{"alternatetitle":[],"audience":"Generalpublic","author":null,"author_email":null,"contact":"Environment and Sustainable Resource Development","contact_email":"ESRD.FWDataMgmt@gov.ab.ca","contactphone":"","creator":"EnvironmentandSustainableResourceDevelopment","creator_user_id":"0b39dcad-918e-404a-b821-ecb09bd8b401","extent":[],"groups":[],"id":"ebab5417-4a39-4686-8d07-3f5623d8829a","identifier":"","identifier-type":"dataset","isopen":true,"language":["en-CA [default]"],"license_id":"ABOGPL","license_title":"Alberta Open Government Portal License","license_url":"http://data.alberta.ca/licence","maintainer":null,"maintainer_email":null,"metadata_created":"2015-03-24T22:07:12.871446","metadata_modified":"2015-03-24T22:10:13.102231","name":"fish-stocking-report","notes":"Information on the district, waterbody, species, number of stocked fish, size, and week of stocking.","num_resources":2,"num_tags":3,"organization":{"approval_status":"approved","created":"2015-02-27T23:41:17.246187","description":"","id":"18939467-198c-4ffa-b633-27b554660186","image_url":"","is_organization":true,"name":"environment-and-sustainable-resource-development","revision_id":"afeaf2fe-ef5d-493d-8397-6664fb0999a8","state":"active","title":"Environment and Sustainable Resource Development","type":"organization"},"owner_org":"18939467-198c-4ffa-b633-27b554660186","private":false,"relationships_as_object":[],"relationships_as_subject":[],"resources":[{"cache_last_updated":null,"cache_url":null,"created":"2015-03-24T22:08:01.540887","description":"","format":"CSV","hash":"","id":"3ce67729-ece6-4843-9fbf-152611748f17","last_modified":null,"mimetype":null,"mimetype_inner":null,"name":"Fish Stocking report 2014","package_id":"ebab5417-4a39-4686-8d07-3f5623d8829a","position":0,"resource_type":null,"revision_id":"f520cf04-7c95-4ec2-bdf9-dad1a3d086f8","size":null,"state":"active","tracking_summary":{"recent":0,"total":0},"url":"http://162.246.156.25:8005/dataset/ebab5417-4a39-4686-8d07-3f5623d8829a/resource/3ce67729-ece6-4843-9fbf-152611748f17/download/2014ESRDFishStocking.csv","url_type":"upload","webstore_last_updated":null,"webstore_url":null},{"cache_last_updated":null,"cache_url":null,"created":"2015-03-24T22:10:13.135284","description":"","format":"CSV","hash":"","id":"c597cf95-559a-4690-89d4-c7fc848d60e8","last_modified":null,"mimetype":null,"mimetype_inner":null,"name":"Fish Stocking Report 2013","package_id":"ebab5417-4a39-4686-8d07-3f5623d8829a","position":1,"resource_type":null,"revision_id":"83c2bfec-ecee-42d8-a356-38600e3a0c08","size":null,"state":"active","tracking_summary":{"recent":0,"total":0},"url":"http://162.246.156.25:8005/dataset/ebab5417-4a39-4686-8d07-3f5623d8829a/resource/c597cf95-559a-4690-89d4-c7fc848d60e8/download/2013ESRDFishStocking.csv","url_type":"upload","webstore_last_updated":null,"webstore_url":null}],"revision_id":"f520cf04-7c95-4ec2-bdf9-dad1a3d086f8","sensitivity":"unrestricted","spatialcoverage":"Alberta","state":"active","tags":[{"display_name":"fish","id":"e2dbda9e-478b-4424-8ea6-6d793a9c507b","name":"fish","state":"active","vocabulary_id":null},{"display_name":"policy","id":"71131c76-b386-4a15-8c93-2bf584bce305","name":"policy","state":"active","vocabulary_id":null},{"display_name":"stocking","id":"f5e605b5-2500-456b-ae25-d6f78a1e5ad0","name":"stocking","state":"active","vocabulary_id":null}],"title":"Fish Stocking Report","topic":["Environment & Natural Resources"],"tracking_summary":{"recent":0,"total":0},"type":"dataset","updatefrequency":"Annual","url":null,"usage":"","version":null}
+{
+    "alternatetitle": [],
+    "audience": "Generalpublic",
+    "author": null,
+    "author_email": null,
+    "contact": "Environment and Sustainable Resource Development",
+    "contact_email": "ESRD.FWDataMgmt@gov.ab.ca",
+    "contactphone": "",
+    "creator": "EnvironmentandSustainableResourceDevelopment",
+    "creator_user_id": "0b39dcad-918e-404a-b821-ecb09bd8b401",
+    "extent": [],
+    "groups": [],
+    "id": "ebab5417-4a39-4686-8d07-3f5623d8829a",
+    "identifier": "",
+    "identifier-type": "dataset",
+    "isopen": true,
+    "language": [
+        "en-CA [default]"
+    ],
+    "license_id": "ABOGPL",
+    "license_title": "Alberta Open Government Portal License",
+    "license_url": "http://data.alberta.ca/licence",
+    "maintainer": null,
+    "maintainer_email": null,
+    "metadata_created": "2015-03-24T22:07:12.871446",
+    "metadata_modified": "2015-03-24T22:10:13.102231",
+    "name": "fish-stocking-report",
+    "notes": "Information on the district, waterbody, species, number of stocked fish, size, and week of stocking.",
+    "num_resources": 2,
+    "num_tags": 3,
+    "organization": {
+        "approval_status": "approved",
+        "created": "2015-02-27T23:41:17.246187",
+        "description": "",
+        "id": "18939467-198c-4ffa-b633-27b554660186",
+        "image_url": "",
+        "is_organization": true,
+        "name": "environment-and-sustainable-resource-development",
+        "revision_id": "afeaf2fe-ef5d-493d-8397-6664fb0999a8",
+        "state": "active",
+        "title": "Environment and Sustainable Resource Development",
+        "type": "organization"
+    },
+    "owner_org": "18939467-198c-4ffa-b633-27b554660186",
+    "private": false,
+    "relationships_as_object": [],
+    "relationships_as_subject": [],
+    "resources": [
+        {
+            "cache_last_updated": null,
+            "cache_url": null,
+            "created": "2015-03-24T22:08:01.540887",
+            "description": "",
+            "format": "CSV",
+            "hash": "",
+            "id": "3ce67729-ece6-4843-9fbf-152611748f17",
+            "last_modified": null,
+            "mimetype": null,
+            "mimetype_inner": null,
+            "name": "Fish Stocking report 2014",
+            "package_id": "ebab5417-4a39-4686-8d07-3f5623d8829a",
+            "position": 0,
+            "resource_type": null,
+            "revision_id": "f520cf04-7c95-4ec2-bdf9-dad1a3d086f8",
+            "size": null,
+            "state": "active",
+            "tracking_summary": {
+                "recent": 0,
+                "total": 0
+            },
+            "url": "http://XXX.XXX.XXX.XXX:8005/dataset/ebab5417-4a39-4686-8d07-3f5623d8829a/resource/3ce67729-ece6-4843-9fbf-152611748f17/download/2014ESRDFishStocking.csv",
+            "url_type": "upload",
+            "webstore_last_updated": null,
+            "webstore_url": null
+        },
+        {
+            "cache_last_updated": null,
+            "cache_url": null,
+            "created": "2015-03-24T22:10:13.135284",
+            "description": "",
+            "format": "CSV",
+            "hash": "",
+            "id": "c597cf95-559a-4690-89d4-c7fc848d60e8",
+            "last_modified": null,
+            "mimetype": null,
+            "mimetype_inner": null,
+            "name": "Fish Stocking Report 2013",
+            "package_id": "ebab5417-4a39-4686-8d07-3f5623d8829a",
+            "position": 1,
+            "resource_type": null,
+            "revision_id": "83c2bfec-ecee-42d8-a356-38600e3a0c08",
+            "size": null,
+            "state": "active",
+            "tracking_summary": {
+                "recent": 0,
+                "total": 0
+            },
+            "url": "http://XXX.XXX.XXX.XXX:8005/dataset/ebab5417-4a39-4686-8d07-3f5623d8829a/resource/c597cf95-559a-4690-89d4-c7fc848d60e8/download/2013ESRDFishStocking.csv",
+            "url_type": "upload",
+            "webstore_last_updated": null,
+            "webstore_url": null
+        }
+    ],
+    "revision_id": "f520cf04-7c95-4ec2-bdf9-dad1a3d086f8",
+    "sensitivity": "unrestricted",
+    "spatialcoverage": "Alberta",
+    "state": "active",
+    "tags": [
+        {
+            "display_name": "fish",
+            "id": "e2dbda9e-478b-4424-8ea6-6d793a9c507b",
+            "name": "fish",
+            "state": "active",
+            "vocabulary_id": null
+        },
+        {
+            "display_name": "policy",
+            "id": "71131c76-b386-4a15-8c93-2bf584bce305",
+            "name": "policy",
+            "state": "active",
+            "vocabulary_id": null
+        },
+        {
+            "display_name": "stocking",
+            "id": "f5e605b5-2500-456b-ae25-d6f78a1e5ad0",
+            "name": "stocking",
+            "state": "active",
+            "vocabulary_id": null
+        }
+    ],
+    "title": "Fish Stocking Report",
+    "topic": [
+        "Environment & Natural Resources"
+    ],
+    "tracking_summary": {
+        "recent": 0,
+        "total": 0
+    },
+    "type": "dataset",
+    "updatefrequency": "Annual",
+    "url": null,
+    "usage": "",
+    "version": null
+}

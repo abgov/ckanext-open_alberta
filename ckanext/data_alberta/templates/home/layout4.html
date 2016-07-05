@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{%- block page -%}
+
+{% block skip %}
+<div class="hide"><a href="#content">{{ _('Skip to content') }}</a></div>
+{% endblock %}
+
+{#
+Override the header on a page by page basis by extending this block. If
+making sitewide header changes it is preferable to override the header.html
+file.
+#}
+{%- block header %}
+{% include "header.html" %}
+{% endblock -%}
+
+{# The content block allows you to replace the content of the page if needed #}
+{%- block content %}
+{% block maintag %}<main role="main">{% endblock %}
+<div id="content" class="container">
+    {% block main_content %}
+    {% block flash %}
+    <div class="flash-messages">
+        {% block flash_inner %}
+        {% for message in h.flash.pop_messages() | list %}
+        <div class="alert fade in {{ message.category }}">
+            {{ h.literal(message) }}
+        </div>
+        {% endfor %}
+        {% endblock %}
+    </div>
+    {% endblock %}
+
+    {% block toolbar %}
+    <div class="toolbar">
+        {% block breadcrumb %}
+        {% if self.breadcrumb_content() | trim %}
+        <ol class="breadcrumb">
+            {% snippet 'snippets/home_breadcrumb_item.html' %}
+            {% block breadcrumb_content %}{% endblock %}
+        </ol>
+        {% endif %}
+        {% endblock %}
+    </div>
+    {% endblock %}
+    <div class="row" id="content">
+        <div class="col-xs-12">
+            <p>Welcome to Alberta’s catalogue of public information. To view additional releases, choose a month from the date dropdown. Browse the catalogue to see if the information you're looking for has already been released.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#"><i class="fa fa-list"></i>List View</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 box">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4">
+                            <div class="left-sidebar">
+                                {% if self.page_primary_action() | trim %}
+                                <div class="row sidebar-section">
+                                    {% block page_primary_action %}{% endblock %}
+                                </div>
+                                {% endif %}
+                                <div class="row sidebar-section">
+                                    {% snippet 'snippets/search_form.html', type='dataset', query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+                                </div>
+                                <div class="row sidebar-section">
+                                    <h3>Filter your results:</h3>
+                                    <p>Refine your results by Topic, Source, Format, Publication/Date range range and usage licence.</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% block primary %}
+                        {% block primary_content %}
+
+                        {% block page_header %}
+                        {% endblock %}
+                        <div class="col-sm-12 col-md-8">
+                            <div class="row">
+
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="module-content unstyled">
+                                            {% block primary_content_inner %}
+                                            {% endblock %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endblock %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</div>
+</main>
+{% endblock -%}
+
+
+{%- block footer %}
+{% include "footer.html" %}
+{% endblock -%}
+{%- endblock -%}
+
+{%- block scripts %}
+{% resource 'base/main' %}
+{% resource 'base/ckan' %}
+{% if g.tracking_enabled %}
+{% resource 'base/tracking.js' %}
+{% endif %}
+{{ super() }}
+{% endblock -%}

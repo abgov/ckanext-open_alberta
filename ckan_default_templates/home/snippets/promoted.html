@@ -1,0 +1,30 @@
+{% set intro = g.site_intro_text %}
+
+<div class="module-content box">
+  <header>
+    {% if intro %}
+      {{ h.render_markdown(intro) }}
+    {% else %}
+      <h1 class="page-heading">{{ _("Welcome the Open Data Portal") }}</h1>
+      <p>
+        {% trans %}The portal makes data the provincial government collects on behalf of citizens publicly available in machine readable formats with an open licence. This means there are no technical or legal restrictions for using the data.
+	{% endtrans %}
+      </p>
+      <p>
+	{% trans %}By sharing this data, the Alberta government is increasing the transparency of government business, promoting economic opportunity and increasing citizen involvement in government.
+        {% endtrans %}
+      </p>
+    {% endif %}
+  </header>
+
+  {% block home_image %}
+    <section class="featured media-overlay hidden-phone">
+      <h2 class="media-heading">{% block home_image_caption %}{{ _("Open Data using Ckan") }}{% endblock %}</h2>
+      {% block home_image_content %}
+        <a class="media-image" href="#">
+          <img src="http://data.alberta.ca/sites/all/themes/goa_od/images/opendatagoa.jpg" alt="Placeholder" width="940" height="298" />
+        </a>
+      {% endblock %}
+    </section>
+  {% endblock %}
+</div>

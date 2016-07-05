@@ -1,0 +1,202 @@
+{# {% ckan_extends %} #}
+
+<!--
+The following "subsections" are used to determine if a navigation item should
+be expanded when the page opens. For example, if the page url is "/publications"
+then the "resources" section will be active and expanded on page load.    
+-->
+{% set placeholder = _('Search all Open Government Resources') %}
+{% set subsections = {
+"resources":["resources","dataset","opendata","publications"],
+"interact":["interact","blog","apps","developers","visualizations","suggest","contact"],
+"about":["about","faq","documentation","licence","policy"]
+}   %}
+
+{% set path_length = c.environ.PATH_INFO.split("/")|length %}
+{% if path_length > 1 %}
+{% set level_one_section = c.environ.PATH_INFO.split("/")[1] %}
+{% else %}
+{% set level_one_section = "" %}
+{% endif %}
+
+{% block header_wrapper %}
+
+{% block header_account %}
+<header class="account-masthead">
+    <div class="container">
+        {% block header_account_container_content %}
+        {% if c.userobj %}
+        <div class="account avatar authed" data-module="me" data-me="{{ c.userobj.id }}">
+            <ul class="unstyled">
+                {% block header_account_logged %}
+                {% if c.userobj.sysadmin %}
+                <li>
+                    <a href="{{ h.url_for(controller='admin', action='index') }}" title="{{ _('Sysadmin settings') }}">
+                        <i class="icon-legal"></i>
+                    </a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="{{ h.url_for(controller='user', action='read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
+                        {{ h.gravatar((c.userobj.email_hash if c and c.userobj else ''), size=22) }}
+                        <span class="username">{{ c.userobj.display_name }}</span>
+                    </a>
+                </li>
+                {% set new_activities = h.new_activities() %}
+                <li class="notifications {% if new_activities > 0 %}notifications-important{% endif %}">
+                    {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)', new_activities) %}
+                    <a href="{{ h.url_for(controller='user', action='dashboard') }}" title="{{ notifications_tooltip }}">
+                        <i class="icon-dashboard"></i>
+                        <span>{{ new_activities }}</span>
+                    </a>
+                </li>
+                {% block header_account_settings_link %}
+                <li>
+                    <a href="{{ h.url_for(controller='user', action='edit', id=c.userobj.name) }}" title="{{ _('Edit settings') }}">
+                        <i class="icon-cog"></i>
+                    </a>
+                </li>
+                {% endblock %}
+                {% block header_account_log_out_link %}
+                <li>
+                    <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
+                        <i class="icon-signout"></i>
+                    </a>
+                </li>
+                {% endblock %}
+                {% endblock %}
+            </ul>
+        </div>
+        {% endif %} 
+        {% endblock %}
+    </div>
+</header>
+<header class="site-header compressed">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <nav id="ab-top-nav" role="navigation" class="hidden-sm hidden-xs">
+                    <ul>
+                        <li><a href="http://alberta.ca">Government of Alberta Home</a></li>
+                        <li><a href="http://alberta.ca/ministries.cfm">Ministries</a></li>
+                        <li><a href="http://www.programs.alberta.ca">Services</a></li>
+                        <li><a href="http://alberta.ca/contact.cfm">Contact Government</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    {% block header_logo %}
+    {% if g.site_logo %}
+    <div class="container">
+        <div id="branding" class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4 nopadding">
+                <a class="logo" href="{{ h.url('home') }}"><h1 class="ab-logo"><span class="access-offscreen">Alberta Open Government</span></h1></a>
+                {% if g.site_description %}<span class="mini">{{ g.site_description }}</span>{% endif %}
+                {% endif %}
+                {% endblock %}
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-8 align-right">
+                <div class="search-input">
+                    <a href="javascript:{}" class="search-submit" onclick="document.getElementById('top_search').submit();"><i class="fa fa-search"></i></a>
+                    <form method="get" action="/dataset" id="top_search" _lpchecked="1">
+                        <input type="text" class="top-search form-control" name="q" value="" autocomplete="on" placeholder="{{ placeholder }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid nav-bar-top">
+        <div class="row local-nav-top">
+            <div class="col-xs-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <nav class="local-nav" id="nav-local">
+                                <ul>
+                                    <li {% if level_one_section == "" %}class="active"{% endif %}>
+                                        <a href="/"><i class="fa fa-home"></i></a>
+                                    </li>
+                                    <li id="nav-top-resources" {% if level_one_section in subsections["resources"] %}class="active"{% endif %}>
+                                        <a href="/dataset">Resources</a>
+                                    </li>
+                                    <li id="nav-top-interact" {% if level_one_section in subsections["interact"] %}class="active"{% endif %}>
+                                        <a href="/interact">Interact</a>
+                                    </li>
+                                    <li id="nav-top-about" {% if level_one_section in subsections["about"] %}class="active"{% endif %}>
+                                        <a href="/about">About</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid local-nav-sub">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <nav class="local-nav">
+                                <div class="nav-sub-section {% if level_one_section in subsections["resources"] %}opened{% endif %}" id="nav-sub-resources">
+                                    <ul>
+                                        <li>
+                                            <a href="/opendata">Open Data</a>
+                                        </li>
+                                        <li>
+                                            <a href="/publications">Publications</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="nav-sub-section {% if level_one_section in subsections["interact"] %}opened{% endif %}" id="nav-sub-interact">
+                                    <ul>
+                                        <li>
+                                            <a href="/interact/apps-for-alberta">Apps</a>
+                                        </li>
+                                        <li>
+                                            <a href="/interact/visualization">Visualizations</a>
+                                        </li>
+                                        <li>
+                                            <a href="/interact/blog">Blog</a>
+                                        </li>
+                                        <li>
+                                            <a href="/suggest">Suggest a Resource</a>
+                                        </li>
+                                        <li>
+                                            <a href="/contact">Contact</a>
+                                        </li>
+                                        <li>
+                                            <a href="/interact/for-developers">For Developers</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="nav-sub-section {% if level_one_section in subsections["about"] %}opened{% endif %}" id="nav-sub-about">
+                                    <ul>
+                                        <li>
+                                            <a href="/interact/faq">FAQ's</a>
+                                        </li>
+                                        <li>
+                                            <a href="/licence">Licence</a>
+                                        </li>
+                                        <li>
+                                            <a href="/policy">Policy</a>
+                                        </li>
+                                        <li>
+                                            <a href="/documentation">Documentation</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+{% endblock %}

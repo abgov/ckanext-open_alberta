@@ -1,0 +1,141 @@
+{#
+Displays a single of dataset.
+
+package        - A package to display.
+item_class     - The class name to use on the list item.
+hide_resources - If true hides the resources (default: false).
+banner         - If true displays a popular banner (default: false).
+truncate       - The length to trucate the description to (default: 180)
+truncate_title - The length to truncate the title to (default: 80).
+
+Example:
+
+{% snippet 'snippets/package_item.html', package=c.datasets[0] %}
+
+#}
+{% set query = c.q %}
+{% set pubtype = package.type %}
+{% set truncate = truncate or 300 %}
+{% set truncate_title = truncate_title or 80 %}
+{% set title = package.title or package.name %}
+{% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
+{% set modified_date = h.render_datetime(package.date_modified) %}
+{% set ministry = package.organization.title %}
+
+{% block package_item %}
+<div class="row {{ item_class or "dataset-item" }}">
+    <div class="col-sm-12 col-md-8 nopadding">
+    {% block content %}
+    <div class="dataset-content">
+        {% block heading %}
+
+        {% block heading_private %}
+        {% if package.private %}
+        <span class="dataset-private label label-inverse">
+            <i class="icon-lock"></i>
+            {{ _('Private') }}
+        </span>
+        {% endif %}
+        {% endblock %}
+
+
+        {% block heading_title %}
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="package-header"><a href="/{{package.type}}/{{package.name}}">{{package.title}}</a></h3>
+            </div>
+        </div>
+        {% endblock %}
+        {% block heading_meta %}
+        {% if package.get('state', '').startswith('draft') %}
+        <span class="label label-info">{{ _('Draft') }}</span>
+        {% elif package.get('state', '').startswith('deleted') %}
+        <span class="label label-important">{{ _('Deleted') }}</span>
+        {% endif %}
+        {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
+        {% endblock %}
+        {% endblock %}
+        {% block banner %}
+
+        {% if banner %}
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="banner">{{ _('Popular') }}</span>
+            </div>
+        </div>
+        {% endif %}
+        {% endblock %}
+
+        {% block pubdate %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5 class="sm">Last Modified</h5>
+                    </div>
+                    <div class="col-xs-12">
+                        <p class="date">{{ modified_date }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
+
+        {% block notes %}
+        {% if notes %}
+        <div class="row">
+            <div class="col-xs-12"><h5 class="sm">Description</h5><p>{{ notes|urlize }}</p></div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-xs-12"><h5 class="sm">Description</h5><p>{{ _("This dataset has no description") }}</p></div>
+        </div>
+        {% endif %}
+        {% endblock %}
+        {% block package_tags %}
+        <div class="row">
+            <div class="col-xs-12">
+                {% snippet "package/snippets/tagsf.html", tags=package.tags %}
+            </div>
+        </div>
+        {% endblock %}
+        <br/>
+    </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+       <div class="row">
+           <div class="col-xs-12">
+               <div class="row">
+                   <div class="col-xs-12">
+                    {% block PUBTYPE %}
+                    {% set url = h.add_url_param(new_params={'dataset_type': pubtype}) %}
+                <a href="{{ url }}" class="btn btn-default btn-sm" data-format="{{ pubtype.lower() }}">{{ pubtype }}</a>
+                    {% endblock %}
+                    </div>
+                </div>
+               <div class="row">
+                   <div class="col-xs-12">
+                       {% block resources %}
+                       {% if package.resources and not hide_resources %}
+                       {% block resources_outer %}
+                       {% block resources_inner %}
+                       {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+                       {% set url = h.add_url_param(new_params={'res_format': resource}) %}
+                       <a href="{{ url }}" class="btn btn-default btn-sm" data-format="{{ resource.lower() }}">{{ resource }}</a>
+                       {% endfor %}
+                       {% endblock %}
+                       {% endblock %}
+                       {% endif %}
+                       {% endblock %}
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
+
+
+
+    {% endblock %}
+</div>
+{% endblock %}

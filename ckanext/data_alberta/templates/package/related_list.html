@@ -1,0 +1,29 @@
+
+{% extends "package/read_base.html" %}
+
+{% block subtitle %}{{ _('Related') }} - {{ super() }}{% endblock %}
+
+{% block primary_content_inner %}
+<ul class="nav nav-tabs">
+{{ h.build_nav_icon('dataset_read', _('Summary'), id=pkg.name) }}
+{{ h.build_nav_icon('dataset_read', _('Detailed Information'), id=pkg.name) }}
+{{ h.build_nav_icon('related_list', _('Related'), id=pkg.name) }}
+</ul>
+
+  {% block related_list %}
+    {% if c.related_list %}
+      {% snippet "related/snippets/related_list.html", related_items=c.related_list, pkg_id=c.pkg_dict.name %}
+    {% else %}
+      <div id="result-summary" class="active tab-box tab-summary box" data-tab-group="data-results" >
+      <p class="empty">{{ _('Currently no related items.') }} </p>
+    {% endif %}
+  {% endblock %}
+  {% block form_actions %}
+    {% if h.check_access('package_create') %}
+    <div class="form-actions">
+      {% link_for _('Add Related Item'), controller='related', action='new', id=pkg.name, class_='btn btn-primary' %}
+    </div>
+      </div>
+	{% endif %}
+  {% endblock %}
+{% endblock %}
