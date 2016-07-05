@@ -60,14 +60,6 @@
                     {% block package_tags %}
                     {% snippet "package/snippets/tags.html", tags=pkg.tags %}
                     {% endblock %}
-                    {% block package_notes %}
-                    {% if c.pkg_notes_formatted %}
-                    <div class="notes embedded-content">
-                        {{ c.pkg_notes_formatted }}
-                    </div>
-                    {% endif %}
-                    {% endblock %}
-                    {# FIXME why is this here? seems wrong #}
                     <span class="insert-comment-thread"></span>
                 </div>
 
