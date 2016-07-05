@@ -2409,7 +2409,7 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
 .alberta-theme { /* ======== DATA HEADERS / DEFINITION ======= */ /* ================= TABLES ================= */ }
 .alberta-theme h2 .highlight-number { font-size: 42px; font-weight: 700; color: #24a9d1; }
 .alberta-theme table { margin-bottom: 12px; padding-bottom: 6px; border-bottom: 3px solid #dddddd; }
-.alberta-theme table thead tr { background: #24a9d1; }
+.alberta-theme table thead tr { background: #58595b; }
 .alberta-theme table thead tr th { color: #ffffff; border-bottom: 0; border-right: 1px solid #dddddd; padding: 6px 12px; max-width: 200px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 .alberta-theme table thead tr th a { color: #ffffff; }
 .alberta-theme table tr { border-bottom: 0; }
