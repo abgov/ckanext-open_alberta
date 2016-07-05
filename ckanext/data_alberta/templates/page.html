@@ -74,6 +74,17 @@ file.
                     {% endblock %}
                 </section>
             </div>
+{# Render Social media links only on allowed pages, and if data package is not private#} 
+    {% if pkg.private %} 
+
+  {% else %} 
+  {%  if (( c.action == "search" or c.action == "read" or c.action == "list" or c.action == "about" or c.action == "policy" or c.action == "licence") and 
+    ( c.controller == "package" or c.controller == "related" or c.controller == "home" or c.controller == "ckanext.data_alberta.controller:PagesController")) %} 
+  <!-- Social Links are allowed --> 
+
+
+
+            
             <div class="col-sm-12 col-md-4 nopadding">
                 <ul class="addthis_toolbox addthis_custom_sharing social visible-md visible-lg">
                     <li><a class="addthis_button_facebook" title="Facebook" href="#"><i class="fa fa-fw fa-facebook"></i><span>Facebook</span></a></li>
@@ -81,6 +92,11 @@ file.
                     <li><a title="RSS" href="{{rss_feed}}"><i class="fa fa-fw fa-rss"></i><span>RSS</span></a></li>
                     <div class="atclear"></div></ul>
             </div>
+{% else %}
+<!-- No Social Links are Allowed -->
+  {% endif %}
+{% endif %}
+
         </div>
     </div>
 </header>
