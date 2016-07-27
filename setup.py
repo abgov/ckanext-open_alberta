@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='''ckanext-data_alberta''',
+    name='''ckanext-open_alberta''',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
@@ -20,7 +20,7 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/abgov/ckanext-data_alberta',
+    url='https://github.com/abgov/ckanext-open_alberta',
 
     # Author details
     author='''Corey Erickson''',
@@ -77,9 +77,9 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points='''
         [ckan.plugins]
-        data_alberta=ckanext.data_alberta.plugin:Data_AlbertaPlugin
-        openalbertapages=ckanext.data_alberta.plugin:OpenAlbertaPagesPlugin
-    	datesearch=ckanext.data_alberta.plugin:DateSearchPlugin
-        rss-feedswidget=ckanext.data_alberta.plugin:RssFeedsWidget
+        open_alberta=ckanext.open_alberta.plugin:Open_AlbertaPlugin
+        openalbertapages=ckanext.open_alberta.plugin:OpenAlbertaPagesPlugin
+    	datesearch=ckanext.open_alberta.plugin:DateSearchPlugin
+        rss-feedswidget=ckanext.open_alberta.plugin:RssFeedsWidget
     ''',
 )
