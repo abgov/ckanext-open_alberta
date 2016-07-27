@@ -75,7 +75,7 @@ file.
                 </section>
             </div>
 {# Render Social media links only on allowed pages, and if data package is not private#} 
-    {% if pkg.private %} 
+    {% if c.pkg.private %} 
 
   {% else %} 
   {%  if (( c.action == "search" or c.action == "read" or c.action == "list" or c.action == "about" or c.action == "policy" or c.action == "licence") and 
