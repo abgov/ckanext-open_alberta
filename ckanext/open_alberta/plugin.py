@@ -1,6 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-from ckanext.data_alberta import helpers
+from ckanext.open_alberta import helpers
 
 
 def latest_datasets():
@@ -22,19 +22,19 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
     def before_map(self, m):
 
         m.connect('suggest' ,'/suggest',
-                    controller='ckanext.data_alberta.controller:SuggestController',
+                    controller='ckanext.open_alberta.controller:SuggestController',
                     action='suggest_form')
 
         m.connect('contact' ,'/contact',
-                    controller='ckanext.data_alberta.controller:SuggestController',
+                    controller='ckanext.open_alberta.controller:SuggestController',
                     action='contact_form')
 
         m.connect('policy' ,'/policy',
-                    controller='ckanext.data_alberta.controller:PagesController',
+                    controller='ckanext.open_alberta.controller:PagesController',
                     action='policy')
 
         m.connect('licence' ,'/licence',
-                    controller='ckanext.data_alberta.controller:PagesController',
+                    controller='ckanext.open_alberta.controller:PagesController',
                     action='licence')
 
 # /content/government-alberta-open-information-and-open-data-policy > /policy
@@ -72,17 +72,17 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
 
         return m
 
-class Data_AlbertaPlugin(plugins.SingletonPlugin):
+class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
 
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
-        toolkit.add_resource('fanstatic', 'data_alberta')
+        toolkit.add_resource('fanstatic', 'open_alberta')
 
     def get_helpers(self):
-        return {'data_alberta_latest_datasets': latest_datasets}
+        return {'open_alberta_latest_datasets': latest_datasets}
 
 class DateSearchPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
