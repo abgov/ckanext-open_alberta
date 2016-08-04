@@ -19,7 +19,7 @@
 {% block content_primary_nav %}
   {{ h.build_nav_icon('dataset_edit', _('Edit metadata'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_resources', _('Resources'), id=pkg.name) }}
-  {{ h.build_nav_icon('related_list', _('Related Items'), id=pkg.name) }}
+  {#  {{ h.build_nav_icon('related_list', _('Related Items'), id=pkg.name) }} #}
 {% endblock %}
 
 {% block secondary_content %}
