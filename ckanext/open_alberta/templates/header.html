@@ -127,6 +127,15 @@ then the "resources" section will be active and expanded on page load.
                                     <li id="nav-top-about" {% if level_one_section in subsections["about"] %}class="active"{% endif %}>
                                         <a href="/about">About</a>
                                     </li>
+                                    <li class="navbar-right">
+                                    {% if not (c.controller == 'user' and c.action == 'login') %}
+                                        {% if c.userobj %}
+                                            <a href="{{ h.url_for(controller='user', action='logout') }}"><i class="fa fa-unlock"></i></a>
+                                        {% else %}
+                                            <a href="{{ h.url_for(controller='user', action='login') }}"><i class="fa fa-lock"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
