@@ -10,11 +10,13 @@ import ckan.logic as logic
 import ckan.logic.schema as schema
 import ckan.lib.navl.dictization_functions as dictization_functions
 import ckan.lib.mailer as mailer
+from ckan.controllers.user import UserController
 
 from pylons import config
 import ckan.lib.captcha as captcha
 
 unflatten = dictization_functions.unflatten
+
 
 class SuggestController(base.BaseController):
 
@@ -161,3 +163,12 @@ class PagesController(base.BaseController):
     def faq(self):
 
         return base.render('static-pages/faq/read.html')
+
+
+class DashboardPackagesController(UserController):
+    """This is used to list only user's private data sets"""
+
+    def __before__(self, action, **env):
+        UserController.__before__(self, action, **env)
+        c.display_private_only = True
+

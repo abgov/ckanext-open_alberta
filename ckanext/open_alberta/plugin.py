@@ -37,6 +37,10 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
                     controller='ckanext.open_alberta.controller:PagesController',
                     action='licence')
 
+        m.connect('packages' ,'/dashboard/datasets/private',
+                  controller='ckanext.open_alberta.controller:DashboardPackagesController',
+                  action='dashboard_datasets')
+
 # /content/government-alberta-open-information-and-open-data-policy > /policy
         m.redirect('/content/government-alberta-open-information-and-open-data-policy', 
                    '/policy',
