@@ -1,3 +1,4 @@
+
 //Document-level functionality
 $(document).ready(function(){
     activateTabs();
@@ -21,7 +22,7 @@ var delayPN = 0;
 
 function loadDatasetNumbers(){
     try{
-    
+        
         if($('#query-count-documentation').length > 0 ||
            $('#query-count-publications').length > 0 ||
            $('#query-count-opendata').length > 0 ||
@@ -31,37 +32,54 @@ function loadDatasetNumbers(){
                     delayFP--;
                 }else{
                     if(countFP <= targetFP){
-                        $('#query-count-documentation h4').html(addCommas(countFP));
-                        countFP += Math.max(1,Math.floor((targetFP - countFP)/10));
+                        if (targetFP==0){
+                            $('#query-count-documentation h4').html('');
+                        }else{
+                            $('#query-count-documentation h4').html(addCommas(targetFP));
+                        }
+                        /*countFP += Math.max(1,Math.floor((targetFP - countFP)/1));*/
                     }
                 }
                 if(delayDS > 0){
                     delayDS--;
                 }else{
                     if(countDS <= targetDS){
-                        $('#query-count-dataset h4').html(addCommas(countDS));
-                        countDS += Math.max(1,Math.floor((targetDS - countDS)/10));
+                        if (targetDS==0){
+                            $('#query-count-dataset h4').html('');
+                        }
+                        else{
+                            $('#query-count-dataset h4').html(addCommas(targetDS));
+                        }
+                        /*countDS += Math.max(1,Math.floor((targetDS - countDS)/10));*/
                     }
                 }
                 if(delayOD > 0){
                     delayOD--;
                 }else{
                     if(countOD <= targetOD){
-                        $('#query-count-opendata h4').html(addCommas(countOD));
-                        countOD += Math.max(1,Math.floor((targetOD - countOD)/10));
+                        if (targetOD==0){
+                             $('#query-count-opendata h4').html('');
+                        }else{
+                             $('#query-count-opendata h4').html(addCommas(targetOD));
+                        }
+                        /*countOD += Math.max(1,Math.floor((targetOD - countOD)/10));*/
                     }
                 }
                 if(delayPN > 0){
                     delayPN--;
                 }else{
                     if(countPN <= targetPN){
-                        $('#query-count-publications h4').html(addCommas(countPN));
-                        countPN += Math.max(1,Math.floor((targetPN - countPN)/10));
+                        if (targetPN==0){
+                            $('#query-count-publications h4').html('');
+                        }else{
+                            $('#query-count-publications h4').html(addCommas(targetPN));
+                        }
+                        /*countPN += Math.max(1,Math.floor((targetPN - countPN)/10));*/
                     }
                 }
-            },100);
+            },5);
         }
-
+        
         if($('#query-count-documentation').length > 0){
             $.ajax({url: '/api/3/action/package_search?q=type:documentation', success: function(q){
                 delayFP = 10 + Math.floor(Math.random()*20);
