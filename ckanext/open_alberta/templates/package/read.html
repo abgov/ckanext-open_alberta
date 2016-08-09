@@ -42,7 +42,8 @@
             <ul class="nav nav-tabs resource-tabs">
                 <li role="presentation" class="active" data-tab-group="data-results" data-tab-name="tab-summary"><a href="#summary">Summary</a></li>
                 <li role="presentation" data-tab-group="data-results" data-tab-name="tab-detailed"><a href="#detailed">Detailed Information</a></li>
-		{{ h.build_nav_icon('related_list', _('Related'), id=pkg.name) }}
+{# related_item/list will be removed from CKAN #}
+{#		{{ h.build_nav_icon('related_list', _('Related'), id=pkg.name) }}  #}
             </ul>
             <div id="result-summary" class="active tab-box tab-summary box" data-tab-group="data-results">
                 <div class="summary-section">
