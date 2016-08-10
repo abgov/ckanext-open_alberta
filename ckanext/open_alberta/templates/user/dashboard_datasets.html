@@ -16,8 +16,7 @@
       <label>
           <input type="checkbox" id="id-display-private-ds-only" {% if c.display_private_only %}checked="checked"{% endif %}
                  data-href-all-ds="{{ h.url_for(controller='user', action='dashboard_datasets') }}" 
-                 {# TODO: Ask Corey how to pass my custom controller #}
-                 data-href-private-ds-only="{{ h.url_for(controller='user', action='dashboard_datasets') }}/private">{{ _("Only private datasets") }}
+                 data-href-private-ds-only="{{ h.url_for('private-packages') }}">{{ _("Only private datasets") }}
       </label>
   </div>
   {% if c.user_dict.datasets %}

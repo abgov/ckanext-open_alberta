@@ -37,7 +37,7 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
                     controller='ckanext.open_alberta.controller:PagesController',
                     action='licence')
 
-        m.connect('packages' ,'/dashboard/datasets/private',
+        m.connect('private-packages' ,'/dashboard/datasets/private',
                   controller='ckanext.open_alberta.controller:DashboardPackagesController',
                   action='dashboard_datasets')
 
