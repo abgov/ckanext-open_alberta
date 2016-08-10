@@ -24,7 +24,11 @@ $(document).ready(function(){
                 }   
             },
         error: function(){
-                alert("/api/3/action/counter_on is crashed!!!");
+                alert("Counter_on function not working.\n" +
+                    "Please check if the two lines below in the config ini file.\n" +
+                    "## Counter control on the home page ##\n" +
+                    "ckan.open_alberta.counter_on = true \n\n" +
+                    "Also please check if 'counteronoff' plugin is in the config file!");
             }
     });
         
