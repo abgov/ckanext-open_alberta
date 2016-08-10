@@ -380,6 +380,8 @@ blockquote:before, blockquote:after { content: "" !important; }
 
 .module-content .search-form { display: inline-block; width: 70%; }
 
+.module-content .checkbox label { font-size: 15px; }
+
 .alberta-theme header.site-header .local-nav-top nav ul li.active { background-image: url("/img/subnav-active.png") !important; }
 
 .btn-primary i { margin-right: 3px; }
