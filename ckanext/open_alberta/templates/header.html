@@ -129,9 +129,7 @@ then the "resources" section will be active and expanded on page load.
                                     </li>
                                     <li class="navbar-right">
                                     {% if not (c.controller == 'user' and c.action == 'login') %}
-                                        {% if c.userobj %}
-                                            <a href="{{ h.url_for(controller='user', action='logout') }}"><i class="fa fa-unlock"></i></a>
-                                        {% else %}
+                                        {% if not c.userobj %}
                                             <a href="{{ h.url_for(controller='user', action='login') }}"><i class="fa fa-lock"></i></a>
                                         {% endif %}
                                     {% endif %}
