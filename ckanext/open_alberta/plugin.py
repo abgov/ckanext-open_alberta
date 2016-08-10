@@ -86,6 +86,7 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
 class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.interfaces.IActions)
 
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
@@ -94,6 +95,10 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
 
     def get_helpers(self):
         return {'open_alberta_latest_datasets': latest_datasets}
+
+    def get_actions(self):
+        # Registers the custom API method defined above
+        return {'counter_on': counter_on_off}
 
 class DateSearchPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -135,10 +140,6 @@ class RssFeedsWidget(plugins.SingletonPlugin):
             'rss_fetch_feed': helpers.fetch_feed,
         }
 
+    
 
-class CounterOnOffPlugin(plugins.SingletonPlugin):
-    plugins.implements(plugins.interfaces.IActions)
-
-    def get_actions(self):
-        # Registers the custom API method defined above
-        return {'counter_on': counter_on_off}
+    
