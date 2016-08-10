@@ -1,12 +1,4 @@
-
-//Document-level functionality
-$(document).ready(function(){
-    activateTabs();
-    loadDatasetNumbers();
-    //var myURL = window.location.pathname.toLowerCase();
-    //var dataset_type = $.QueryString['dataset_type'];
-});
-
+var counter_on = false;
 var countFP = 0;
 var countDS = 0;
 var countPN = 0;
@@ -19,6 +11,27 @@ var delayOD = 0;
 var delayFP = 0;
 var delayDS = 0;
 var delayPN = 0;
+
+
+//Document-level functionality
+$(document).ready(function(){
+    activateTabs();
+    $.ajax({url: '/api/3/action/counter_on', 
+        success: function(q){
+                counter_on = q.result.counter_on;
+                if (Boolean(counter_on)){
+                    loadDatasetNumbers();
+                }   
+            },
+        error: function(){
+                alert("/api/3/action/counter_on is crashed!!!");
+            }
+    });
+        
+    //var myURL = window.location.pathname.toLowerCase();
+    //var dataset_type = $.QueryString['dataset_type'];
+});
+
 
 function loadDatasetNumbers(){
     try{

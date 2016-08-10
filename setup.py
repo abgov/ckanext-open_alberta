@@ -81,5 +81,6 @@ setup(
         openalbertapages=ckanext.open_alberta.plugin:OpenAlbertaPagesPlugin
     	datesearch=ckanext.open_alberta.plugin:DateSearchPlugin
         rss-feedswidget=ckanext.open_alberta.plugin:RssFeedsWidget
+        counteronoff=ckanext.open_alberta.plugin:CounterOnOffPlugin
     ''',
 )
