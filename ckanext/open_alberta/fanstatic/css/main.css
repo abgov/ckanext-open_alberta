@@ -1572,6 +1572,10 @@ a.label:hover, a.label:focus { color: #fff; text-decoration: none; cursor: point
 .label-danger { background-color: #d9534f; }
 .label-danger[href]:hover, .label-danger[href]:focus { background-color: #c9302c; }
 
+.dataset-private.label { color: #fff; background-color: #3f4041; }
+.dataset-private i.icon-lock { color: #fff; margin-right: 0.5em; }
+
+
 .badge { display: inline-block; min-width: 10px; padding: 3px 7px; font-size: 12px; font-weight: bold; color: #fff; line-height: 1; vertical-align: baseline; white-space: nowrap; text-align: center; background-color: #777777; border-radius: 0; }
 .badge:empty { display: none; }
 .btn .badge { position: relative; top: -1px; }
