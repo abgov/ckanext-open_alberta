@@ -1,8 +1,10 @@
-from logging import getLogger
+import logging
+from datetime import datetime
 import urlparse
 import requests
 import ckan.logic as logic
 import ckan.lib.base as base
+import ckan.plugins.toolkit as toolkit
 
 from ckan.common import _, request, c
 import ckan.lib.helpers as h
@@ -11,11 +13,15 @@ import ckan.logic.schema as schema
 import ckan.lib.navl.dictization_functions as dictization_functions
 import ckan.lib.mailer as mailer
 from ckan.controllers.user import UserController
+from ckan.lib.base import BaseController
 
 from pylons import config
+from pylons.decorators import jsonify
 import ckan.lib.captcha as captcha
 
 unflatten = dictization_functions.unflatten
+
+_NOT_AUTHORIZED = _('Not authorized to see this page')
 
 
 class SuggestController(base.BaseController):
@@ -171,4 +177,55 @@ class DashboardPackagesController(UserController):
     def __before__(self, action, **env):
         UserController.__before__(self, action, **env)
         c.display_private_only = True
+
+
+class PackageCloneController(BaseController):
+    """ Controller to faciliatate cloning a package to ease up creating new
+        data sets.
+    """
+
+    def __before__(self, action, **env):
+        base.BaseController.__before__(self, action, **env)
+        self._context = dict(model=base.model,
+                             user=base.c.user,
+                             auth_user_obj=base.c.userobj)
+        try:
+            logic.check_access('package_create', self._context)
+        except logic.NotAuthorized:
+            base.abort(401, _NOT_AUTHORIZED)
+
+
+    @jsonify
+    def index(self, id):
+        logger = logging.getLogger(__name__)
+        if toolkit.request.method == 'POST':
+            try:
+                pkg = toolkit.get_action('package_show')(None, dict(id=id))
+
+                pkg['title'] = toolkit.request.params.getone('title')
+                pkg['name'] = toolkit.request.params.getone('name')
+                pkg['date_created'] = pkg['date_modified'] = datetime.now()
+                pkg['state'] = 'draft'
+                del pkg['id']
+
+                action = toolkit.get_action('package_create')
+                newpkg = action(self._context, pkg)
+                return {
+                    'status': 'success',
+                    'redirect_url': h.url_for(controller='package', action='edit', id=newpkg['name'])
+                }
+            except toolkit.ValidationError as ve:
+                return {
+                    'status': 'error',
+                    'errors': ve.error_dict
+                }
+            except:
+                logger.exception('Error in PackageCloneController:index')
+                return {
+                    'status': 'error',
+                    'error': 'Exception on backend'
+                }
+
+        else:
+            toolkit.abort(403, _NOT_AUTHORIZED)
 
