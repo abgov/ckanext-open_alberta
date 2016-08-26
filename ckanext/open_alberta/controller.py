@@ -185,6 +185,9 @@ class PackageCloneController(BaseController):
     """
 
     def __before__(self, action, **env):
+        """ Checks if the invoking user has permissions to create data sets.
+            If the permission check fails, HTTP 401 error is raised.
+        """
         base.BaseController.__before__(self, action, **env)
         self._context = dict(model=base.model,
                              user=base.c.user,
@@ -197,6 +200,25 @@ class PackageCloneController(BaseController):
 
     @jsonify
     def index(self, id):
+        """ Clone the specified data set record.
+            Arguments:
+              id (string): URL/slug of the data set.
+            Returns:
+              string: JSON response.
+              Successful clone return value: 
+                  {'status': 'success', 
+                   'redirect_url': <URL of data set edit page>
+                   }
+              Data validation error return value:
+                  {'status': 'error',
+                   'errors': {<field1>: [<validation error message>],
+                              <field2>: [<validation error message>]}
+                  }
+              Unspecified error return value:
+                  {'status': 'error',
+                   'error': 'Exception on backend'
+                  }
+        """
         logger = logging.getLogger(__name__)
         if toolkit.request.method == 'POST':
             try:
