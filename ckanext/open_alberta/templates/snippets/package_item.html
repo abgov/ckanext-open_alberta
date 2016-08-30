@@ -23,21 +23,22 @@ Example:
 {% set ministry = package.organization.title %}
 
 {% block package_item %}
+{% if c.display_private_only and not package.private %}
+{% else %}
 <div class="row {{ item_class or "dataset-item" }}">
     <div class="col-sm-12 col-md-8 nopadding">
     {% block content %}
     <div class="dataset-content">
         {% block heading %}
 
-        {% block heading_private %}
-        {% if package.private %}
-        <span class="dataset-private label label-inverse">
-            <i class="icon-lock"></i>
-            {{ _('Private') }}
-        </span>
-        {% endif %}
-        {% endblock %}
-
+{#        {% block heading_private %} #}
+{#        {% if package.private %} #}
+{#        <span class="dataset-private label"> #}
+{#            <i class="icon-lock"></i> #}
+{#           {{ _('Private') }} #}
+{#        </span> #}
+{#        {% endif %} #}
+{#        {% endblock %} #}
 
         {% block heading_title %}
         <div class="row">
@@ -46,15 +47,20 @@ Example:
             </div>
         </div>
         {% endblock %}
+
         {% block heading_meta %}
-        {% if package.get('state', '').startswith('draft') %}
-        <span class="label label-info">{{ _('Draft') }}</span>
-        {% elif package.get('state', '').startswith('deleted') %}
-        <span class="label label-important">{{ _('Deleted') }}</span>
-        {% endif %}
-        {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
+            {% if package.private %}
+                <span class="dataset-private label"><i class="icon-lock"></i>{{ _('Private') }}</span>
+            {% endif %}
+            {% if package.get('state', '').startswith('draft') %}
+                <span class="label label-info">{{ _('Draft') }}</span>
+            {% elif package.get('state', '').startswith('deleted') %}
+                <span class="label label-important">{{ _('Deleted') }}</span>
+            {% endif %}
+            {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
         {% endblock %}
         {% endblock %}
+
         {% block banner %}
 
         {% if banner %}
@@ -138,4 +144,5 @@ Example:
 
     {% endblock %}
 </div>
+{% endif %}
 {% endblock %}
