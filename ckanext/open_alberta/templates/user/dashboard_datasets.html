@@ -19,31 +19,14 @@
                  data-href-private-ds-only="{{ h.url_for('private-packages') }}">{{ _("Only private datasets") }}
       </label>
   </div>
-  <div class="checkbox">
-      <label>
-          <input type="checkbox" id="id-delete-dss" data-delete-dateset="delete" />{{ _("Delete datasets") }}
-      </label> 
-  </div>
-  <div class="from">
-    <form id="delete-form" action="/datasets/delete_multiple" method="post">
-      <div class="button">
-        <input type="submit" id="id-delete-button" name="delete-button" class="btn btn-danger collapse"  value="Delete"  data-module="confirm-action-delete-items" data-module-i18n="{"content": "Are you sure you want to delete thess datasets?"}">
-      </div>
-      {% if c.user_dict.datasets %}
-        {% snippet 'snippets/package_list.html', packages=c.user_dict.datasets %}
-      {% else %}
-        <p class="empty">
-          {{ _('You haven\'t created any datasets.') }}
-          {% if h.check_access('package_create') %}
-            {% link_for _('Create one now?'), controller='package', action='new' %}
-          {% endif %}
-        </p>
+  {% if c.user_dict.datasets %}
+    {% snippet 'snippets/package_list.html', packages=c.user_dict.datasets %}
+  {% else %}
+    <p class="empty">
+      {{ _('You haven\'t created any datasets.') }}
+      {% if h.check_access('package_create') %}
+        {% link_for _('Create one now?'), controller='package', action='new' %}
       {% endif %}
-      <div class="button">
-        <input type="submit" id="id-delete-button1" name="delete-button" class="btn btn-danger collapse"  value="Delete"  data-module="confirm-action-delete-items" data-module-i18n="{"content": "Are you sure you want to delete thess datasets?"}" > 
-      </div>
-    </form>
-  </div>
+    </p>
+  {% endif %}
 {% endblock %}
-
-

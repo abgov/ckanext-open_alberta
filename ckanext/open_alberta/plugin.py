@@ -52,11 +52,6 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
                   controller='ckanext.open_alberta.controller:DashboardPackagesController',
                   action='dashboard_datasets')
 
-        m.connect('delete-packages' ,'/datasets/delete_multiple',
-                  controller='ckanext.open_alberta.controller:PackagesDeleteController',
-                  action='delete_datasets')
-
-
 # /content/government-alberta-open-information-and-open-data-policy > /policy
         m.redirect('/content/government-alberta-open-information-and-open-data-policy', 
                    '/policy',
@@ -89,8 +84,6 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
 # /documents > /documentation
         m.redirect('/documents/{url:.*}', '/documentation/{url}',
                      _redirect_code='301 Moved Permanently')
-
-
 
         return m
 
