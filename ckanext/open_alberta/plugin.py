@@ -1,7 +1,12 @@
+# encoding: utf-8
+
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckanext.open_alberta import helpers
 import pylons.config as config
+from ckan.lib.plugins import DefaultPermissionLabels
+from ckan.plugins.toolkit import get_action
+import ckan.lib.base as base
 
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
@@ -145,5 +150,68 @@ class RssFeedsWidget(plugins.SingletonPlugin):
         }
 
     
+class IDDPPermissionLabelsPlugin(
+        plugins.SingletonPlugin, DefaultPermissionLabels):
+    u'''
+    Example permission labels plugin that makes datasets whose
+    notes field starts with "Proposed:" visible only to their
+    creator and Admin users in the organization assigned to the
+    dataset.
+    '''
+    plugins.implements(plugins.IPermissionLabels)
+
+    def get_dataset_labels(self, dataset_obj):
+        u'''
+        Use creator-*, admin-* labels for proposed datasets
+        '''
+        # TODO 
+        # Add more process state here to generate more condition here
+        #if dataset_obj.notes.startswith(u'Proposed:'):
+        # the problem here is if no member-<org>, the other members or editors 
+        # of the same org has no permission to browser the dataset, not even concern with 
+        # updating that dataset. But if we set up the process state here to check the 
+        # condition, that will work.
+        # But here we have to set up the default dataset_labes first.
+
+        #labels = super(IDDPPermissionLabelsPlugin, self
+        #               ).get_dataset_labels(dataset_obj)
+        #user = get_action(u'user_show')(
+        #        {u'id': dataset_obj.creator_user_id})
+        print("!!! current_user_id = " + base.c.userobj.id + "  " + base.c.userobj.name )
+        print("!!! creator_user_id = " + dataset_obj.creator_user_id  )
+        labels = []
+        if base.c.userobj.id == dataset_obj.creator_user_id: 
+            labels.append(u'creator-%s' % dataset_obj.creator_user_id)
+        if dataset_obj.owner_org:
+            labels.append(u'admin-%s' % dataset_obj.owner_org)
+        if dataset_obj.state == u'active' and not dataset_obj.private and dataset_obj.owner_org:
+            labels.append(u'member-%s' % dataset_obj.owner_org)
+        print(labels)
+        return labels
+
+        #return super(IDDPPermissionLabelsPlugin, self).get_dataset_labels(
+        #    dataset_obj)
+
+    def get_user_dataset_labels(self, user_obj):
+        u'''
+        Include admin-* labels for users in addition to default labels
+        creator-*, member-* and public
+        '''
+        # TODO 
+        # Add more process state here to generate more condition here
+
+        labels = super(IDDPPermissionLabelsPlugin, self
+                       ).get_user_dataset_labels(user_obj)
+        """
+        labels = [u'public']
+        if not user_obj:
+            return labels
+        labels.append(u'creator-%s' % user_obj.id)
+        """
+        if user_obj:
+            orgs = get_action(u'organization_list_for_user')(
+                {u'user': user_obj.id}, {u'permission': u'admin'})
+            labels.extend(u'admin-%s' % o['id'] for o in orgs)
+        return labels
 
     
