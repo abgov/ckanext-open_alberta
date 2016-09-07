@@ -81,6 +81,5 @@ setup(
         openalbertapages=ckanext.open_alberta.plugin:OpenAlbertaPagesPlugin
     	datesearch=ckanext.open_alberta.plugin:DateSearchPlugin
         rss-feedswidget=ckanext.open_alberta.plugin:RssFeedsWidget
-        iddppermissionlabels=ckanext.open_alberta.plugin:IDDPPermissionLabelsPlugin
     ''',
 )
