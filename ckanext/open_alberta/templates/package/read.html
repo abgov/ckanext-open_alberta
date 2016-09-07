@@ -2,6 +2,13 @@
 {% set pkg = c.pkg_dict %}
 {# Display notes on package/read.html#}
 {% set notes = h.markdown_extract(pkg.notes,extract_length=5000) %}
+{% if pkg.archive_date|length > 0 %}
+{% set archive_date = pkg.archive_date %}
+{% elif  pkg.archivedate|length > 0 %}
+{% set archive_date = pkg.archivedate %}
+{% else %}
+{% set archive_date = "" %}
+{% endif %}
 {% block primary_content_inner %}
 <div class="container nopadding">
     <div class="row">
@@ -27,7 +34,7 @@
             </h1>
             #}
         </div>
-        {% if pkg.archive_date|length > 0 or pkg.archivedate|length > 0  %}
+        {% if h.open_alberta_check_archive_date(archive_date) %}
           <div class="col-sm-12">
               <h3 class="archived-item"><i class="fa fa-archive"></i> Archived</h3>
 		<div class="archived-item-explanation">This item has been replaced by a more recent resource or the content may be otherwise out of date. It is provided for informational and research purposes.</div>

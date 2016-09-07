@@ -48,7 +48,6 @@ this.ckan.module('confirm-action-delete-items', function (jQuery, _) {
     confirm: function () {
       this.sandbox.body.append(this.createModal());
       this.modal.modal('show');
-
       // Center the modal in the middle of the screen.
       this.modal.css({
         'margin-top': this.modal.height() * -0.5,
@@ -78,8 +77,8 @@ this.ckan.module('confirm-action-delete-items', function (jQuery, _) {
         element.on('click', '.btn-cancel', this._onConfirmCancel);
         element.modal({show: false});
 
-        element.find('h3').text(this.i18n('heading'));
-        element.find('.modal-body').text(this.i18n('content'));
+        element.find('h3').text(this.i18n('Please Confirm Action'));
+        element.find('.modal-body').text(this.i18n('Are you sure you want to perform this action?'));
         element.find('.btn-primary').text(this.i18n('confirm'));
         element.find('.btn-cancel').text(this.i18n('cancel'));
       }

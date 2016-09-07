@@ -13,7 +13,6 @@ $(function() {
         		item_delete_checkboxs[i].classList.add('collapse.in');
         	}
         }else{
-        	$('#id-display-private-ds-only').prop("checked", false);
         	for (i = 0; i < delete_buttons.length; i++) {
         		delete_buttons[i].classList.remove('collapse.in');
         		delete_buttons[i].classList.add('collapse');
@@ -23,5 +22,9 @@ $(function() {
         		item_delete_checkboxs[i].classList.add('collapse');
         	}
         }
+    });
+	
+	$(document).ready(function(){
+        $('#id-delete-dss').prop('checked', false);
     });
 });

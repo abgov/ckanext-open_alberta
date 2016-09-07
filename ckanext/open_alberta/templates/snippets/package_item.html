@@ -26,12 +26,12 @@ Example:
 {% if c.display_private_only and not package.private %}
 {% else %}
 <div class="row {{ item_class or "dataset-item" }}">
-    {% if package.private %}
-    <span class="checkbox">
+    {% if package.get('state', '').startswith('draft') %}
+    <div class="checkbox">
       <label for="{{ package.id }}" name="pkg-item-delete-label" class="lable-danger-item-delete collapse">
           <input type="checkbox" id="{{ package.id }}" name="{{ package.id }}"  />{{ _("Mark to delete") }}
       </label> 
-    </span>
+    </div>
     {% endif %} 
     <div class="col-sm-12 col-md-8 nopadding">
     {% block content %}

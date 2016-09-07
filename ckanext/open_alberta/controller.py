@@ -200,9 +200,3 @@ class PackagesDeleteController(PackageController):
         return render('/dashboard/datasets',
                       extra_vars={'dataset_type': dataset_type})
 
-class PackagePermissionController(base.BaseController)
-    """ This controller is used to check permissio of current user 
-        on the dataset.
-    """
-    def check_permission(self):
-        pass

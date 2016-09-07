@@ -1,5 +1,6 @@
 {# base.html #}
 {% ckan_extends %}
+
 {% block styles %}
 <link rel="stylesheet" href="/css/font-awesome.css">
 {% resource 'open_alberta/css/main.css' %}
@@ -13,6 +14,7 @@
 {% resource 'open_alberta/js/delete_ds.js' %}
 {% resource 'open_alberta/js/confirm-action-delete-items.js' %}
 {% endblock %}
+
 {% block bodytag %}
 class="alberta-theme" {{ super() }}
 {% endblock %}
