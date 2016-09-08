@@ -1,4 +1,5 @@
 import logging
+import re
 from datetime import datetime
 import urlparse
 import requests
@@ -22,6 +23,7 @@ import ckan.lib.captcha as captcha
 unflatten = dictization_functions.unflatten
 
 _NOT_AUTHORIZED = _('Not authorized to see this page')
+_UNEXPECTED_ERROR = _('Server error. Please contact technical support.')
 
 
 class SuggestController(base.BaseController):
@@ -208,21 +210,33 @@ class PackageCloneController(BaseController):
               Successful clone return value: 
                   {'status': 'success', 
                    'redirect_url': <URL of data set edit page>
-                   }
+                  }
               Data validation error return value:
                   {'status': 'error',
                    'errors': {<field1>: [<validation error message>],
                               <field2>: [<validation error message>]}
                   }
-              Unspecified error return value:
+              Any other (unexpected) error:
                   {'status': 'error',
-                   'error': 'Exception on backend'
+                   'errorMessage': <message>
                   }
         """
         logger = logging.getLogger(__name__)
+
         if toolkit.request.method == 'POST':
             try:
+                # TODO: handle publication
                 pkg = toolkit.get_action('package_show')(None, dict(id=id))
+
+                cfg_adst = config.get('ckanext.openalberta.clonable_ds_types', 'opendata,publication')
+                allowed_types = set(re.split('\s*,\s*', cfg_adst))
+                if pkg['type'] not in allowed_types:
+                    logger.warn('Requested cloning of unsupported package type (%s). Supported types: %s.',
+                                pkg['type'], cfg_adt)
+                    return {
+                        'status': 'error',
+                        'errorMessage': _('This package type is not allowed to be cloned.')
+                    }
 
                 pkg['title'] = toolkit.request.params.getone('title')
                 pkg['name'] = toolkit.request.params.getone('name')
@@ -237,6 +251,14 @@ class PackageCloneController(BaseController):
                     'redirect_url': h.url_for(controller='package', action='edit', id=newpkg['name'])
                 }
             except toolkit.ValidationError as ve:
+                errflds = set(ve.error_dict.keys()) - {'title', 'name'}
+                if errflds:
+                    # There are validation errors other than title and name (slug).
+                    # If this happens, it means something is wrong with the package
+                    return {
+                        'status': 'error',
+                        'errorMessage': _('The data set is in an invalid state. Please correct it before trying to clone.')
+                    }
                 return {
                     'status': 'error',
                     'errors': ve.error_dict
@@ -245,7 +267,7 @@ class PackageCloneController(BaseController):
                 logger.exception('Error in PackageCloneController:index')
                 return {
                     'status': 'error',
-                    'error': 'Exception on backend'
+                    'errorMessage': _UNEXPECTED_ERROR
                 }
 
         else:

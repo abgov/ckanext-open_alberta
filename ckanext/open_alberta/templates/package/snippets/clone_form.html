@@ -3,6 +3,7 @@
 <h2>{% block page_heading %}{{ _('Clone') }} {{ h.dataset_display_name(pkg) }}{% endblock %}</h2>
 
 <form id="id-clone-ds-form" class="dataset-form form-horizontal" method="post" action="{{ h.url_for('clone', id=pkg.name) }}">
+    <div class="top-error-msg">Unexpected error message goes here...</div>
 {% block package_basic_fields_title %}
   {{ form.input('title', id='field-title', label=_('Title'), placeholder=_('New Title'), 
                 attrs={'data-module': 'slug-preview-target'}, is_required=True) }}

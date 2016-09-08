@@ -2427,3 +2427,12 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
 .alberta-theme table tr.odd { background: #ffffff; }
 .alberta-theme table tr td { border-bottom: 0; border-right: 1px solid #dddddd; padding: 6px 12px; max-width: 200px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 .alberta-theme table tr td a { font-weight: 700; text-decoration: underline; color: #000; }
+
+#id-clone-ds-form .top-error-msg {
+    border: solid red 1px;
+    background-color: #FFE0E0;
+    color: red;
+    padding: 0.5em;
+    font-weight: bold;
+    display: none;
+}
