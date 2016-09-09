@@ -104,22 +104,22 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
             will not bed checked. If published date field is empty, 
             no check on private field.
         """ 
-        print(pkg_dict.get('state'))
         if not pkg_dict.get('date_published'):
             return pkg_dict
+        
+        if pkg_dict['private'] == False: #public
+            return pkg_dict
 
+        # private   
         date_published = parse(pkg_dict['date_published'])
         today = datetime.datetime.now()
         if today < date_published:
             """date_published is later than today"""
             return pkg_dict
         else:
-            if pkg_dict['private'] == False: #public
-                return pkg_dict
-            else: # private
-                pkg_dict['private'] = False
-                pkg_dict['state'] = 'active'
-                datasets = toolkit.get_action('package_update')(
+            pkg_dict['private'] = False
+            pkg_dict['state'] = 'active'
+            datasets = toolkit.get_action('package_update')(
                             data_dict=pkg_dict)
         return pkg_dict
 
