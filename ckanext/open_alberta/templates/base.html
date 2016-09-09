@@ -6,10 +6,12 @@
 {% resource 'open_alberta/css/ab-opengov.css' %}
 {% endblock %}
 {% block scripts %}
+{% resource 'open_alberta/js/jquery-ui.js' %}
 {% resource 'open_alberta/js/ckan-wk.js' %}
 {% resource 'open_alberta/js/addthis.js' %}
 {% resource 'open_alberta/js/abca.js' %}
 {% resource 'open_alberta/js/private-ds.js' %}
+{% resource 'open_alberta/js/date-fix.js' %}
 {% endblock %}
 {% block bodytag %}
 class="alberta-theme" {{ super() }}
