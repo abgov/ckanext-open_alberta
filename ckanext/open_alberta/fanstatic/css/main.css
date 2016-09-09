@@ -2435,3 +2435,42 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
 .alberta-theme table tr.odd { background: #ffffff; }
 .alberta-theme table tr td { border-bottom: 0; border-right: 1px solid #dddddd; padding: 6px 12px; max-width: 200px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 .alberta-theme table tr td a { font-weight: 700; text-decoration: underline; color: #000; }
+
+/*
+ * Fixes against alberta theme effect on jQuery UI date picker
+ */
+.alberta-theme .ui-widget-header {
+    background: #f39b30;
+}
+
+.alberta-theme .ui-datepicker table {
+    border-bottom: none;
+    padding: 0;
+}
+.alberta-theme .ui-datepicker thead tr th { 
+    background: white; 
+    border: 0; padding: 5px 0; max-width: 200px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; 
+}
+.alberta-theme .ui-datepicker td {
+    border: none;
+    padding: 3px;
+}
+.alberta-theme .ui-datepicker td a {
+    text-decoration: none;
+}
+.alberta-theme .ui-widget-header a {
+    cursor: pointer;
+}
+.alberta-theme .ui-widget-header a.ui-state-hover {
+    background: transparent;
+    border: 2px solid #f39b30;
+    top: 2px;
+}
+.alberta-theme a.ui-datepicker-prev-hover {
+    left: 2px;
+}
+.alberta-theme a.ui-datepicker-next-hover {
+    right: 2px;
+}
+
+
