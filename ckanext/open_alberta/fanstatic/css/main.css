@@ -2073,13 +2073,21 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme header.site-header .nav-sub-section { /* HIDDEN BY DEFAULT: REVEAL BY ADDING "opened" CLASS */ display: none; }
 .alberta-theme header.site-header .nav-sub-section.opened { display: inline-block; }
 .alberta-theme header.site-header .local-nav-top { background-color: #f39b30; }
-.alberta-theme header.site-header .local-nav-top nav { display: block; width: 100%; white-space: nowrap; overflow-y: hidden; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.alberta-theme header.site-header .local-nav-top nav { display: block; width: 100%; overflow-y: hidden; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
 @media screen and (min-width: 480px) {
     .alberta-theme header.site-header .local-nav-top nav ul li.navbar-right {
         float: right !important;
         margin-right: 0;
     }
 }
+
+@media screen and (max-width:480px) {
+    .alberta-theme header.site-header .local-nav-top nav {
+        white-space: nowrap;
+    }
+}
+
 .alberta-theme header.site-header .local-nav-top nav ul li { margin-right: 24px; }
 .alberta-theme header.site-header .local-nav-top nav ul li.active { background-image: url("../img/subnav-active.png"); background-position: bottom center; background-repeat: no-repeat; }
 .alberta-theme header.site-header .local-nav-top nav ul li.active a { color: #333132; }
