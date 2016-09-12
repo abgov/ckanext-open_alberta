@@ -32,7 +32,7 @@ def get_organizations():
     command = "curl -X GET -H \"Authorization: {0}\" {1}".format(sysadmin_APIKEY, url)
     response = subprocess.check_output(command, shell=True)
     response = json.loads(response)
-    return response['result']
+    return response.get('result')
 
 
 def call_organization_api(organizations=[]):
