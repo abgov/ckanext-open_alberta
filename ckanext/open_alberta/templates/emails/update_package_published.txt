@@ -1,0 +1,12 @@
+Dear {{ user_name }},
+
+Your dataset "{{ pkg_name }}"" on {{ site_title }} is updated to public.
+
+Please click the following link to check the dataset:
+
+{{ update_link }}
+
+Have a nice day.
+
+--
+Message sent by {{ site_title }} ({{ site_url }})
