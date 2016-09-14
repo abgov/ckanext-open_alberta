@@ -72,7 +72,7 @@ Cronjob config
 
 Add the following line after running the comamnd `crontab -e`, replace with your sysadmin_APIKEY first.
      
-     0     0     *     *     *     python /usr/lib/ckan/default/src/ckanext-open_alberta/bin/auto_date_published_cronjob.py  <sysAdmin_APIKEY> 
+     0     0     *     *     *     python /usr/lib/ckan/default/src/ckanext-open_alberta/bin/auto_date_published_cronjob.py  <sysAdmin_APIKEY>  2>&1 >> /usr/lib/ckan/default/src/ckanext-open_alberta/cronjob.log
 
        
 ------------

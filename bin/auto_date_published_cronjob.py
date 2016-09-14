@@ -13,6 +13,10 @@ import json
 import os
 import sys
 import subprocess
+import timeit
+import time
+import datetime
+
 
 site_url = "http://localhost"
 sysadmin_APIKEY = ""
@@ -32,6 +36,10 @@ def get_organizations():
     command = "curl -X GET -H \"Authorization: {0}\" {1}".format(sysadmin_APIKEY, url)
     response = subprocess.check_output(command, shell=True)
     response = json.loads(response)
+    if response.get("error"):
+        print("Error: {0}\n".format(response.get("error").get("message")))
+        print("Program exit")
+        sys.exit(1)
     return response.get('result')
 
 
@@ -51,8 +59,13 @@ def usage():
     sys.exit(1)
 
 if __name__ == "__main__":
+    print("{0}\n".format(datetime.datetime.now()))
+    start = timeit.default_timer()
     if len(sys.argv) != 2:
         usage()
     sysadmin_APIKEY = sys.argv[1]
     check_date_published_in_database()
+    stop = timeit.default_timer()
+    runtime = time.strftime("%H:%M:%S", time.gmtime(stop-start))
+    print("Run time: {0}\n".format(runtime))
     print("Program auto_date_published_cronjob.py exit.\n")
