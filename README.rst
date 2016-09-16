@@ -70,9 +70,9 @@ To install ckanext-open_alberta for development, activate your CKAN virtualenv a
 Cronjob config
 ---------------
 
-Add the following line after running the comamnd `crontab -e`, replace with your sysadmin_APIKEY first.
+Add the following line after running the comamnd `crontab -e`, replace with your ini_config_file first.
      
-     0     0     *     *     *     python /usr/lib/ckan/default/src/ckanext-open_alberta/bin/auto_date_published_cronjob.py  <sysAdmin_APIKEY>  2>&1 >> /usr/lib/ckan/default/src/ckanext-open_alberta/cronjob.log
+     0     0     *     *     *    /usr/lib/ckan/default/bin/paster --plugin=ckanext-open_alberta notify_published -c <ini_config_file>  2>&1 >> /usr/lib/ckan/default/src/ckanext-open_alberta/cronjob.log
 
        
 ------------

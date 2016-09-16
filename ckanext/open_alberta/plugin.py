@@ -3,12 +3,10 @@ import ckan.plugins.toolkit as toolkit
 from ckanext.open_alberta import helpers
 import pylons.config as config
 import datetime
-from dateutil.parser import parse
 import ckan.lib.base as base
 import ckan.lib.mailer as mailer
 import ckan.lib.helpers as h
 from ckan.lib.base import render_jinja2
-from urlparse import urljoin
 
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
@@ -27,36 +25,6 @@ def latest_datasets():
         data_dict={'rows': 4, 'sort': 'metadata_created desc' })
 
     return datasets['results']
-
-def get_update_link(pkg_dict):
-    return urljoin(config.get('ckan.site_url'),  
-                   h.url_for(controller='package',
-                             action='read',
-                             id=pkg_dict['name']))
-
-
-def get_update_package_body(user, pkg_dict):
-    extra_vars = {
-        'update_link': get_update_link(pkg_dict),
-        'site_title': config.get('ckan.site_title'),
-        'site_url': config.get('ckan.site_url'),
-        'user_name': user.name,
-        'pkg_name': pkg_dict['name'],
-        }
-    # NOTE: This template is translated
-    return render_jinja2('emails/update_package_published.txt', extra_vars)
-
-def send_package_update_mail(creator, pkg_dict):
-    body = get_update_package_body(creator, pkg_dict)
-    extra_vars = {
-        'site_title': config.get('ckan.site_title')
-    }
-    subject = render_jinja2('emails/update_package_published_subject.txt', extra_vars)
-
-    # Make sure we only use the first line
-    subject = subject.split('\n')[0]
-
-    mailer.mail_user(creator, subject, body)
 
 
 class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
@@ -127,42 +95,6 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.interfaces.IActions)
-    plugins.implements(plugins.IPackageController, inherit=True)
-
-    #IPackageController
-    def before_view(self, pkg_dict):
-        """ check the published date. If it is after current date,
-            the private field will be checked and turn to public if
-            it is private, and update dataset in database. 
-            If before or equal to current date, the private field 
-            will not bed checked. If published date field is empty, 
-            no check on private field.
-        """ 
-        if not pkg_dict.get('date_published'):
-            return pkg_dict
-        
-        if pkg_dict['private'] == False: #public
-            return pkg_dict
-
-        # private   
-        date_published = parse(pkg_dict['date_published'])
-        today = datetime.datetime.now()
-        if today < date_published:
-            """date_published is later than today"""
-            return pkg_dict
-        else:
-            current_user = toolkit.get_action(u'user_show')(
-                data_dict={u'id': base.c.userobj.name})
-            creator = toolkit.get_action(u'user_show')(
-                data_dict={u'id': pkg_dict['creator_user_id']})
-            creator = ObjectAttr(creator)
-            if current_user.get("sysadmin"):
-                pkg_dict['private'] = False
-                pkg_dict['state'] = 'active'
-                datasets = toolkit.get_action('package_update')(
-                            data_dict=pkg_dict)
-                send_package_update_mail(creator, pkg_dict)
-        return pkg_dict
 
     #IConfigurer
     def update_config(self, config_):
@@ -178,10 +110,6 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     def get_actions(self):
         # Registers the custom API method defined above
         return {'counter_on': counter_on_off}
-
-class ObjectAttr(object):
-    def __init__(self, dict):
-        self.__dict__ = dict
 
 class DateSearchPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
