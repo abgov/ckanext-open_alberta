@@ -10,6 +10,11 @@ from urlparse import urljoin
 from dateutil.parser import parse
 import pylons.config as config
 from ckan.lib.base import render_jinja2
+import time
+import datetime
+import logging
+
+log = logging.getLogger(__name__)
 
 def get_update_links(pkg_names):
     names = []
@@ -40,13 +45,12 @@ def send_packages_update_mail(user, pkg_names):
     # Make sure we only use the first line
     subject = subject.split('\n')[0]
     mailer.mail_user(user, subject, body)
-    print("Email sent to {0}.".format(user.name))
+    log.info("Email sent to {0}.".format(user.name))
     
 
 def update_private_package(context, pkg_dict):
     if not pkg_dict.get('date_published'):
         return False
-
     # private dataset
     date_published = parse(pkg_dict['date_published'])
     today = datetime.datetime.now()
@@ -58,32 +62,27 @@ def update_private_package(context, pkg_dict):
         pkg_dict['state'] = 'active'
         datasets = tk.get_action('package_update')(
                     context=context, data_dict=pkg_dict)
-        print("Dataset '{0}' is updated.".format(pkg_dict['name']))
+        log.info("Dataset '{0}' is updated.".format(pkg_dict['name']))
     return True
-
-def get_org_admin(users_dict):
-    admin_ids =[]
-    for user in users_dict:
-        if user['capacity'] == 'admin':
-            admin_ids.append(user['id'])
-    return admin_ids
-
-
 
 class NotifyPublishedCommand(CkanCommand):
     '''
+      This class is used for paster command to auto update packages based on the
+      published date. If the date is before or the same day of current date, the 
+      package will be auto updated and email will be sent to user, org_admin and
+      sys_admin.
     '''
     summary = __doc__.split('\n')[0]
     usage = __doc__
     max_args = 9
     min_args = 0
     
-
     def __init__(self,name):
         super(NotifyPublishedCommand,self).__init__(name)
 
-
     def command(self):
+        log.info(str(datetime.datetime.now()))
+        start_time = time.time()
         self._load_config()
          
         context = {'model': ckan.model,
@@ -102,16 +101,17 @@ class NotifyPublishedCommand(CkanCommand):
                 }
         organizations = tk.get_action("organization_list")(published_context, data_dict={})
         if not organizations:
+            log.info("No organization exists")
             raise("No organization exists")
 
         for org_name in organizations:
             # get all users in organization
             respond = tk.get_action("organization_show")(published_context, data_dict={"id": org_name})
-            print("In organization '{0}'".format(org_name))
+            log.info("In organization '{0}'".format(org_name))
             if not respond.get("users"):
-                print("No user in origanization '{0}'.".format(org_name))
+                log.info("No user in origanization '{0}'.".format(org_name))
             else:
-                org_admin_ids = get_org_admin(respond.get("users"))
+                org_admin_ids = [ user['id']  for user in respond.get("users") if user['capacity'] == 'admin' ]
                 updated_pkgs_name_org_admin = []
 
                 for user in respond.get("users"):
@@ -141,14 +141,16 @@ class NotifyPublishedCommand(CkanCommand):
                     o_adm = ckan.model.User.get(org_adm_id)
                     send_packages_update_mail(o_adm, updated_pkgs_name_org_admin)
             else:
-                print("No update for origanization '{0}'.".format(org_name))
+                log.info("No update for origanization '{0}'.".format(org_name))
 
-            print("Origanization {0} are done.\n".format(org_name))
+            log.info("Origanization {0} are done.\n".format(org_name))
 
         # send email to sys admin
         if updated_pkgs_name_sys_admin:
             admin_user_dict = tk.get_action("user_show")(data_dict={"id": admin_user.get('name')})
             admin_user = ckan.model.User.get(admin_user_dict.get('id'))
             send_packages_update_mail(admin_user, updated_pkgs_name_sys_admin)
-
-        print 'All done'
+            
+        run_time = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
+        log.info("Run time: ".format(run_time))
+        log.info('All done')
