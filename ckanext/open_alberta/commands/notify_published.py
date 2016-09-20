@@ -25,7 +25,6 @@ def get_update_links(pkg_names):
                              id=name)))
     return names
 
-
 def get_update_package_body(user, pkg_names):
     extra_vars = {
         'update_links': get_update_links(pkg_names),
@@ -49,10 +48,10 @@ def send_packages_update_mail(user, pkg_names):
     
 
 def update_private_package(context, pkg_dict):
-    if not pkg_dict.get('date_published'):
+    if not pkg_dict.get('published_date'):
         return False
     # private dataset
-    date_published = parse(pkg_dict['date_published'])
+    date_published = parse(pkg_dict['published_date'])
     today = datetime.datetime.now()
     if today < date_published:
         """date_published is later than today"""
@@ -150,7 +149,7 @@ class NotifyPublishedCommand(CkanCommand):
             admin_user_dict = tk.get_action("user_show")(data_dict={"id": admin_user.get('name')})
             admin_user = ckan.model.User.get(admin_user_dict.get('id'))
             send_packages_update_mail(admin_user, updated_pkgs_name_sys_admin)
-            
+
         run_time = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
         log.info("Run time: ".format(run_time))
         log.info('All done')
