@@ -44,7 +44,7 @@ def send_packages_update_mail(user, pkg_names):
     # Make sure we only use the first line
     subject = subject.split('\n')[0]
     mailer.mail_user(user, subject, body)
-    log.info("Email sent to {0}.".format(user.name))
+    log.debug("Email sent to {0}.".format(user.name))
     
 
 def update_private_package(context, pkg_dict):
@@ -61,7 +61,7 @@ def update_private_package(context, pkg_dict):
         pkg_dict['state'] = 'active'
         datasets = tk.get_action('package_update')(
                     context=context, data_dict=pkg_dict)
-        log.info("Dataset '{0}' is updated.".format(pkg_dict['name']))
+        log.debug("Dataset '{0}' is updated.".format(pkg_dict['name']))
     return True
 
 class NotifyPublishedCommand(CkanCommand):
@@ -80,7 +80,7 @@ class NotifyPublishedCommand(CkanCommand):
         super(NotifyPublishedCommand,self).__init__(name)
 
     def command(self):
-        log.info(str(datetime.datetime.now()))
+        log.debug(str(datetime.datetime.now()))
         start_time = time.time()
         self._load_config()
          
@@ -100,15 +100,15 @@ class NotifyPublishedCommand(CkanCommand):
                 }
         organizations = tk.get_action("organization_list")(published_context, data_dict={})
         if not organizations:
-            log.info("No organization exists")
+            log.debug("No organization exists")
             raise("No organization exists")
 
         for org_name in organizations:
             # get all users in organization
             respond = tk.get_action("organization_show")(published_context, data_dict={"id": org_name})
-            log.info("In organization '{0}'".format(org_name))
+            log.debug("In organization '{0}'".format(org_name))
             if not respond.get("users"):
-                log.info("No user in origanization '{0}'.".format(org_name))
+                log.debug("No user in origanization '{0}'.".format(org_name))
             else:
                 org_admin_ids = [ user['id']  for user in respond.get("users") if user['capacity'] == 'admin' ]
                 updated_pkgs_name_org_admin = []
@@ -140,9 +140,9 @@ class NotifyPublishedCommand(CkanCommand):
                     o_adm = ckan.model.User.get(org_adm_id)
                     send_packages_update_mail(o_adm, updated_pkgs_name_org_admin)
             else:
-                log.info("No update for origanization '{0}'.".format(org_name))
+                log.debug("No update for origanization '{0}'.".format(org_name))
 
-            log.info("Origanization {0} are done.\n".format(org_name))
+            log.debug("Origanization {0} are done.\n".format(org_name))
 
         # send email to sys admin
         if updated_pkgs_name_sys_admin:
@@ -151,5 +151,5 @@ class NotifyPublishedCommand(CkanCommand):
             send_packages_update_mail(admin_user, updated_pkgs_name_sys_admin)
 
         run_time = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
-        log.info("Run time: ".format(run_time))
-        log.info('All done')
+        log.debug("Run time: ".format(run_time))
+        log.debug('All done')
