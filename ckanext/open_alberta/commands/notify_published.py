@@ -1,5 +1,6 @@
 import sys
 from ckan.lib.cli import CkanCommand
+import ckan.logic as logic
 import ckan
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as tk
@@ -15,6 +16,7 @@ import datetime
 import logging
 
 log = logging.getLogger(__name__)
+ValidationError = logic.ValidationError
 
 def get_update_links(pkg_names):
     names = []
@@ -59,9 +61,13 @@ def update_private_package(context, pkg_dict):
     else:
         pkg_dict['private'] = False
         pkg_dict['state'] = 'active'
-        datasets = tk.get_action('package_update')(
+        try:
+            datasets = tk.get_action('package_update')(
                     context=context, data_dict=pkg_dict)
-        log.debug("Dataset '{0}' is updated.".format(pkg_dict['name']))
+        except ValidationError, e:
+            log.debug("Dataset '{0}' is NOT validated for update.".format(pkg_dict['name']))
+        else:
+            log.debug("Dataset '{0}' is updated.".format(pkg_dict['name']))
     return True
 
 class NotifyPublishedCommand(CkanCommand):
