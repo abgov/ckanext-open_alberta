@@ -1,6 +1,17 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckanext.open_alberta import helpers
+import pylons.config as config
+
+@toolkit.side_effect_free
+def counter_on_off(context, data_dict=None):
+    # Get the value of the ckan.open_alberta.counter_on
+    # setting from the CKAN config file as a string, or False if the setting
+    # isn't in the config file.
+    counter_on = config.get('ckan.open_alberta.counter_on', False)
+    # Convert the value from a string to a boolean.
+    counter_on = toolkit.asbool(counter_on)
+    return {"counter_on": counter_on}
 
 
 def latest_datasets():
@@ -79,6 +90,7 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
 class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.interfaces.IActions)
 
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
@@ -87,6 +99,10 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
 
     def get_helpers(self):
         return {'open_alberta_latest_datasets': latest_datasets}
+
+    def get_actions(self):
+        # Registers the custom API method defined above
+        return {'counter_on': counter_on_off}
 
 class DateSearchPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -128,3 +144,6 @@ class RssFeedsWidget(plugins.SingletonPlugin):
             'rss_fetch_feed': helpers.fetch_feed,
         }
 
+    
+
+    

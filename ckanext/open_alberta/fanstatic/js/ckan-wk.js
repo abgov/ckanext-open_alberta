@@ -1,11 +1,4 @@
-//Document-level functionality
-$(document).ready(function(){
-    activateTabs();
-    loadDatasetNumbers();
-    //var myURL = window.location.pathname.toLowerCase();
-    //var dataset_type = $.QueryString['dataset_type'];
-});
-
+var counter_on = false;
 var countFP = 0;
 var countDS = 0;
 var countPN = 0;
@@ -19,9 +12,36 @@ var delayFP = 0;
 var delayDS = 0;
 var delayPN = 0;
 
+
+//Document-level functionality
+$(document).ready(function(){
+    activateTabs();
+    
+    $.ajax({url: '/api/3/action/counter_on', 
+        async: false,
+        success: function(q){
+                counter_on = q.result.counter_on;
+                if (Boolean(counter_on)){
+                    loadDatasetNumbers();
+                }   
+            },
+        error: function(){
+                alert("Counter_on function not working.\n" +
+                    "Please check if the two lines below in the config ini file.\n" +
+                    "## Counter control on the home page ##\n" +
+                    "ckan.open_alberta.counter_on = true\n");
+        
+            }
+    });
+        
+    //var myURL = window.location.pathname.toLowerCase();
+    //var dataset_type = $.QueryString['dataset_type'];
+});
+
+
 function loadDatasetNumbers(){
     try{
-    
+        
         if($('#query-count-documentation').length > 0 ||
            $('#query-count-publications').length > 0 ||
            $('#query-count-opendata').length > 0 ||
@@ -31,37 +51,54 @@ function loadDatasetNumbers(){
                     delayFP--;
                 }else{
                     if(countFP <= targetFP){
-                        $('#query-count-documentation h4').html(addCommas(countFP));
-                        countFP += Math.max(1,Math.floor((targetFP - countFP)/10));
+                        if (targetFP==0){
+                            $('#query-count-documentation h4').html('');
+                        }else{
+                            $('#query-count-documentation h4').html(addCommas(targetFP));
+                        }
+                        /*countFP += Math.max(1,Math.floor((targetFP - countFP)/1));*/
                     }
                 }
                 if(delayDS > 0){
                     delayDS--;
                 }else{
                     if(countDS <= targetDS){
-                        $('#query-count-dataset h4').html(addCommas(countDS));
-                        countDS += Math.max(1,Math.floor((targetDS - countDS)/10));
+                        if (targetDS==0){
+                            $('#query-count-dataset h4').html('');
+                        }
+                        else{
+                            $('#query-count-dataset h4').html(addCommas(targetDS));
+                        }
+                        /*countDS += Math.max(1,Math.floor((targetDS - countDS)/10));*/
                     }
                 }
                 if(delayOD > 0){
                     delayOD--;
                 }else{
                     if(countOD <= targetOD){
-                        $('#query-count-opendata h4').html(addCommas(countOD));
-                        countOD += Math.max(1,Math.floor((targetOD - countOD)/10));
+                        if (targetOD==0){
+                             $('#query-count-opendata h4').html('');
+                        }else{
+                             $('#query-count-opendata h4').html(addCommas(targetOD));
+                        }
+                        /*countOD += Math.max(1,Math.floor((targetOD - countOD)/10));*/
                     }
                 }
                 if(delayPN > 0){
                     delayPN--;
                 }else{
                     if(countPN <= targetPN){
-                        $('#query-count-publications h4').html(addCommas(countPN));
-                        countPN += Math.max(1,Math.floor((targetPN - countPN)/10));
+                        if (targetPN==0){
+                            $('#query-count-publications h4').html('');
+                        }else{
+                            $('#query-count-publications h4').html(addCommas(targetPN));
+                        }
+                        /*countPN += Math.max(1,Math.floor((targetPN - countPN)/10));*/
                     }
                 }
-            },100);
+            },5);
         }
-
+        
         if($('#query-count-documentation').length > 0){
             $.ajax({url: '/api/3/action/package_search?q=type:documentation', success: function(q){
                 delayFP = 10 + Math.floor(Math.random()*20);
