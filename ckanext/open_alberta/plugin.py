@@ -101,17 +101,49 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.interfaces.IActions)
+    plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IRoutes, inherit=True)
 
+    #IPackageController
+    def before_view(self, pkg_dict):
+        """ check the published date. If it is after current date,
+            the private field will be checked and turn to public if
+            it is private, and update dataset in database. 
+            If before or equal to current date, the private field 
+            will not bed checked. If published date field is empty, 
+            no check on private field.
+        """ 
+        if not pkg_dict.get('published_date'):
+            return pkg_dict
+        
+        if pkg_dict['private'] == False: #public
+            return pkg_dict
+
+        # private   
+        date_published = parse(pkg_dict['published_date'])
+        today = datetime.datetime.now()
+        if today < date_published:
+            """date_published is later than today"""
+            return pkg_dict
+        else:
+            pkg_dict['private'] = False
+            pkg_dict['state'] = 'active'
+            datasets = toolkit.get_action('package_update')(
+                            data_dict=pkg_dict)
+        return pkg_dict
+
+    #IConfigurer
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
-
+    
+    #ITemplateHelpers
     def get_helpers(self):
         return {'open_alberta_latest_datasets': latest_datasets,
                 'open_alberta_check_archive_date': check_archive_date}
 
+    #IActions
     def get_actions(self):
         # Registers the custom API method defined above
         return {'counter_on': counter_on_off}
