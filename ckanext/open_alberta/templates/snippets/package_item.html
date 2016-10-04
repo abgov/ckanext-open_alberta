@@ -27,6 +27,13 @@ Example:
 {# skip #}
 {% elif package.type == 'opendata' %}
 <div class="row {{ item_class or "dataset-item" }}">
+    {% if package.get('state', '').startswith('draft') %}
+    <div class="checkbox">
+      <label for="{{ package.id }}" name="pkg-item-delete-label" class="lable-danger-item-delete collapse">
+          <input type="checkbox" id="{{ package.id }}" name="{{ package.id }}"  />{{ _("Mark to delete") }}
+      </label> 
+    </div>
+    {% endif %} 
     <div class="col-sm-12 col-md-8 nopadding">
     {% block content %}
     <div class="dataset-content">
@@ -44,7 +51,7 @@ Example:
         {% block heading_title %}
         <div class="row">
             <div class="col-xs-12">
-                <h3 class="package-header"><a href="/{{package.type}}/{{package.name}}">{{package.title}}</a></h3>
+                <h3 class="package-header"><a href="/{{package.type}}/{{package.name}}" data-module="check_permission_package" data-module-id="{{ package.id }}">{{package.title}}</a></h3>
             </div>
         </div>
         {% endblock %}

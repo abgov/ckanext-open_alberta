@@ -2,6 +2,9 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckanext.open_alberta import helpers
 import pylons.config as config
+import datetime
+import dateutil.parser as parser
+
 
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
@@ -22,6 +25,17 @@ def latest_datasets():
 
     return datasets['results']
 
+def check_archive_date(archive_date=""):
+    """ Return false if archive_date is empty or later than today.
+        Otherwise, return true.  
+    """
+    if archive_date == "":
+        return False
+    today = datetime.datetime.now()
+    archive_date = parser.parse(archive_date)
+    if today < archive_date:
+        return False
+    return True
 
 class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IRoutes, inherit=True)
@@ -47,6 +61,7 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
         m.connect('licence' ,'/licence',
                     controller='ckanext.open_alberta.controller:PagesController',
                     action='licence')
+
 
 # /content/government-alberta-open-information-and-open-data-policy > /policy
         m.redirect('/content/government-alberta-open-information-and-open-data-policy', 
@@ -94,10 +109,13 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
-
+    
+    #ITemplateHelpers
     def get_helpers(self):
-        return {'open_alberta_latest_datasets': latest_datasets}
+        return {'open_alberta_latest_datasets': latest_datasets,
+                'open_alberta_check_archive_date': check_archive_date}
 
+    #IActions
     def get_actions(self):
         # Registers the custom API method defined above
         return {'counter_on': counter_on_off}
@@ -109,6 +127,10 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         m.connect('clone', '/dataset/clone/{id}',
                   controller='ckanext.open_alberta.controller:PackageCloneController',
                   action='index')
+
+        m.connect('delete-multiple' ,'/datasets/delete_multiple',
+                  controller='ckanext.open_alberta.controller:PackagesDeleteController',
+                  action='delete_datasets')
         return m
 
 
@@ -152,6 +174,3 @@ class RssFeedsWidget(plugins.SingletonPlugin):
             'rss_fetch_feed': helpers.fetch_feed,
         }
 
-    
-
-    

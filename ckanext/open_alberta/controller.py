@@ -8,13 +8,16 @@ import ckan.lib.base as base
 import ckan.plugins.toolkit as toolkit
 
 from ckan.common import _, request, c
+import ckan.model as model
 import ckan.lib.helpers as h
 import ckan.logic as logic
 import ckan.logic.schema as schema
 import ckan.lib.navl.dictization_functions as dictization_functions
 import ckan.lib.mailer as mailer
 from ckan.controllers.user import UserController
+from ckan.controllers.package import PackageController
 from ckan.lib.base import BaseController
+
 
 from pylons import config
 from pylons.decorators import jsonify
@@ -22,8 +25,15 @@ import ckan.lib.captcha as captcha
 
 unflatten = dictization_functions.unflatten
 
+NotFound = logic.NotFound
+NotAuthorized = logic.NotAuthorized
+get_action = logic.get_action
+abort = base.abort
+
+
 _NOT_AUTHORIZED = _('Not authorized to see this page')
 _UNEXPECTED_ERROR = _('Server error. Please contact technical support.')
+
 
 
 class SuggestController(base.BaseController):
@@ -180,6 +190,28 @@ class DashboardPackagesController(UserController):
         UserController.__before__(self, action, **env)
         c.display_private_only = True
 
+class PackagesDeleteController(PackageController):
+    """ This is used to delete multiple datasets"""
+    def delete_datasets(self):
+        if 'cancel' in request.params:
+            h.redirect_to(controller='package', action='search')
+
+        context = {'model': model, 'session': model.Session,
+                   'user': c.user or c.author, 'auth_user_obj': c.userobj}
+        try:
+            if request.method == 'POST':
+                for id in request.params:
+                    get_action('package_delete')(context, {'id': id})
+                h.flash_notice(_('Datasets have been deleted permanently.'))
+                h.redirect_to(controller='user', action='dashboard_datasets')
+            c.pkg_dict = get_action('package_show')(context, {'id': id})
+            dataset_type = c.pkg_dict['type'] or 'dataset'
+        except NotAuthorized:
+            abort(401, _('Unauthorized to delete package %s') % '')
+        except NotFound:
+            abort(404, _('Dataset not found'))
+        return render('/dashboard/datasets',
+                      extra_vars={'dataset_type': dataset_type})
 
 class PackageCloneController(BaseController):
     """ Controller to faciliatate cloning a package to ease up creating new
