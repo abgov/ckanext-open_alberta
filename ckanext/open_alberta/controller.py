@@ -1,8 +1,11 @@
-from logging import getLogger
+import logging
+import re
+from datetime import datetime
 import urlparse
 import requests
 import ckan.logic as logic
 import ckan.lib.base as base
+import ckan.plugins.toolkit as toolkit
 
 from ckan.common import _, request, c
 import ckan.lib.helpers as h
@@ -11,11 +14,16 @@ import ckan.logic.schema as schema
 import ckan.lib.navl.dictization_functions as dictization_functions
 import ckan.lib.mailer as mailer
 from ckan.controllers.user import UserController
+from ckan.lib.base import BaseController
 
 from pylons import config
+from pylons.decorators import jsonify
 import ckan.lib.captcha as captcha
 
 unflatten = dictization_functions.unflatten
+
+_NOT_AUTHORIZED = _('Not authorized to see this page')
+_UNEXPECTED_ERROR = _('Server error. Please contact technical support.')
 
 
 class SuggestController(base.BaseController):
@@ -171,4 +179,97 @@ class DashboardPackagesController(UserController):
     def __before__(self, action, **env):
         UserController.__before__(self, action, **env)
         c.display_private_only = True
+
+
+class PackageCloneController(BaseController):
+    """ Controller to faciliatate cloning a package to ease up creating new
+        data sets.
+    """
+
+    def __before__(self, action, **env):
+        """ Checks if the invoking user has permissions to create data sets.
+            If the permission check fails, HTTP 401 error is raised.
+        """
+        base.BaseController.__before__(self, action, **env)
+        self._context = dict(model=base.model,
+                             user=base.c.user,
+                             auth_user_obj=base.c.userobj)
+        try:
+            logic.check_access('package_create', self._context)
+        except logic.NotAuthorized:
+            base.abort(401, _NOT_AUTHORIZED)
+
+
+    @jsonify
+    def index(self, id):
+        """ Clone the specified data set record.
+            Arguments:
+              id (string): URL/slug of the data set.
+            Returns:
+              string: JSON response.
+              Successful clone return value: 
+                  {'status': 'success', 
+                   'redirect_url': <URL of data set edit page>
+                  }
+              Data validation error return value:
+                  {'status': 'error',
+                   'errors': {<field1>: [<validation error message>],
+                              <field2>: [<validation error message>]}
+                  }
+              Any other (unexpected) error:
+                  {'status': 'error',
+                   'errorMessage': <message>
+                  }
+        """
+        logger = logging.getLogger(__name__)
+
+        if toolkit.request.method == 'POST':
+            try:
+                # TODO: handle publication
+                pkg = toolkit.get_action('package_show')(None, dict(id=id))
+
+                cfg_adst = config.get('ckanext.openalberta.clonable_ds_types', 'opendata,publication')
+                allowed_types = set(re.split('\s*,\s*', cfg_adst))
+                if pkg['type'] not in allowed_types:
+                    logger.warn('Requested cloning of unsupported package type (%s). Supported types: %s.',
+                                pkg['type'], cfg_adt)
+                    return {
+                        'status': 'error',
+                        'errorMessage': _('This package type is not allowed to be cloned.')
+                    }
+
+                pkg['title'] = toolkit.request.params.getone('title')
+                pkg['name'] = toolkit.request.params.getone('name')
+                pkg['date_created'] = pkg['date_modified'] = datetime.now()
+                pkg['state'] = 'draft'
+                del pkg['id']
+
+                action = toolkit.get_action('package_create')
+                newpkg = action(self._context, pkg)
+                return {
+                    'status': 'success',
+                    'redirect_url': h.url_for(controller='package', action='edit', id=newpkg['name'])
+                }
+            except toolkit.ValidationError as ve:
+                errflds = set(ve.error_dict.keys()) - {'title', 'name'}
+                if errflds:
+                    # There are validation errors other than title and name (slug).
+                    # If this happens, it means something is wrong with the package
+                    return {
+                        'status': 'error',
+                        'errorMessage': _('The data set is in an invalid state. Please correct it before trying to clone.')
+                    }
+                return {
+                    'status': 'error',
+                    'errors': ve.error_dict
+                }
+            except:
+                logger.exception('Error in PackageCloneController:index')
+                return {
+                    'status': 'error',
+                    'errorMessage': _UNEXPECTED_ERROR
+                }
+
+        else:
+            toolkit.abort(403, _NOT_AUTHORIZED)
 
