@@ -49,7 +49,7 @@ def update_private_package(context, pkg_dict):
 
     # private dataset
     date_published = parse(pkg_dict['date_published'])
-    today = datetime.datetime.now()
+    today = datetime.date.today()
     if today < date_published:
         """date_published is later than today"""
         return False

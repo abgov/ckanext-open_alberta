@@ -1,0 +1,9 @@
+{% block subject %}{{ subject }}{% endblock %}
+{%- block header %}Dear {{ user_name }},{% endblock %}
+{% block body %}
+{% endblock -%}
+{%- block footer %}
+---------
+This email has been auto-generated. Please do not respond to it.
+Message sent by {{ site_title }} ({{ site_url }})
+{% endblock %}

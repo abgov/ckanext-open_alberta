@@ -8,6 +8,7 @@ import ckan.lib.mailer as mailer
 import ckan.lib.helpers as h
 from ckan.lib.base import render_jinja2
 
+
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
     # Get the value of the ckan.open_alberta.counter_on
@@ -17,6 +18,7 @@ def counter_on_off(context, data_dict=None):
     # Convert the value from a string to a boolean.
     counter_on = toolkit.asbool(counter_on)
     return {"counter_on": counter_on}
+
 
 def latest_datasets():
     '''Return latest datasets.'''
@@ -91,6 +93,7 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
 
         return m
 
+
 class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
@@ -110,6 +113,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     def get_actions(self):
         # Registers the custom API method defined above
         return {'counter_on': counter_on_off}
+
 
 class DateSearchPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -151,6 +155,36 @@ class RssFeedsWidget(plugins.SingletonPlugin):
             'rss_fetch_feed': helpers.fetch_feed,
         }
 
-    
 
-    
+class ReviewPlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IConfigurable)
+    plugins.implements(plugins.ITemplateHelpers)
+
+    def before_map(self, m):
+        m.connect('review' ,'/dataset/review/{id}',
+                  controller='ckanext.open_alberta.controller:ReviewController',
+                  action='mark_reviewed')
+        return m
+
+    # IConfigurable
+    # This is called on CKAN startup and before executing various paster commands
+    def configure(self, config):
+        self._register_reviewed_activity()
+
+    def get_helpers(self):
+        return {'is_future_date': helpers.is_future_date }
+
+    _REVIEWED_STR = "{actor} reviewed dataset {dataset}"
+
+    def _register_reviewed_activity(self):
+        """ Add 'package reviewed' activity support by monkey patching CKAN
+        """
+        from ckan.lib.activity_streams import (activity_stream_string_functions as as_funcs,
+                                               activity_stream_string_icons as as_icons)
+        from ckan.logic.validators import object_id_validators
+        from ckan.common import _
+        as_funcs['package reviewed'] = lambda *args: _(self._REVIEWED_STR)
+        as_icons['package reviewed'] = 'certificate'
+        object_id_validators['package reviewed'] = toolkit.get_validator('package_id_exists')
+
