@@ -117,10 +117,11 @@ class NotifyPublishedCommand(CkanCommand):
                 for user in respond.get("users"):
                     #check private datasets for the user
                     q = {
-                        'include_private': 'true',
-                        'fq': "private:true"
+                        #'include_private': 'true',
+                        'fq': "capacity:private"
                     }
                     q['fq'] = "{0} +creator_user_id:{1} +owner_org:{2}".format(q['fq'], user['id'], respond.get("id"))
+                    published_context['ignore_capacity_check'] = 'True'
                     search_results = tk.get_action("package_search")(published_context, data_dict=q)
                     try: 
                         pkgs = search_results['results']
