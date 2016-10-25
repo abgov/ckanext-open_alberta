@@ -96,7 +96,7 @@ class NotifyPublishedCommand(CkanCommand):
         
         admin_user = tk.get_action('get_site_user')(context,{})
         updated_pkgs_name_sys_admin = []
-
+        max_number_rows = 1000  # each time rows count maximum of package search
         #get organizations
         published_context = {
                     'model': ckan.model,
@@ -123,22 +123,35 @@ class NotifyPublishedCommand(CkanCommand):
                     #check private datasets for the user
                     q = {
                         'include_private': 'true',
-                        'fq': "private:true"
+                        'fq': "private:true",
+                        'rows': max_number_rows
                     }
                     q['fq'] = "{0} +creator_user_id:{1} +owner_org:{2}".format(q['fq'], user['id'], respond.get("id"))
                     search_results = tk.get_action("package_search")(published_context, data_dict=q)
-                    try: 
-                        pkgs = search_results['results']
-                    except keyError:
-                        continue
+                    # because sometimes count is more than max_number_rows
+                    count = search_results['count']
+                    if count > max_number_rows:
+                        page = count/max_number_rows
+                        if count % max_number_rows > 0:
+                            page += 1
+                        for i in range(page):
+                            q = {
+                                'include_private': 'true',
+                                'fq': "private:true",
+                                'start': i * max_number_rows,
+                                'rows': max_number_rows
+                            }
+                            q['fq'] = "{0} +creator_user_id:{1} +owner_org:{2}".format(q['fq'], user['id'], respond.get("id"))
+                            search_results = tk.get_action("package_search")(published_context, data_dict=q)
+                            updated_pkgs_name = self._update_packages_send_mail(search_results, published_context, user)
+                            if updated_pkgs_name:
+                                updated_pkgs_name_org_admin.extend(updated_pkgs_name)
+                                updated_pkgs_name_sys_admin.extend(updated_pkgs_name)
                     else:
-                        updated_pkgs_name = [pkg['name'] for pkg in pkgs if update_private_package(published_context, pkg)]
+                        updated_pkgs_name = self._update_packages_send_mail(search_results, published_context, user)
                         if updated_pkgs_name:
                             updated_pkgs_name_org_admin.extend(updated_pkgs_name)
                             updated_pkgs_name_sys_admin.extend(updated_pkgs_name)
-                            # send email to user
-                            creator = ckan.model.User.get(user['id'])
-                            send_packages_update_mail(creator, updated_pkgs_name)
 
             # send email to organization admins
             if updated_pkgs_name_org_admin:
@@ -159,3 +172,17 @@ class NotifyPublishedCommand(CkanCommand):
         run_time = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
         log.debug("Run time: ".format(run_time))
         log.debug('All done')
+
+        def _update_packages_send_mail(search_results, published_context, user):
+            try: 
+                pkgs = search_results['results']
+            except keyError:
+                return ''
+            else:
+                updated_pkgs_name = [pkg['name'] for pkg in pkgs if update_private_package(published_context, pkg)]
+                if updated_pkgs_name:
+                    # send email to user
+                    creator = ckan.model.User.get(user['id'])
+                    send_packages_update_mail(creator, updated_pkgs_name)
+                return updated_pkgs_name
+
