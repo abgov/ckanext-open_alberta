@@ -96,7 +96,7 @@ class NotifyPublishedCommand(CkanCommand):
         
         admin_user = tk.get_action('get_site_user')(context,{})
         updated_pkgs_name_sys_admin = []
-        max_number_rows = 1000  # each time rows count maximum of package search
+        max_number_rows = 100  # each time rows count maximum of package search
         #get organizations
         published_context = {
                     'model': ckan.model,
@@ -135,13 +135,7 @@ class NotifyPublishedCommand(CkanCommand):
                         if count % max_number_rows > 0:
                             page += 1
                         for i in range(page):
-                            q = {
-                                'include_private': 'true',
-                                'fq': "private:true",
-                                'start': i * max_number_rows,
-                                'rows': max_number_rows
-                            }
-                            q['fq'] = "{0} +creator_user_id:{1} +owner_org:{2}".format(q['fq'], user['id'], respond.get("id"))
+                            q['start'] = i * max_number_rows
                             search_results = tk.get_action("package_search")(published_context, data_dict=q)
                             updated_pkgs_name = self._update_packages_send_mail(search_results, published_context, user)
                             if updated_pkgs_name:
