@@ -167,7 +167,7 @@ class NotifyPublishedCommand(CkanCommand):
         log.debug("Run time: ".format(run_time))
         log.debug('All done')
 
-        def _update_packages_send_mail(search_results, published_context, user):
+        def _update_packages_send_mail(self, search_results, published_context, user):
             try: 
                 pkgs = search_results['results']
             except keyError:
