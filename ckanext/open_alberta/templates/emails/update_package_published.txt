@@ -1,0 +1,14 @@
+Dear {{ user_name }},
+
+The following datasets on {{ site_title }} are updated to public.
+
+Please click the following links to check the datasets:
+
+{% for link in update_links %}
+{{ link }}
+{% endfor %}
+
+Have a nice day.
+
+--
+Message sent by {{ site_title }} ({{ site_url }})
