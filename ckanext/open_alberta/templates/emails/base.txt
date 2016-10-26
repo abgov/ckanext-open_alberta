@@ -5,5 +5,5 @@
 {%- block footer %}
 ---------
 This email has been auto-generated. Please do not respond to it.
-Message sent by {{ site_title }} ({{ site_url }})
+Message sent by {{ c['ckan.site_title'] }} ({{ c['ckan.site_url'] }})
 {% endblock %}

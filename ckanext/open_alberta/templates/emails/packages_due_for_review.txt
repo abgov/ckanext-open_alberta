@@ -1,0 +1,9 @@
+{% extends "emails/base.txt" %}
+{% block subject %}Datasets due for review{% endblock %}
+{% block body %}
+The following datasets are due for review today:
+
+{% for ds in datasets %}
+    {{ h.url_for(controller='package', action='edit', id=ds['id'], qualified=True) }}
+{% endfor %}
+{% endblock %}
