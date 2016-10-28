@@ -7,7 +7,8 @@ from . import CommandBase
 
 
 class ReviewDueNotifyCommand(CommandBase):
-    """ This is meant to be run from a cron job.
+    """ This is to be run from a cron job to send email notifications iabout datasets being due for review
+        to the editors and admins of relevant organizations.
         Usage: paster --plugin ckanext-open_alberta notify_review -c <config file>
     """
     summary = __doc__.split('\n')[0]
