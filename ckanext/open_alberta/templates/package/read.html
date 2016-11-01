@@ -1,7 +1,18 @@
 {% extends "package/read_base.html" %}
+{% import 'macros/form.html' as form %}
+
 {% set pkg = c.pkg_dict %}
 {# Display notes on package/read.html#}
 {% set notes = h.markdown_extract(pkg.notes,extract_length=5000) %}
+
+{% if pkg.archive_date|length > 0 %}
+{% set archive_date = pkg.archive_date %}
+{% elif  pkg.archivedate|length > 0 %}
+{% set archive_date = pkg.archivedate %}
+{% else %}
+{% set archive_date = "" %}
+{% endif %}
+
 {% block primary_content_inner %}
 <div class="container nopadding">
     <div class="row">
@@ -27,23 +38,25 @@
             </h1>
             #}
         </div>
-        {% if pkg.archive_date|length > 0 or pkg.archivedate|length > 0  %}
+
+        {% if h.open_alberta_check_archive_date(archive_date) %}
           <div class="col-sm-12">
               <h3 class="archived-item"><i class="fa fa-archive"></i> Archived</h3>
-		<div class="archived-item-explanation">This item has been replaced by a more recent resource or the content may be otherwise out of date. It is provided for informational and research purposes.</div>
-          </div>
-          {% endif %}
-            {% if pkg.replacedby_title and pkg.replacedby_uri %}
-                <div class="col-sm-12">
-                    <h4 class="replaced-by">Replaced by: <a href="{{pkg.replacedby_uri}}">{{pkg.replacedby_title}}</a></h4>
-                </div>
-            {% endif %}
-           <div class="col-sm-12">
+              <div class="archived-item-explanation">This item has been replaced by a more recent resource or the content may be otherwise out of date. It is provided for informational and research purposes.</div>
+        </div>
+    {% endif %}
+    {% if pkg.replacedby_title and pkg.replacedby_uri %}
+        <div class="col-sm-12">
+            <h4 class="replaced-by">Replaced by: <a href="{{pkg.replacedby_uri}}">{{pkg.replacedby_title}}</a></h4>
+        </div>
+    {% endif %}
+        <div class="col-sm-12">
             <ul class="nav nav-tabs resource-tabs">
                 <li role="presentation" class="active" data-tab-group="data-results" data-tab-name="tab-summary"><a href="#summary">Summary</a></li>
                 <li role="presentation" data-tab-group="data-results" data-tab-name="tab-detailed"><a href="#detailed">Detailed Information</a></li>
-{# related_item/list will be removed from CKAN #}
-{#		{{ h.build_nav_icon('related_list', _('Related'), id=pkg.name) }}  #}
+    {% if c.userobj %}
+                <li role="presentation" data-tab-group="data-results" data-tab-name="tab-actions"><a href="#actions">Actions</a></li>
+    {% endif %}
             </ul>
             <div id="result-summary" class="active tab-box tab-summary box" data-tab-group="data-results">
                 <div class="summary-section">
@@ -74,10 +87,15 @@
                 {% snippet "package/snippets/additional_info.html", pkg_dict=pkg %}
                 {% endblock %}
             </div>
+    {% if c.userobj %}
+            <div id="actions" class="tab-box tab-actions box" data-tab-group="data-results">
+                {% snippet "package/snippets/clone_form.html", pkg=pkg %}
+            </div>
+    {% endif %}
         </div>
-        {% block package_resources %}
+    {% block package_resources %}
 
-        {% endblock %}
+    {% endblock %}
     </div>
 </div>
 {% endblock %}

@@ -3,30 +3,6 @@ import ckan.plugins.toolkit as toolkit
 from ckanext.open_alberta import helpers
 import pylons.config as config
 import datetime
-import ckan.lib.base as base
-import ckan.lib.mailer as mailer
-import ckan.lib.helpers as h
-from ckan.lib.base import render_jinja2
-
-
-@toolkit.side_effect_free
-def counter_on_off(context, data_dict=None):
-    # Get the value of the ckan.open_alberta.counter_on
-    # setting from the CKAN config file as a string, or False if the setting
-    # isn't in the config file.
-    counter_on = config.get('ckan.open_alberta.counter_on', False)
-    # Convert the value from a string to a boolean.
-    counter_on = toolkit.asbool(counter_on)
-    return {"counter_on": counter_on}
-
-
-def latest_datasets():
-    '''Return latest datasets.'''
-
-    datasets = toolkit.get_action('package_search')(
-        data_dict={'rows': 4, 'sort': 'metadata_created desc' })
-
-    return datasets['results']
 
 
 class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
@@ -53,10 +29,6 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
         m.connect('licence' ,'/licence',
                     controller='ckanext.open_alberta.controller:PagesController',
                     action='licence')
-
-        m.connect('private-packages' ,'/dashboard/datasets/private',
-                  controller='ckanext.open_alberta.controller:DashboardPackagesController',
-                  action='dashboard_datasets')
 
 # /content/government-alberta-open-information-and-open-data-policy > /policy
         m.redirect('/content/government-alberta-open-information-and-open-data-policy', 
@@ -98,6 +70,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.interfaces.IActions)
+    plugins.implements(plugins.IRoutes, inherit=True)
 
     #IConfigurer
     def update_config(self, config_):
@@ -107,12 +80,26 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     
     #ITemplateHelpers
     def get_helpers(self):
-        return {'open_alberta_latest_datasets': latest_datasets}
+        return {'open_alberta_latest_datasets': helpers.latest_datasets,
+                'open_alberta_check_archive_date': helpers.check_archive_date}
 
     #IActions
     def get_actions(self):
         # Registers the custom API method defined above
-        return {'counter_on': counter_on_off}
+        return {'counter_on': helpers.counter_on_off}
+
+    def before_map(self, m):
+        m.connect('private-packages' ,'/dashboard/datasets/private',
+                  controller='ckanext.open_alberta.controller:DashboardPackagesController',
+                  action='dashboard_datasets')
+        m.connect('clone', '/dataset/clone/{id}',
+                  controller='ckanext.open_alberta.controller:PackageCloneController',
+                  action='index')
+
+        m.connect('delete-multiple' ,'/datasets/delete_multiple',
+                  controller='ckanext.open_alberta.controller:PackagesDeleteController',
+                  action='delete_datasets')
+        return m
 
 
 class DateSearchPlugin(plugins.SingletonPlugin):

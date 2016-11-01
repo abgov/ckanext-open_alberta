@@ -20,11 +20,12 @@ Example:
 {% set title = package.title or package.name %}
 {% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
 {% set modified_date = h.render_datetime(package.date_modified) %}
-{% set ministry = package.organization.title %}
+{# set ministry = package.organization.title #}
 
 {% block package_item %}
 {% if c.display_private_only and not package.private %}
-{% else %}
+{# skip #}
+{% elif package.type == 'opendata' %}
 <div class="row {{ item_class or "dataset-item" }}">
     <div class="col-sm-12 col-md-8 nopadding">
     {% block content %}
