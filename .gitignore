@@ -43,3 +43,6 @@ docs/_build/
 
 # Saas cache
 **/.sass-cache
+
+# src link
+src
