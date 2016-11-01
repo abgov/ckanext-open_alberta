@@ -2444,3 +2444,41 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
     font-weight: bold;
     display: none;
 }
+/*
+ * Fixes against alberta theme effect on jQuery UI date picker
+ */
+.alberta-theme .ui-widget-header {
+    background: #f39b30;
+}
+
+.alberta-theme .ui-datepicker table {
+    border-bottom: none;
+    padding: 0;
+}
+.alberta-theme .ui-datepicker thead tr th { 
+    background: white; 
+    border: 0; padding: 5px 0; max-width: 200px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; 
+}
+.alberta-theme .ui-datepicker td {
+    border: none;
+    padding: 3px;
+}
+.alberta-theme .ui-datepicker td a {
+    text-decoration: none;
+}
+.alberta-theme .ui-widget-header a {
+    cursor: pointer;
+}
+.alberta-theme .ui-widget-header a.ui-state-hover {
+    background: transparent;
+    border: 2px solid #f39b30;
+    top: 2px;
+}
+.alberta-theme a.ui-datepicker-prev-hover {
+    left: 2px;
+}
+.alberta-theme a.ui-datepicker-next-hover {
+    right: 2px;
+}
+
+
