@@ -3,38 +3,7 @@ import ckan.plugins.toolkit as toolkit
 from ckanext.open_alberta import helpers
 import pylons.config as config
 import datetime
-import dateutil.parser as parser
 
-@toolkit.side_effect_free
-def counter_on_off(context, data_dict=None):
-    # Get the value of the ckan.open_alberta.counter_on
-    # setting from the CKAN config file as a string, or False if the setting
-    # isn't in the config file.
-    counter_on = config.get('ckan.open_alberta.counter_on', False)
-    # Convert the value from a string to a boolean.
-    counter_on = toolkit.asbool(counter_on)
-    return {"counter_on": counter_on}
-
-
-def latest_datasets():
-    '''Return latest datasets.'''
-
-    datasets = toolkit.get_action('package_search')(
-        data_dict={'rows': 4, 'sort': 'metadata_created desc' })
-
-    return datasets['results']
-
-def check_archive_date(archive_date=""):
-    """ Return false if archive_date is empty or later than today.
-        Otherwise, return true.  
-    """
-    if archive_date == "":
-        return False
-    today = datetime.datetime.now()
-    archive_date = parser.parse(archive_date)
-    if today < archive_date:
-        return False
-    return True
 
 class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IRoutes, inherit=True)
@@ -103,18 +72,21 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.interfaces.IActions)
     plugins.implements(plugins.IRoutes, inherit=True)
 
+    #IConfigurer
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
-
+    
+    #ITemplateHelpers
     def get_helpers(self):
-        return {'open_alberta_latest_datasets': latest_datasets,
-                'open_alberta_check_archive_date': check_archive_date}
+        return {'open_alberta_latest_datasets': helpers.latest_datasets,
+                'open_alberta_check_archive_date': helpers.check_archive_date}
 
+    #IActions
     def get_actions(self):
         # Registers the custom API method defined above
-        return {'counter_on': counter_on_off}
+        return {'counter_on': helpers.counter_on_off}
 
     def before_map(self, m):
         m.connect('private-packages' ,'/dashboard/datasets/private',
@@ -169,4 +141,37 @@ class RssFeedsWidget(plugins.SingletonPlugin):
         return {
             'rss_fetch_feed': helpers.fetch_feed,
         }
+
+
+class ReviewPlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IConfigurable)
+    plugins.implements(plugins.ITemplateHelpers)
+
+    def before_map(self, m):
+        m.connect('review' ,'/dataset/review/{id}',
+                  controller='ckanext.open_alberta.controller:ReviewController',
+                  action='mark_reviewed')
+        return m
+
+    # IConfigurable
+    # This is called on CKAN startup and before executing various paster commands
+    def configure(self, config):
+        self._register_reviewed_activity()
+
+    def get_helpers(self):
+        return {'is_future_date': helpers.is_future_date }
+
+    _REVIEWED_STR = "{actor} reviewed dataset {dataset}"
+
+    def _register_reviewed_activity(self):
+        """ Add 'package reviewed' activity support by monkey patching CKAN
+        """
+        from ckan.lib.activity_streams import (activity_stream_string_functions as as_funcs,
+                                               activity_stream_string_icons as as_icons)
+        from ckan.logic.validators import object_id_validators
+        from ckan.common import _
+        as_funcs['package reviewed'] = lambda *args: _(self._REVIEWED_STR)
+        as_icons['package reviewed'] = 'certificate'
+        object_id_validators['package reviewed'] = toolkit.get_validator('package_id_exists')
 

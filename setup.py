@@ -81,5 +81,10 @@ setup(
         openalbertapages=ckanext.open_alberta.plugin:OpenAlbertaPagesPlugin
     	datesearch=ckanext.open_alberta.plugin:DateSearchPlugin
         rss-feedswidget=ckanext.open_alberta.plugin:RssFeedsWidget
+        ab_review=ckanext.open_alberta.plugin:ReviewPlugin
+
+        [paste.paster_command]
+        notify_published=ckanext.open_alberta.commands.notify_published:NotifyPublishedCommand
+        notify_review=ckanext.open_alberta.commands.notify_review:ReviewDueNotifyCommand
     ''',
 )
