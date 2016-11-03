@@ -70,9 +70,10 @@ To install ckanext-open_alberta for development, activate your CKAN virtualenv a
 Cronjob config
 ---------------
 
-Add the following line after running the comamnd `crontab -e`, replace with your ini_config_file first.
-     
-     0     0     *     *     *    /usr/lib/ckan/default/bin/paster --plugin=ckanext-open_alberta notify_published -c <ini_config_file>  
+Add the following lines after running the comamnd `crontab -e` (fill the appropriate ini_config_file):
+
+0     0     *     *     *    /usr/lib/ckan/default/bin/paster --plugin=ckanext-open_alberta notify_published -c <ini_config_file>  
+0     0     *     *     *    /usr/lib/ckan/default/bin/paster --plugin=ckanext-open_alberta notify_review -c <ini_config_file>  
        
 ------------
 CKAN Theming
