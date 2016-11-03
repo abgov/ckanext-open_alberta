@@ -5,6 +5,7 @@ import pylons.config as config
 import datetime
 import dateutil.parser as parser
 
+
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
     # Get the value of the ckan.open_alberta.counter_on
@@ -14,7 +15,6 @@ def counter_on_off(context, data_dict=None):
     # Convert the value from a string to a boolean.
     counter_on = toolkit.asbool(counter_on)
     return {"counter_on": counter_on}
-
 
 def latest_datasets():
     '''Return latest datasets.'''
@@ -103,15 +103,18 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.interfaces.IActions)
     plugins.implements(plugins.IRoutes, inherit=True)
 
+    #IConfigurer
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
-
+    
+    #ITemplateHelpers
     def get_helpers(self):
         return {'open_alberta_latest_datasets': latest_datasets,
                 'open_alberta_check_archive_date': check_archive_date}
 
+    #IActions
     def get_actions(self):
         # Registers the custom API method defined above
         return {'counter_on': counter_on_off}
