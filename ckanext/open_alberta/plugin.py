@@ -6,6 +6,7 @@ import datetime
 import dateutil.parser as parser
 
 
+
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
     # Get the value of the ckan.open_alberta.counter_on
@@ -15,6 +16,7 @@ def counter_on_off(context, data_dict=None):
     # Convert the value from a string to a boolean.
     counter_on = toolkit.asbool(counter_on)
     return {"counter_on": counter_on}
+
 
 def latest_datasets():
     '''Return latest datasets.'''
@@ -172,4 +174,37 @@ class RssFeedsWidget(plugins.SingletonPlugin):
         return {
             'rss_fetch_feed': helpers.fetch_feed,
         }
+
+
+class ReviewPlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IConfigurable)
+    plugins.implements(plugins.ITemplateHelpers)
+
+    def before_map(self, m):
+        m.connect('review' ,'/dataset/review/{id}',
+                  controller='ckanext.open_alberta.controller:ReviewController',
+                  action='mark_reviewed')
+        return m
+
+    # IConfigurable
+    # This is called on CKAN startup and before executing various paster commands
+    def configure(self, config):
+        self._register_reviewed_activity()
+
+    def get_helpers(self):
+        return {'is_future_date': helpers.is_future_date }
+
+    _REVIEWED_STR = "{actor} reviewed dataset {dataset}"
+
+    def _register_reviewed_activity(self):
+        """ Add 'package reviewed' activity support by monkey patching CKAN
+        """
+        from ckan.lib.activity_streams import (activity_stream_string_functions as as_funcs,
+                                               activity_stream_string_icons as as_icons)
+        from ckan.logic.validators import object_id_validators
+        from ckan.common import _
+        as_funcs['package reviewed'] = lambda *args: _(self._REVIEWED_STR)
+        as_icons['package reviewed'] = 'certificate'
+        object_id_validators['package reviewed'] = toolkit.get_validator('package_id_exists')
 
