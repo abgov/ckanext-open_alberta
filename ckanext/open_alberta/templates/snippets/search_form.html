@@ -48,6 +48,7 @@
             <div class="control-group control-order-by form-group">
                 <label for="field-order-by" class="expand">{{ _('Sort Results by') }}</label>
                 <select id="field-order-by" class="form-control wd-80" name="sort">
+                    {{ sorting }}
                     {% for label, value in sorting %}
                     {% if label and value %}
                     <option value="{{ value }}"{% if sorting_selected == value %} selected="selected"{% endif %}>{{ label }}</option>

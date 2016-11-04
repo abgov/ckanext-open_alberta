@@ -1,39 +1,34 @@
-{% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
-{% set url_action = 'resource_edit' if url_is_edit and can_edit else 'resource_read' %}
-{% set url = h.url_for(controller='package', action=url_action, id=pkg.name, resource_id=res.id) %}
-<li class="resource-item" data-id="{{ res.id }}">
+{% ckan_extends %}
 	
+{% set resource_icon = "fa-file-o" %}
+{% if res.format.lower() == "pdf" %}
+  {% set resource_icon = "fa-file-pdf-o" %}
+{% elif res.format.lower() == "zip" %}
+  {% set resource_icon = "fa-file-archive-o" %}
+{% elif res.format.lower() == "xls" or res.format.lower() == "csv" or res.format.lower() == "xslx" %}
+  {% set resource_icon = "fa-file-excel-o" %}
+{% elif res.format.lower() == "doc" or res.format.lower() == "docx" %}
+  {% set resource_icon = "fa-file-word-o" %}
+{% elif res.format.lower() == "xml" or res.format.lower() == "json" or res.format.lower() == "odata" %}
+  {% set resource_icon = "fa-file-code-o" %}
+{% elif res.format.lower() == "" %}
+{% endif %}
+
   {% block resource_item_title %}
-  {% set resource_icon = "fa-file-o" %}
-  {% if res.format.lower() == "pdf" %}
-    {% set resource_icon = "fa-file-pdf-o" %}
-  {% elif res.format.lower() == "zip" %}
-    {% set resource_icon = "fa-file-archive-o" %}
-  {% elif res.format.lower() == "xls" or res.format.lower() == "csv" or res.format.lower() == "xslx" %}
-    {% set resource_icon = "fa-file-excel-o" %}
-  {% elif res.format.lower() == "doc" or res.format.lower() == "docx" %}
-    {% set resource_icon = "fa-file-word-o" %}
-  {% elif res.format.lower() == "xml" or res.format.lower() == "json" or res.format.lower() == "odata" %}
-    {% set resource_icon = "fa-file-code-o" %}
-  {% elif res.format.lower() == "" %}
-  {% endif %}
+    <h3>
+    <a class="heading" href="{{ res.url }}" title="{{ res.name or res.description }}">
+      {% if resource_icon != "" %}<i class="fa {{ resource_icon }}"></i>{% endif %}
+      {{ h.resource_display_name(res) | truncate(300) }}
+      {{ h.popular('views', res.tracking_summary.total, min=10) }}
+    </a>
+      {% block classification %}
+         {{ super() }}
+      {% endblock %}
+    </h3>
+  {% endblock %}
   
-  <h3>
-  <a class="heading" href="{{ res.url }}" title="{{ res.name or res.description }}">{% if resource_icon != "" %}<i class="fa {{ resource_icon }}"></i>{% endif %}
-    {{ h.resource_display_name(res) | truncate(300) }}
-    {{ h.popular('views', res.tracking_summary.total, min=10) }}
-  </a>
-  </h3>
-  {% endblock %}
-  {% block resource_item_description %}
-    <p class="description">
-      {% if res.description %}
-        {{ h.markdown_extract(res.description, extract_length=80) }}
-      {% endif %}
-    </p>
-  {% endblock %}
   {% block resource_item_explore %}
-  {% if not url_is_edit %}
+    {% if  url_is_edit %}
       {% block resource_item_explore_links %}
         <a href="{{ url }}" class="btn btn-primary">
           {% if res.has_views %}
@@ -59,7 +54,12 @@
           {{ _('Edit') }}
         </a>
       {% endif %}
+      {% if h.check_access('resource_delete', {'id': res.id})  %}
+          {% set locale = h.dump_json({'content': _('Are you sure you want to delete this resource?')}) %}
+          <a class="btn btn-danger" href="{% url_for controller='package', action='resource_delete', resource_id=res.id, id=pkg.name %}" data-module="confirm-action" data-module-i18n="{{ locale }}">{% block delete_button_text %}{{ _('Delete') }}{% endblock %}</a>
+      {% endif %}
       {% endblock %}
-  {% endif %}
-  {% endblock %}
-</li>
+
+    {% endif %}
+{% endblock %}
+
