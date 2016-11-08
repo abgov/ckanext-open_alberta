@@ -42,12 +42,19 @@ Config Settings
 Default Dataset review interval:
 
     # Format: \d+ (day|days|week|weeks|month|months|year|years)
+
     # Examples:
+
     #     30 days
+
     #     2 weeks
+
     #     6 months
+
     #     1 year
+
     #     2 years
+
     open_alberta = open_alberta.review.default_interval = <number days|weeks|months|years>
 
 Items per page dropdown values on search results / resources page: space separated list of natural numbers
