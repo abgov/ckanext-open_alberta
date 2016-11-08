@@ -7,13 +7,14 @@ import ckan.logic as logic
 import ckan.lib.base as base
 import ckan.plugins.toolkit as toolkit
 
-from ckan.common import _, request, c
+from ckan.common import _, request, c, g
 import ckan.lib.helpers as h
 import ckan.logic as logic
 import ckan.logic.schema as schema
 import ckan.lib.navl.dictization_functions as dictization_functions
 import ckan.lib.mailer as mailer
 from ckan.controllers.user import UserController
+from ckan.controllers.package import PackageController
 from ckan.lib.base import BaseController
 
 from pylons import config
@@ -22,8 +23,8 @@ import ckan.lib.captcha as captcha
 
 unflatten = dictization_functions.unflatten
 
-_NOT_AUTHORIZED = _('Not authorized to see this page')
-_UNEXPECTED_ERROR = _('Server error. Please contact technical support.')
+_NOT_AUTHORIZED = 'Not authorized to see this page'
+_UNEXPECTED_ERROR = 'Server error. Please contact technical support.'
 
 
 class SuggestController(base.BaseController):
@@ -197,7 +198,7 @@ class PackageCloneController(BaseController):
         try:
             logic.check_access('package_create', self._context)
         except logic.NotAuthorized:
-            base.abort(401, _NOT_AUTHORIZED)
+            base.abort(401, _(_NOT_AUTHORIZED))
 
 
     @jsonify
@@ -267,9 +268,23 @@ class PackageCloneController(BaseController):
                 logger.exception('Error in PackageCloneController:index')
                 return {
                     'status': 'error',
-                    'errorMessage': _UNEXPECTED_ERROR
+                    'errorMessage': _(_UNEXPECTED_ERROR)
                 }
 
         else:
-            toolkit.abort(403, _NOT_AUTHORIZED)
+            toolkit.abort(403, _(_NOT_AUTHORIZED))
+
+
+class PagedPackageController(PackageController):
+    """ This controller adds "Datasets per page" drop down support.
+        The plugin replaces the standard package controller with this. """
+
+    def __before__(self, action, **env):
+        PackageController.__before__(self, action, **env)
+        datasets_per_pg = request.cookies.get('items_per_page')
+        try:
+            g.datasets_per_page = int(datasets_per_pg)
+        except ValueError:
+            logger = logging.getLogger(__name__)
+            logger.error("Unexpected: items_per_page cookie value not numeric. Ignoring.")
 
