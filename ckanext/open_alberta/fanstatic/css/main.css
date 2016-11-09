@@ -2507,3 +2507,20 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
     background-color: white;
     border-radius: 3px;
 }
+
+.alert-danger,
+.alert-error {
+  background-color: #f8f0f0;
+  border-color: #c6898b;
+  color: #b55457;
+}
+
+.alert-danger h4,
+.alert-error h4 {
+  color: #b55457;
+}
+
+.alert-danger a,
+.alert-error a {
+  color: #b55457;
+}
