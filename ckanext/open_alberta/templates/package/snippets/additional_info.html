@@ -28,76 +28,76 @@
         "label":"true",
         "fields":["alternatetitle","date_modified","updatefrequency"],
         "meta":{
-            "alternatetitle":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"},
-            "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "updatefrequency":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+            "alternatetitle":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "updatefrequency":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
         }
       }},
       {"Publisher / Creator Information":{
         "label":"true",
         "fields":["creator","owner_org"],
         "meta":{
-            "creator":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "owner_org":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","lookup":"organization.title"},
+            "creator":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "owner_org":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","lookup":"organization.title"},
         }
       }},
       {"Subject Information":{
         "label":"true",
         "fields":["topic","time_coverage_from","time_coverage_to","spatialcoverage1"],
         "meta":{
-            "topic":{"columns":"12","linked":"?topic=","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "time_coverage_from":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "time_coverage_to":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "spatialcoverage1":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "topic":{"columns":"12","linked":"?topic=","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "time_coverage_from":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "time_coverage_to":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "spatialcoverage1":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
         }
       }},
         {"Resource Dates":{
             "label":"true",
             "fields":["date_created","metadata_created","date_issued","date_modified","archive_date"],
             "meta":{
-                "date_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-                "metadata_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","wrapperclass":"format_as_date_simple","showblank":"true","nullvalue":"N/A","alt":"Date Added to catalogue"},
-                "date_issued":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-                "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-                "archive_date":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+                "date_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "metadata_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","wrapperclass":"format_as_date_simple","showblank":"false","nullvalue":"N/A","alt":"Date Added to catalogue"},
+                "date_issued":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "archive_date":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
             }
         }},
         {"Audience information":{
             "label":"true",
             "fields":["audience"],
             "meta":{
-                "audience":{"columns":"12","linked":"?audience=","label":"false","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+                "audience":{"columns":"12","linked":"?audience=","label":"false","wrapper":"p","showblank":"false","nullvalue":"N/A"}
             }
         }},
       {"Language":{
         "label":"true",
         "fields":["language"],
         "meta":{
-          "language":{"columns":"12","linked":"true","label":"false","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+          "language":{"columns":"12","linked":"true","label":"false","wrapper":"p","showblank":"false","nullvalue":"N/A"}
         }
       }},
       {"Identifiers":{
         "label":"true",
         "fields":["identifier"],
         "meta":{
-          "identifier":{"columns":"10","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+          "identifier":{"columns":"10","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
         }
       }},
         {"Usage / Licence":{
             "label":"true",
             "fields":["usage","license_title"],
             "meta":{
-                "usage":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-                "license_title":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A","link_lookup":"license_url"}
+                "usage":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "license_title":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A","link_lookup":"license_url"}
             }
         }},
         {"Contact":{
             "label":"true",
             "fields":["contact","contact_email","contactother"],
             "meta":{
-                "contact":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-                "contact_email":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-                "contactother":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+                "contact":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "contact_email":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "contactother":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
             }
         }}
       ]
@@ -108,45 +108,45 @@
         "label":"true",
         "fields":["pubtype","seriestitle","seriestitle2","seriestitle3","alternatetitle1","alternatetitle2","alternatetitle3","Extent","Extent2","Extent3","updatefrequency"],
         "meta":{
-            "pubtype":{"columns":"12","linked":"?pubtype=","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "seriestitle":{"groupstart":"true","columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"},
+            "pubtype":{"columns":"12","linked":"?pubtype=","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "seriestitle":{"groupstart":"true","columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "seriestitle2":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "seriestitle3":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
-            "alternatetitle1":{"groupstart":"true","columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"},
+            "alternatetitle1":{"groupstart":"true","columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "alternatetitle2":{"columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "alternatetitle3":{"columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "Extent":{"groupstart":"true","columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "Extent2":{"columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "Extent3":{"columns":"4","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
-            "updatefrequency":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"}
+            "updatefrequency":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"}
         }
       }},
       {"Publisher / Creator Information":{
         "label":"true",
         "fields":["creator","owner_org","contributor","contributor2","contributor3","contributor4","contributor5","contributor6","placeofpub"],
         "meta":{
-            "creator":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "owner_org":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","lookup":"organization.title"},
-            "contributor":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"None"},
+            "creator":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "owner_org":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","lookup":"organization.title"},
+            "contributor":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "contributor2":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "contributor3":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "contributor4":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "contributor5":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
             "contributor6":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
-            "placeofpub":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"true"},
+            "placeofpub":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"false"},
         }
       }},
       {"Subject Information":{
         "label":"true",
         "fields":["topic","spatialcoverage","spatialcoverage2","spatialcoverage3","time_coverage_from","time_coverage_to","subject","subject2","subject3","subject4","subject5","subject6"],
         "meta":{
-            "topic":{"columns":"12","linked":"?topic=","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "spatialcoverage":{"groupstart":"true","columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "topic":{"columns":"12","linked":"?topic=","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "spatialcoverage":{"groupstart":"true","columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
             "spatialcoverage2":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
             "spatialcoverage3":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
-            "time_coverage_from":{"groupstart":"true","columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "time_coverage_to":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "subject":{"groupstart":"true","columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "time_coverage_from":{"groupstart":"true","columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "time_coverage_to":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "subject":{"groupstart":"true","columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
             "subject2":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
             "subject3":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
             "subject4":{"columns":"4","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
@@ -158,61 +158,61 @@
             "label":"true",
             "fields":["createdate","metadata_created","date_modified","issuedate","archivedate"],
             "meta":{
-            "createdate":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "metadata_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","wrapperclass":"format_as_date_simple","showblank":"true","nullvalue":"N/A"},
-            "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "issuedate":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "archivedate":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "createdate":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "metadata_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","wrapperclass":"format_as_date_simple","showblank":"false","nullvalue":"N/A"},
+            "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "issuedate":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "archivedate":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
         }
       }},
       {"Audience information":{
         "label":"true",
         "fields":["audience"],
         "meta":{
-        "audience":{"columns":"12","linked":"?audience=","label":"false","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+        "audience":{"columns":"12","linked":"?audience=","label":"false","wrapper":"p","showblank":"false","nullvalue":"N/A"}
         }
       }},
       {"Language":{
         "label":"true",
         "fields":["language","hastranslation_title","istranslation_title"],
         "meta":{
-            "language":{"columns":"12","linked":"true","label":"false","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "hastranslation_title":{"columns":"6","linked":"true","link_lookup":"hastranslation_uri","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "istranslation_title":{"columns":"6","linked":"true","link_lookup":"replaces_uri","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "language":{"columns":"12","linked":"true","label":"false","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "hastranslation_title":{"columns":"6","linked":"true","link_lookup":"hastranslation_uri","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "istranslation_title":{"columns":"6","linked":"true","link_lookup":"replaces_uri","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
         }
       }},
       {"Identifiers":{
         "label":"true",
         "fields":["identifier-AGDEX-number","identifier-ALIS-catno","identifier-ISBN-cdrom","identifier-ISBN-dvd","identifier-ISBN-html","identifier-ISBN-pdf","identifier-ISBN-print","identifier-ISSN-online","identifier-ISSN-print","identifier-NEOS-catkey","identifier-local"],
         "meta":{
-            "identifier-AGDEX-number":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-ALIS-catno":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-ISBN-cdrom":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-ISBN-dvd":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-ISBN-html":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-ISBN-pdf":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-ISBN-print":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-ISSN-online":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-ISSN-print":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-NEOS-catkey":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-            "identifier-local":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
+            "identifier-AGDEX-number":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-ALIS-catno":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-ISBN-cdrom":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-ISBN-dvd":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-ISBN-html":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-ISBN-pdf":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-ISBN-print":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-ISSN-online":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-ISSN-print":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-NEOS-catkey":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "identifier-local":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
         }
       }},
       {"Usage / Licence":{
         "label":"true",
         "fields":["usageconsiderations","license_title"],
         "meta":{
-          "usageconsiderations":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-          "license_title":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A","link_lookup":"license_url"}
+          "usageconsiderations":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+          "license_title":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A","link_lookup":"license_url"}
         }
       }},
         {"Contact":{
             "label":"true",
             "fields":["contact","email","contactother"],
             "meta":{
-                "contact":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-                "email":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"},
-                "contactother":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"true","nullvalue":"N/A"}
+                "contact":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "email":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "contactother":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
             }
         }}
       ]

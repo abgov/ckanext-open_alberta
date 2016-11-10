@@ -19,14 +19,7 @@
                  data-href-private-ds-only="{{ h.url_for('private-packages') }}">{{ _("Only private datasets") }}
       </label>
   </div>
-  {% if c.user_dict.datasets %}
+  
     {% snippet 'snippets/package_list.html', packages=c.user_dict.datasets %}
-  {% else %}
-    <p class="empty">
-      {{ _('You haven\'t created any datasets.') }}
-      {% if h.check_access('package_create') %}
-        {% link_for _('Create one now?'), controller='package', action='new' %}
-      {% endif %}
-    </p>
-  {% endif %}
+  
 {% endblock %}
