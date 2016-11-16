@@ -1,20 +1,21 @@
+
 {% macro fieldVal(fieldList,lookupValue) -%}{% for field in fieldList['choices'] %}{% if field['label'] == lookupValue %}{{field['value']}}{% endif %}{% endfor %}{%- endmacro %}
 {% macro fieldLabel(fieldList,lookupValue) -%}{% for field in fieldList['choices'] %}{% if field['value'] == lookupValue %}{{field['label']}}{% endif %}{% endfor %}{%- endmacro %}
 
 
 {% set alt_titles = [
-{
-"field_name": "metadata_created",
-"label": "Date Added",
-},
-{
-"field_name": "metadata_modified",
-"label": "Date Modified",
-},
-{
-"field_name": "license_title",
-"label": "Licence",
-}
+    {
+    "field_name": "metadata_created",
+    "label": "Date Added",
+    },
+    {
+    "field_name": "metadata_modified",
+    "label": "Date Modified",
+    },
+    {
+    "field_name": "license_title",
+    "label": "Licence",
+    }
 ] %}
 
 
@@ -219,52 +220,48 @@
   }
 } %}
 
+
 <section class="additional-info">
     <div class="row">
         {% for group_item in details_by_type[dataset_type]["groups"] %}
            {% for key, value in group_item.items() %}
            <div class="col-sm-12 summary-section">
               {% if value['label'] == "true" %}
-              <h2>{{key}}</h2>
+                <h2>{{key}}</h2>
               {% endif %}
               <div class="row">
               {% for f in value['fields'] %}
                   {% for field in alt_titles if field.field_name == f %}
-
-                  
-                  {% if value['meta'][f]['groupstart'] == "true" %}
-               </div><div class="row">
-               {% endif %}
-               {% if pkg_dict[field.field_name]|length > 0 or value['meta'][f]['showblank'] == "true" %}
-               <div class="col-sm-12 col-md-{{ value['meta'][f]['columns']}} col">
-                   {% if value['meta'][f]['label'] == "true" %}
-                   <h5 class="sm">
-                       {% if value['meta'][f]['alt'] %}
-                           {{ value['meta'][f]['alt'] }}
-                       {% else %}
-                           {{ h.scheming_language_text(field.label) }}
+                       {% if value['meta'][f]['groupstart'] == "true" %}
+                          </div><div class="row">
                        {% endif %}
-                    </h5>
-                   {% endif %}
-                   <{{value['meta'][f]['wrapper']}} class="{{value['meta'][f]['wrapperclass']}}">
-                       {% if value['meta'][f]['link_lookup'] %}
-                           <a href='{{pkg_dict[value['meta'][f]['link_lookup']]}}'>{{pkg_dict[field.field_name]}}</a>
-                       {% else %}
-                        {{pkg_dict[field.field_name]}}
+                       {% if pkg_dict[field.field_name]|length > 0 or value['meta'][f]['showblank'] == "true" %}
+                          <div class="col-sm-12 col-md-{{ value['meta'][f]['columns']}} col">
+                             {% if value['meta'][f]['label'] == "true" %}
+                                <h5 class="sm">
+                                 {% if value['meta'][f]['alt'] %}
+                                     {{ value['meta'][f]['alt'] }}
+                                 {% else %}
+                                     {{ h.scheming_language_text(field.label) }}
+                                 {% endif %}
+                                </h5>
+                             {% endif %}
+                             <{{ value['meta'][f]['wrapper'] }} class="{{ value['meta'][f]['wrapperclass'] }}">
+                                 {% if value['meta'][f]['link_lookup'] %}
+                                     <a href='{{ pkg_dict[value['meta'][f]['link_lookup']] }}'>{{ pkg_dict[field.field_name] }}</a>
+                                 {% else %}
+                                     {{ pkg_dict[field.field_name] }}
+                                 {% endif %}
+                                 
+                             </{{ value['meta'][f]['wrapper'] }}>
+                          </div>
                        {% endif %}
-                       
-                       </{{value['meta'][f]['wrapper']}}>
-               </div>
-               {% endif %}
-                  
-                  
-                  
-                  
                   {% endfor %}
+
                   {% for field in schema.dataset_fields if field.field_name == f %}
-                  {% if value['meta'][f]['groupstart'] == "true" %}
-                       </div><div class="row">
-                   {% endif %}
+                    {% if value['meta'][f]['groupstart'] == "true" %}
+                         </div><div class="row">
+                    {% endif %}
                     {% if pkg_dict[field.field_name]|length > 0 or value['meta'][f]['showblank'] == "true" %}
                         <div class="col-sm-12 col-md-{{ value['meta'][f]['columns']}} col">
                             {% if value['meta'][f]['label'] == "true" %}
@@ -273,22 +270,22 @@
                             {% if pkg_dict[field.field_name]|length == 0 and value['meta'][f]['showblank'] == "true" %}
                                 {% if value['meta'][f]['linked'] != "false" %}
                                     {% if pkg_dict[field.field_name].__class__.__name__ != 'list' and pkg_dict[field.field_name] != "" %}
-                                    <{{value['meta'][f]['wrapper']}}>
-                                        {% if value['meta'][f]['linked'] == "true" %}
-                                            <a href='/dataset?q="{{pkg_dict[field.field_name]}}"'>{{pkg_dict[field.field_name]}}</a>
-                                        {% else %}
-                                            <a href='{{value['meta'][f]['linked']}}{{pkg_dict[field.field_name]}}'>{{pkg_dict[field.field_name]}}</a>
-                                        {% endif %}
-                                    </{{value['meta'][f]['wrapper']}}>
+                                      <{{value['meta'][f]['wrapper']}}>
+                                          {% if value['meta'][f]['linked'] == "true" %}
+                                              <a href='/dataset?q="{{pkg_dict[field.field_name]}}"'>{{ pkg_dict[field.field_name] }}</a>
+                                          {% else %}
+                                              <a href='{{value['meta'][f]['linked']}}{{pkg_dict[field.field_name]}}'>{{ pkg_dict[field.field_name] }}</a>
+                                          {% endif %}
+                                      </{{value['meta'][f]['wrapper']}}>
                                     {% else %}
                                         {{value['meta'][f]['nullvalue']}}
-                                {% endif %}
+                                    {% endif %}
                                {% else %}
-                                    <{{value['meta'][f]['wrapper']}}>{{value['meta'][f]['nullvalue']}}</{{value['meta'][f]['wrapper']}}>
+                                    <{{ value['meta'][f]['wrapper'] }}>{{ value['meta'][f]['nullvalue'] }}</{{ value['meta'][f]['wrapper'] }}>
                                {% endif %}
                             {% else %}
                                 {% if pkg_dict[field.field_name].__class__.__name__ == 'list' %}
-                                 <span class="tags">
+                                  <span class="tags">
                                   {% for flv in pkg_dict[field.field_name] %}
                                     {% if value['meta'][f]['linked'] != "false" %}
                                          {% if value['meta'][f]['linked'] == "true" %}
@@ -297,10 +294,10 @@
                                              <a class="btn btn-default btn-sm" href="/{{dataset_type}}{{value['meta'][f]['linked']}}{{flv}}">{{fieldLabel(field,flv)}}</a>
                                          {% endif %}
                                     {% else %}
-                                     {% snippet 'scheming/snippets/display_field.html',field=field, data=pkg_dict, schema=schema %}
+                                         {% snippet 'scheming/snippets/display_field.html',field=field, data=pkg_dict, schema=schema %}
                                     {% endif %}
                                   {% endfor %}
-                                </span>
+                                  </span>
                                 {% else %}
                                   <{{value['meta'][f]['wrapper']}}>
                                       {% if value['meta'][f]['linked'] != "false" %}
@@ -352,3 +349,4 @@
         {% endif %}
     </div>
 </section>
+
