@@ -26,10 +26,10 @@ $(document).ready(function(){
                 }   
             },
         error: function(){
-                alert("Counter_on function not working.\n" +
-                    "Please check if the two lines below in the config ini file.\n" +
-                    "## Counter control on the home page ##\n" +
-                    "ckan.open_alberta.counter_on = true\n");
+               // alert("Counter_on function not working.\n" +
+               //     "Please check if the two lines below in the config ini file.\n" +
+               //     "## Counter control on the home page ##\n" +
+               //     "ckan.open_alberta.counter_on = true\n");
         
             }
     });
