@@ -330,7 +330,9 @@ blockquote:before, blockquote:after { content: "" !important; }
 
 .media-grid { list-style: none; padding: 0 !important; margin: 0; }
 
-.media-item { left: 0px !important; }
+.media-image { max-width: 196px; }
+
+/*.media-item { left: 0px !important; }*/
 
 .breadcrumb { background: transparent !important; }
 

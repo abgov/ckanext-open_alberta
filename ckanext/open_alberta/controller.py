@@ -3,30 +3,53 @@ import re
 from datetime import datetime
 import urlparse
 import requests
-import ckan.logic as logic
-import ckan.lib.base as base
-import ckan.plugins.toolkit as toolkit
-
-from ckan.common import _, request, c, g
-import ckan.lib.helpers as h
+from pylons import config
 import ckan.logic as logic
 import ckan.logic.schema as schema
+import ckan.lib.base as base
+import ckan.plugins.toolkit as toolkit
+from ckan.common import _, request, c, g
+import ckan.lib.helpers as h
 import ckan.lib.navl.dictization_functions as dictization_functions
 import ckan.lib.mailer as mailer
 from ckan.controllers.user import UserController
 from ckan.controllers.package import PackageController
 from ckan.lib.base import BaseController
-
-from pylons import config
 from pylons.decorators import jsonify
 import ckan.lib.captcha as captcha
+from ckanext.open_alberta import DATE_FORMAT
+from ckanext.open_alberta.errors import *
 
 unflatten = dictization_functions.unflatten
 
 _NOT_AUTHORIZED = 'Not authorized to see this page'
 _UNEXPECTED_ERROR = 'Server error. Please contact technical support.'
 
+logger = logging.getLogger(__name__)
 
+
+class AuthMixin(object):
+    """ Access check base class.
+    """
+    _NOT_AUTHORIZED_MSG = 'Not authorized to see this page'
+
+    def check_access(self, perm, **kwargs):
+        """ Usage: check_access('site_read')
+                   check_access('package_create', error_msg='Go away')
+            Side effect: the context is saved in self._context for subsequent use.
+            Keyword args except error_msg are copied to _context.
+        """
+        self._context = dict(model=base.model,
+                             user=base.c.user,
+                             auth_user_obj=base.c.userobj)
+        errormsg = _(kwargs.pop('error_msg') if 'error_msg' in kwargs else AuthMixin._NOT_AUTHORIZED_MSG)
+        #self._context.update(kwargs)
+        try:
+            toolkit.check_access(perm, self._context, kwargs)
+        except logic.NotAuthorized:
+            base.abort(401, error_msg)
+
+ 
 class SuggestController(base.BaseController):
 
     def __before__(self, action, **env):
@@ -288,3 +311,79 @@ class PagedPackageController(PackageController):
             logger = logging.getLogger(__name__)
             logger.error("Unexpected: items_per_page cookie value not numeric. Ignoring.")
 
+
+class ReviewController(base.BaseController, AuthMixin):
+    _DATASET_NOT_FOUND_MSG = 'Dataset not found'
+
+    def __before__(self, action, **env):
+        base.BaseController.__before__(self, action, **env)
+
+    def mark_reviewed(self, id):
+        """ This is called when the user clicks 'Marked as Reviewed' on a package.
+        """
+        from datetime import date
+        from dateutil.relativedelta import relativedelta
+
+        from pprint import PrettyPrinter
+        pp = PrettyPrinter()
+
+        #if toolkit.request.method == 'POST':
+        if toolkit.request.method == 'GET':
+            package_show = toolkit.get_action('package_show')
+            try:
+                pkg = package_show(None, {'id': id})
+                self.check_access('package_update', id=id)
+                # pkg['organization'] from solr does not contain custom data - needs to be read separately
+                organization_show = toolkit.get_action('organization_show')
+                org = organization_show(None, {'id': pkg['organization']['name'],
+                                               'include_datasets': False,
+                                               'include_users': False,
+                                               'include_groups': False,
+                                               'include_tags': False})
+                # The interval from config is used if the organization doesn't have that defined
+                rtd_kwargs = self._review_interval_from_config()
+
+                if org.get('review_interval', None):
+                    rtd_kwargs = {org['review_interval_type'] : int(org['review_interval'])}
+
+                nrdt = date.today() + relativedelta(**rtd_kwargs)
+                logger.debug('relativetimedelta kwargs: %s, Package NRD: %s, Original NRD: %s', 
+                             rtd_kwargs, nrdt, pkg.get('next_review_date', 'empty'))
+                pkg['next_review_date'] = nrdt.strftime(DATE_FORMAT)
+                create_activity = toolkit.get_action('activity_create')
+                ctx = { 'ignore_auth': True }
+                data = {'user_id': base.c.user,
+                        'object_id': pkg['id'],
+                        'activity_type': 'package reviewed',
+                        'data': {'dataset': pkg}}
+                act = create_activity(ctx, data)
+
+                package_update = toolkit.get_action('package_update')
+                package_update(None, pkg)
+            except toolkit.ObjectNotFound:
+                base.abort(404, _(self._DATASET_NOT_FOUND_MSG))
+            except ConfigError as e:
+                logger.fatal('CONFIGURATION ERROR: %s!', e)
+                base.abort(500, _(e))
+        else:
+            toolkit.abort(403, _(self._NOT_AUTHORIZED_MSG))
+
+    def _review_interval_from_config(self):
+        """ Reads default review interval from the config.
+            Raises a ConfigError if the config value is missing or the value is incorrect.
+            Returns: a dictionary with the interval value that dateutil.relativedelta understands.
+                     (i.e. {days|weeks|months|years: value}"""
+
+        try:
+            review_interval = config['open_alberta.review.default_interval']
+            res = re.match(r'^\s*(\d+)\s+(days*|weeks*|months*|years*)\s*$', review_interval, re.IGNORECASE)
+            if res:
+                key = res.group(2).lower()
+                if key[-1] != 's':
+                    key += 's'
+                return {key : int(res.group(1))}
+            else:
+                raise ConfigError('Invalid value under open_alberta.review.default_interval key')
+        except KeyError:
+            raise ConfigError('open_alberta.review.default_interval is missing from config')
+        
