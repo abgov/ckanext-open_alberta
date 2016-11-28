@@ -306,7 +306,7 @@ class PagedPackageController(PackageController):
         PackageController.__before__(self, action, **env)
         datasets_per_pg = request.cookies.get('items_per_page')
         try:
-            g.datasets_per_page = int(datasets_per_pg)
+            g.datasets_per_page = int('{}'.format(datasets_per_pg))
         except ValueError:
             logger = logging.getLogger(__name__)
             logger.error("Unexpected: items_per_page cookie value not numeric. Ignoring.")

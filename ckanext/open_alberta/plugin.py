@@ -4,7 +4,10 @@ from ckanext.open_alberta import helpers
 import pylons.config as config
 import datetime
 import dateutil.parser as parser
+import ckan
+from ckanext.open_alberta import authz
 import helpers as oab_helpers
+
 
 
 
@@ -38,6 +41,14 @@ def check_archive_date(archive_date=""):
     if today < archive_date:
         return False
     return True
+
+
+def package_authentication(context, data_dict=None):
+    if context['user']:
+        return {'success': True}
+    else:
+        return {'success': False, 'msg': "Not allowed for no user login"}
+
 
 class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IRoutes, inherit=True)
@@ -105,6 +116,20 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.interfaces.IActions)
     plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IAuthFunctions)
+
+    """
+    Monkey patch the ckan authz. Change the default behavior
+    when no user login.
+    """
+    ckan.authz.is_authorized = authz.is_authorized
+
+
+    """ IAuthFunctions """
+    def get_auth_functions(self):
+        return {'package_list': package_authentication,
+                'package_show': package_authentication,
+                'package_search': package_authentication }
 
     #IConfigurer
     def update_config(self, config_):
@@ -117,6 +142,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         return {'open_alberta_latest_datasets': latest_datasets,
                 'open_alberta_check_archive_date': check_archive_date,
                 'config_datasets_per_pg_options': oab_helpers.items_per_page_from_config}
+
 
     #IActions
     def get_actions(self):
@@ -134,6 +160,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         m.connect('delete-multiple' ,'/datasets/delete_multiple',
                   controller='ckanext.open_alberta.controller:PackagesDeleteController',
                   action='delete_datasets')
+
         return m
 
     import ckan.controllers.package

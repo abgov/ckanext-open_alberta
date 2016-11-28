@@ -8,6 +8,7 @@ from errors import ConfigError
 from datetime import date
 from dateutil import parser
 
+
 def fetch_feed(feed_url, number_of_entries=1):
     feed = feedparser.parse(feed_url)
     feed['entries'] = feed['entries'][:number_of_entries]
