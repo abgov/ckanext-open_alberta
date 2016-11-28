@@ -11,7 +11,7 @@
 
 {% block primary_content_inner %}
   <h2 class="hide-heading">{{ _('My Datasets') }}</h2>
-  <div class="checkbox">
+  <div class="checkbox" style="display: inline-block; margin-right:1em;">
       <label>
           <input type="checkbox" id="id-display-private-ds-only" {% if c.display_private_only %}checked="checked"{% endif %}
                  data-href-all-ds="{{ h.url_for(controller='user', action='dashboard_datasets') }}" 
@@ -19,6 +19,16 @@
       </label>
   </div>
   
+  <div style="display: inline-block;">
+      <label style="font-size:15px; font-weight:normal;">{{ _("Items per page:") }}
+          <select name="items_per_page">
+              <option>3</option>
+              <option>5</option>
+              <option>10</option>
+          </select>
+      </label>
+  </div>
+  {% if c.user_dict.datasets %}
     {% snippet 'snippets/package_list.html', packages=c.user_dict.datasets %}
   
 {% endblock %}

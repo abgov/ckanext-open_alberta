@@ -46,7 +46,17 @@
                             {% endfor %}
                         </select>
                     </div>
+		    <div class="inline-block">
+                    <label for="field-pagesize" class="expand">{{ _('Items per page') }}</label>
+                    <select id="field-pagesize" class="form-control">
+                    {% for opt in h.config_datasets_per_pg_options() %}
+                        <option>{{ opt }}</option>
+                    {% endfor %}
+                    </select>
+                    </div>
                 </div>
+		{% resource 'open_alberta/js/paging.js' %}
+		</div>
                 {% if  c.process_state %}
                     <input type="hidden" name='ext_field-filters' value="on" />
                     <input type="hidden" name='ext_field-filters-select' value="{{ c.process_state }}" />
@@ -70,7 +80,3 @@
 {% if show_empty and count == 0 %}
     <p class="extra">Please try another search........</p>
 {% endif %}
-
-
-
-

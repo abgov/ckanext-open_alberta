@@ -2524,3 +2524,15 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
 .alert-error a {
   color: #b55457;
 }
+
+.control-order-by select {
+    min-width: 8em;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.control-order-by .inline-block {
+    margin-right: 1em;
+}

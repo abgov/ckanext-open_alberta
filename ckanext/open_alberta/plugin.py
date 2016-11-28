@@ -4,6 +4,7 @@ from ckanext.open_alberta import helpers
 import pylons.config as config
 import datetime
 import dateutil.parser as parser
+import helpers as oab_helpers
 
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
@@ -110,7 +111,8 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
 
     def get_helpers(self):
         return {'open_alberta_latest_datasets': latest_datasets,
-                'open_alberta_check_archive_date': check_archive_date}
+                'open_alberta_check_archive_date': check_archive_date,
+                'config_datasets_per_pg_options': oab_helpers.items_per_page_from_config}
 
     def get_actions(self):
         # Registers the custom API method defined above
@@ -128,6 +130,10 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
                   controller='ckanext.open_alberta.controller:PackagesDeleteController',
                   action='delete_datasets')
         return m
+
+    import ckan.controllers.package
+    from .controller import PagedPackageController
+    ckan.controllers.package.PackageController = PagedPackageController
 
 
 class DateSearchPlugin(plugins.SingletonPlugin):
