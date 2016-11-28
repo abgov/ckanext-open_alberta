@@ -6,6 +6,10 @@ import datetime
 import dateutil.parser as parser
 import ckan
 from ckanext.open_alberta import authz
+import helpers as oab_helpers
+
+
+
 
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
@@ -127,15 +131,20 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
                 'package_show': package_authentication,
                 'package_search': package_authentication }
 
+    #IConfigurer
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
-
+    
+    #ITemplateHelpers
     def get_helpers(self):
         return {'open_alberta_latest_datasets': latest_datasets,
-                'open_alberta_check_archive_date': check_archive_date }
+                'open_alberta_check_archive_date': check_archive_date,
+                'config_datasets_per_pg_options': oab_helpers.items_per_page_from_config}
 
+
+    #IActions
     def get_actions(self):
         # Registers the custom API method defined above
         return {'counter_on': counter_on_off}
@@ -153,6 +162,10 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
                   action='delete_datasets')
 
         return m
+
+    import ckan.controllers.package
+    from .controller import PagedPackageController
+    ckan.controllers.package.PackageController = PagedPackageController
 
 
 class DateSearchPlugin(plugins.SingletonPlugin):
@@ -194,4 +207,37 @@ class RssFeedsWidget(plugins.SingletonPlugin):
         return {
             'rss_fetch_feed': helpers.fetch_feed,
         }
+
+
+class ReviewPlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.IConfigurable)
+    plugins.implements(plugins.ITemplateHelpers)
+
+    def before_map(self, m):
+        m.connect('review' ,'/dataset/review/{id}',
+                  controller='ckanext.open_alberta.controller:ReviewController',
+                  action='mark_reviewed')
+        return m
+
+    # IConfigurable
+    # This is called on CKAN startup and before executing various paster commands
+    def configure(self, config):
+        self._register_reviewed_activity()
+
+    def get_helpers(self):
+        return {'is_future_date': helpers.is_future_date }
+
+    _REVIEWED_STR = "{actor} reviewed dataset {dataset}"
+
+    def _register_reviewed_activity(self):
+        """ Add 'package reviewed' activity support by monkey patching CKAN
+        """
+        from ckan.lib.activity_streams import (activity_stream_string_functions as as_funcs,
+                                               activity_stream_string_icons as as_icons)
+        from ckan.logic.validators import object_id_validators
+        from ckan.common import _
+        as_funcs['package reviewed'] = lambda *args: _(self._REVIEWED_STR)
+        as_icons['package reviewed'] = 'certificate'
+        object_id_validators['package reviewed'] = toolkit.get_validator('package_id_exists')
 

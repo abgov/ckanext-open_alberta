@@ -39,6 +39,18 @@ Config Settings
 
     ckan.plugins = ... open_alberta openalbertapages
 
+Default Dataset review interval:
+
+    # Format: \d+ (day|days|week|weeks|month|months|year|years)
+
+    # Examples: 30 days | 2 weeks | 6 months | 1 year | 2 years
+
+    open_alberta.review.default_interval = <number days|weeks|months|years>
+
+Items per page dropdown values on search results / resources page: space separated list of natural numbers
+
+    open_alberta.datasets_per_page_options = 10 25 50
+
 License edit license.json:
 
     set the licenses_group_url
@@ -66,6 +78,15 @@ To install ckanext-open_alberta for development, activate your CKAN virtualenv a
     pip install -r dev-requirements.txt
 
 
+---------------
+Cronjob config
+---------------
+
+Add the following lines after running the comamnd `crontab -e` (fill the appropriate ini_config_file):
+
+0     0     *     *     *    /usr/lib/ckan/default/bin/paster --plugin=ckanext-open_alberta notify_published -c <ini_config_file>  
+0     0     *     *     *    /usr/lib/ckan/default/bin/paster --plugin=ckanext-open_alberta notify_review -c <ini_config_file>  
+       
 ------------
 CKAN Theming
 ------------
