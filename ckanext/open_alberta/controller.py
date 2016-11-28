@@ -303,8 +303,9 @@ class PagedPackageController(PackageController):
         The plugin replaces the standard package controller with this. """
 
     def __before__(self, action, **env):
+        from helpers import items_per_page_from_config
         PackageController.__before__(self, action, **env)
-        datasets_per_pg = request.cookies.get('items_per_page')
+        datasets_per_pg = request.cookies.get('items_per_page', items_per_page_from_config()[0])
         try:
             g.datasets_per_page = int(datasets_per_pg)
         except ValueError:
