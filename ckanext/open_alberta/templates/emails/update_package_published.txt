@@ -1,0 +1,9 @@
+{% extends "emails/base.txt" %}
+{% block subject %}Datasets updated to public{% endblock %}
+{% block body %}
+The following datasets on {{ c['ckan.site_title'] }} have been updated to public:
+
+{% for ds in datasets %}
+    {{ h.url_for(controller='package', action='edit', id=ds, qualified=True) }}
+{% endfor %}
+{% endblock %}
