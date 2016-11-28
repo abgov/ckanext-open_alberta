@@ -1,20 +1,4 @@
-{% extends "package/edit_base.html" %}
-
-{% block primary_content %}
-  <section class="module">
-    {% block page_header %}{% endblock %}
-    <div class="module-content">
-      {% block primary_content_inner %}
-        {% block form %}
-          {#- passing c to a snippet is bad but is required here
-              for backwards compatibility with old templates and
-              plugins using setup_template_variables() -#}
-          {{- h.snippet(form_snippet, c=c, **form_vars) -}}
-        {% endblock %}
-      {% endblock %}
-    </div>
-  </section>
-{% endblock %}
+{% ckan_extends %}
 
 {# Adminscreens sidebar #}
 {% block secondary_content %}
@@ -25,7 +9,7 @@
       <div class="module-content">
         <p>
           {% trans %}
-	Information published by the government in a format meant for an end user/public.
+	           Information published by the government in a format meant for an end user/public.
           {% endtrans %}
         </p>
       </div>
@@ -36,17 +20,13 @@
       <div class="module-content">
         <p>
           {% trans %}
-        GoA’s data whose release is not subject to privacy, security or legislative restrictions and which is made available to the public in a structured, machine-readable format with minimal restrictions on its use or re-use.
+             GoA’s data whose release is not subject to privacy, security or legislative restrictions and which is made available to the public in a structured, machine-readable format with minimal restrictions on its use or re-use.
           {% endtrans %}
         </p>
       </div>
     </section>
 	{% endif %}
   {% endblock %}
+{% endblock %}
 {# Adminscreens sidebar #}
 
-  {% block resources_module %}
-    {# TODO: Pass in a list of previously created resources and the current package dict #}
-    {% snippet "package/snippets/resources.html", pkg={}, action='new_resource' %}
-  {% endblock %}
-{% endblock %}

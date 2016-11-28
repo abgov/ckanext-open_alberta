@@ -21,9 +21,11 @@
       {{ h.resource_display_name(res) | truncate(300) }}
       {{ h.popular('views', res.tracking_summary.total, min=10) }}
     </a>
+    {% if res.classification %}
       {% block classification %}
          {{ super() }}
       {% endblock %}
+    {% endif %}
     </h3>
   {% endblock %}
   
@@ -61,5 +63,5 @@
       {% endblock %}
 
     {% endif %}
-{% endblock %}
+  {% endblock %}
 

@@ -1,5 +1,7 @@
-{% import 'macros/form.html' as form %}
+{% ckan_extends %}
 
+
+{% block resource_view %}
 <div id="view-{{ resource_view['id'] }}" class="resource-view" data-id="{{ resource_view['id'] }}" data-title="{{ resource_view['title'] }}" data-description="{{ resource_view['descripion'] }}">
   <a class="btn pull-right"
      href="#embed-{{ resource_view['id'] }}"
@@ -61,3 +63,4 @@
     </div>
   </div>
 </div>
+{% endblock %}

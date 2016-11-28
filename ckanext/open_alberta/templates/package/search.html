@@ -1,3 +1,5 @@
+{% ckan_extends %}
+
 {% set visible_facets = {
         "all": ["topic", "organization", "res_format"],
         "dataset": ["dataset_type", "topic", "organization", "res_format", "audience", "pubtype",],
@@ -6,140 +8,123 @@
         "documentation": []
    }
 %}
+
 {% set facets_hide = {
         "documentation":"documentation",
     }
 %}
+
 {% set pubdate_facets = { 
-"dataset":"dataset",
-"opendata":"opendata",
-"publications":"publications"
+        "dataset":"dataset",
+        "opendata":"opendata",
+        "publications":"publications"
     }
 %}
-{% set daterange_facets = {}
-%}
 
-{% ckan_extends %}
+{% set daterange_facets = {} %}
+
+
 {% block subtitle %}{{dataset_type}}{% endblock %}
-{# Adds spatial/snippets/spatial_query.html to sidebar #}
-{% block primary_content %}
-  <section class="module">
-    <div class="module-content">
-      {% block page_primary_action %}
-        {% if h.check_access('package_create') %}
-          <div class="page_primary_action">
-              {% if dataset_type == "opendata" %}
-                  <a class="btn btn-primary" href="/opendata/new"><i class="icon-plus-sign-alt"></i> Add OpenData</a>
-              {% endif %}
-              {% if dataset_type == "publications" %}
-                  <a class="btn btn-primary" href="/publications/new"><i class="icon-plus-sign-alt"></i> Add Publication</a>
-              {% endif %}
-              {% if dataset_type == "documentation" %}
-                  <a class="btn btn-primary" href="/documentation/new"><i class="icon-plus-sign-alt"></i> Add Documentation</a>
-              {% endif %}
-          </div>
+
+{% block page_primary_action %}
+  {% if h.check_access('package_create') %}
+    <div class="page_primary_action">
+        {% if dataset_type == "opendata" %}
+            <a class="btn btn-primary" href="/opendata/new"><i class="icon-plus-sign-alt"></i> Add OpenData</a>
         {% endif %}
-      {% endblock %}
-      {% block form %}
-        {% set facets = {
-          'fields': c.fields_grouped,
-          'search': c.search_facets,
-          'titles': c.facet_titles,
-          'translated_fields': c.translated_fields,
-          'remove_field': c.remove_field }
-        %}
-        {% set sorting = [
-          (_('Publication Date Ascending'), 'score asc, metadata_created asc'),
-          (_('Publication Date Descending'), 'metadata_created desc'),
-          (_('Title Ascending'), 'title_string asc'),
-          (_('Title Descending'), 'title_string desc'),
-          (_('Last Modified'), 'metadata_modified desc'),
-          (_('Relevance'), 'score desc, metadata_modified desc'),
-          (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
-        %}
-        {% snippet 'snippets/search_form.html', type=dataset_type, query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
-      {% endblock %}
-      {% block package_search_results_list %}
-        {{ h.snippet('snippets/package_list.html', packages=c.page.items) }}
-      {% endblock %}
+        {% if dataset_type == "publications" %}
+            <a class="btn btn-primary" href="/publications/new"><i class="icon-plus-sign-alt"></i> Add Publication</a>
+        {% endif %}
+        {% if dataset_type == "documentation" %}
+            <a class="btn btn-primary" href="/documentation/new"><i class="icon-plus-sign-alt"></i> Add Documentation</a>
+        {% endif %}
     </div>
-
-    {% block page_pagination %}
-      {{ c.page.pager(q=c.q) }}
-    {% endblock %}
-  </section>
-
+  {% endif %}
 {% endblock %}
 
 
-{% block secondary_content %}
-{% if dataset_type == "dataset" %}
-<h3>Search all Resources</h3>
-{% endif %}
-{% if dataset_type == "publications" %}
-<h3>Search Publications</h3>
-{% endif %}
-{% if dataset_type == "documentation" %}
-<h3>Search Documentation</h3>
-{% endif %}
-{% if dataset_type == "opendata" %}
-<h3>Search Open Data</h3>
-{% endif %}
-{% snippet 'snippets/small_search.html' %}
-{# {% snippet "spatial/snippets/spatial_query.html" %}  #}
-{% if dataset_type in facets_hide %}
-    {% else %}
-<h3>Refine Results</h3>
-    {% endif %}
-  {% if dataset_type in visible_facets %}
-      {% for facet in visible_facets[dataset_type] %}
-            {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
-      {% endfor %}
-  {% else %}
-      {% for facet in c.facet_titles %}
-          {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
-      {% endfor %}
-  {% endif %}
+{% block form %}
+  {% set facets = {
+    'fields': c.fields_grouped,
+    'search': c.search_facets,
+    'titles': c.facet_titles,
+    'translated_fields': c.translated_fields,
+    'remove_field': c.remove_field }
+  %}
+  {% set sorting = [
+    (_('Publication Date Ascending'), 'score asc, metadata_created asc'),
+    (_('Publication Date Descending'), 'metadata_created desc'),
+    (_('Title Ascending'), 'title_string asc'),
+    (_('Title Descending'), 'title_string desc'),
+    (_('Last Modified'), 'metadata_modified desc'),
+    (_('Relevance'), 'score desc, metadata_modified desc'),
+    (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
+  %}
+  {% snippet 'snippets/search_form.html', type=dataset_type, query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+{% endblock %}
 
+{% block package_search_results_api %}
+{% endblock %}
+
+
+
+{% block secondary_content %}
+  {% if dataset_type == "dataset" %}
+      <h3>Search all Resources</h3>
+  {% elif dataset_type == "publications" %}
+      <h3>Search Publications</h3>
+  {% elif dataset_type == "documentation" %}
+      <h3>Search Documentation</h3>
+  {% elif dataset_type == "opendata" %}
+      <h3>Search Open Data</h3>
+  {% endif %}
+  {% snippet 'snippets/small_search.html' %}
+  {# {% snippet "spatial/snippets/spatial_query.html" %}  #}
+  {% if not dataset_type in facets_hide %}
+      <h3>Refine Results</h3>
+  {% endif %}
+  {% set facets = visible_facets[dataset_type] if dataset_type in visible_facets else c.facet_titles %}
+  {% for facet in facets %}
+        {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
+  {% endfor %}
+  
   {% resource 'open_alberta/moment.js' %}
   {% resource 'open_alberta/daterangepicker.js' %}
   {% resource 'open_alberta/daterangepicker-bs3.css' %}
   {% resource 'open_alberta/daterangepicker-module.js' %}
 
   {# This <section> is the date-range picker widget in the sidebar. #}
-{% if dataset_type in pubdate_facets %}
-  <section class="module module-narrow module-shallow">
-    <h4 class="module-heading">
-      <i class="icon-medium icon-calendar"></i> {{ _('Date Added to Catalogue') }}
-      <a href="{{ h.remove_url_param(['start_date', 'end_date']) }}"
-         class="action">{{ _('Reset') }}</a>
-    </h4>
-    <div class="module-content input-prepend" data-module="daterange-query">
-      <span class="add-on"><i class="icon-calendar"></i></span>
-      <input type="text" style="width: 150px" id="daterange-publication"
-             data-module="daterangepicker-module" data-field="metadata_created" />
-    </div>
-  </section>
-{% else %}
-{% endif %}
-{% if dataset_type in daterange_facets %}
-  <section class="module module-narrow module-shallow">
-    <h4 class="module-heading">
-      <i class="icon-medium icon-calendar"></i> {{ _('Date Coverage') }}
-      <a href="{{ h.remove_url_param(['start_date', 'end_date']) }}"
-         class="action">{{ _('Reset') }}</a>
-    </h4>
-    <div class="module-content input-prepend" data-module="daterange-query">
-      <span class="add-on"><i class="icon-calendar"></i></span>
-      <input type="text" style="width: 150px" id="daterange-coverage" data-module="daterangepicker-module" data-field="modify_date" />
-    </div>
-  </section>
-{% else %}
+  {% if dataset_type in pubdate_facets %}
+    <section class="module module-narrow module-shallow">
+      <h4 class="module-heading">
+        <i class="icon-medium icon-calendar"></i> {{ _('Date Added to Catalogue') }}
+        <a href="{{ h.remove_url_param(['start_date', 'end_date']) }}"
+           class="action">{{ _('Reset') }}</a>
+      </h4>
+      <div class="module-content input-prepend" data-module="daterange-query">
+        <span class="add-on"><i class="icon-calendar"></i></span>
+        <input type="text" style="width: 150px" id="daterange-publication"
+               data-module="daterangepicker-module" data-field="metadata_created" />
+      </div>
+    </section>
   {% endif %}
 
-    {% if dataset_type in facets_hide %}
-        {% else %}
- <h4><a target="_blank" href="{{ h.url_for('/suggest') }}">Suggest a Resource</a></h4>
-    {% endif %}
+  {% if dataset_type in daterange_facets %}
+    <section class="module module-narrow module-shallow">
+      <h4 class="module-heading">
+        <i class="icon-medium icon-calendar"></i> {{ _('Date Coverage') }}
+        <a href="{{ h.remove_url_param(['start_date', 'end_date']) }}"
+           class="action">{{ _('Reset') }}</a>
+      </h4>
+      <div class="module-content input-prepend" data-module="daterange-query">
+        <span class="add-on"><i class="icon-calendar"></i></span>
+        <input type="text" style="width: 150px" id="daterange-coverage" data-module="daterangepicker-module" data-field="modify_date" />
+      </div>
+    </section>
+  {% endif %}
+
+  {% if not dataset_type in facets_hide %}
+      <h4><a target="_blank" href="{{ h.url_for('/suggest') }}">Suggest a Resource</a></h4>
+  {% endif %}
 {% endblock %}
 

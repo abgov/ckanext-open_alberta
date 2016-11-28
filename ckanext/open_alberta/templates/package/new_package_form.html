@@ -1,12 +1,4 @@
-{% extends 'package/snippets/package_form.html' %}
-
-{% set form_style = c.form_style or c.action %}
-
-{% block stages %}
-  {% if form_style != 'edit' %}
-    {{ super() }}
-  {% endif %}
-{% endblock %}
+{% ckan_extends %}
 
 {% block metadata_fields %}
   {% if form_style == 'edit' %}{{ super() }}{% endif %}
@@ -14,20 +6,6 @@
 
 {% block disclaimer %}
   {% if form_style != 'edit' %}{{ super() }}{% endif %}
-{% endblock %}
-
-{% block save_button_text %}
-  {% if form_style != 'edit' %}
-    {{ super() }}
-  {% else %}
-    {{ _('Update Dataset') }}
-  {% endif %}
-{% endblock %}
-
-{% block cancel_button %}
-  {% if form_style != 'edit' %}
-    {{ super() }}
-  {% endif %}
 {% endblock %}
 
 {% block save_metadata_only_button %}
