@@ -44,3 +44,4 @@ def is_future_date(strdt):
         return dt > date.today()
     except (ValueError, AttributeError):
         return False
+

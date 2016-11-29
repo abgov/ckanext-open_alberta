@@ -7,8 +7,8 @@ import dateutil.parser as parser
 import ckan
 from ckanext.open_alberta import authz
 import helpers as oab_helpers
-
-
+import api
+import ckan.controllers.api as ckan_api
 
 
 @toolkit.side_effect_free
@@ -124,6 +124,12 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     """
     ckan.authz.is_authorized = authz.is_authorized
 
+    """ 
+    Monkey patching here to override 
+    the content type for download of package's metadata .
+    """
+    ckan_api.ApiController._finish_ok = api._finish_ok
+    ckan_api.CONTENT_TYPES = api.CONTENT_TYPES
 
     """ IAuthFunctions """
     def get_auth_functions(self):
