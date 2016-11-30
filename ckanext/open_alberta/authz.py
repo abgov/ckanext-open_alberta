@@ -37,7 +37,7 @@ def is_authorized(action, context, data_dict=None):
             Here we do not want to show not authorized. we want to
             rediret to login url
             """
-            return h.redirect_to('/user/login')
+            return h.redirect_to("/user/login?came_from={0}".format(h.full_current_url()))
             
 
         return auth_function(context, data_dict)
