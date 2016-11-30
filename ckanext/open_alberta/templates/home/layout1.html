@@ -1,60 +1,35 @@
 <main>
-    <header>
-        <div class="container-fluid" id="breadcrumbs-share">
-            <div class="row">
-                <div class="col-sm-12 col-md-8 nopadding">
-                    <section id="breadcrumbs" class="hidden-xs hidden-sm">
-                        <ul>
-                            <li><a href="http://alberta.ca"><span>Alberta.ca</span></a></li>
-                        </ul>
-                    </section>
-                </div>
-                <div class="col-sm-12 col-md-4 nopadding">
-                    <ul class="addthis_toolbox addthis_custom_sharing social visible-md visible-lg">
-                        <li><a class="addthis_button_facebook" title="Facebook" href="#"><i class="fa fa-fw fa-facebook"></i><span>Facebook</span></a></li>
-                        <li><a class="addthis_button_twitter" title="Tweet" href="#"><i class="fa fa-fw fa-twitter"></i><span>Twitter</span></a></li>
-                        <li><a title="RSS" href="{{rss_feed}}"><i class="fa fa-fw fa-rss"></i><span>RSS</span></a></li>
-                        <div class="atclear"></div></ul>
-                </div>
+    <div class="container-fluid content-main home">
+        <div class="row header">
+            <h2>Open Government</h2>
+            <p>Search {{ h.total_package_count() }} Alberta Government resources
+            <div class="col-xs-12 col-md-10">
+                <form method="get" action="/dataset" _lpchecked="1">
+                    <div class="input-group input-group-lg search">
+                        <input type="search" class="form-control" name="q" value="" autocomplete="on"
+                               placeholder="{{ _('Search government information for...')}}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default">
+                                <span class="fa fa-search"></span>
+                                <span class="sr-only">Search</span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
             </div>
         </div>
-    </header>
-    <div role="main" class="header-image">
-        <div class="container">
-            <div class="row row1">
-                {% snippet 'home/snippets/promoted.html' %}
-            </div>
-        </div>
-    </div>
-    <div role="main">
-        <div class="container-fluid block-background-secondary home-features">
-            <div class="container">
-                <div class="row row2">
-                    {% snippet 'home/snippets/middle.html' %}
+        <div class="row topics">
+            <h3>Browse Resources by Topic</h3>
+            <div class="inner">
+            {% for grp in h.topics(12) %}
+                <div class="topic{% if loop.index is divisibleby 4 %} fourth{% endif %}">
+                    <h3><a href="/topics/{{ grp.name }}">{{ grp.title }}</a></h3>
+                    <p> {{ grp.description }}</p>
                 </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row midrow">
-                <div class="col-sm-12">
-                    <h2>Latest Blog Post</h2>
+            {% endfor %}
+                <div>
+                    <a class="btn btn-default" href="/topics">View all topics</a>
                 </div>
-            </div>
-            <div class="row">
-                <article>
-                {% block featured_rssfeed %}
-                    {# TODO-ce read url from config.ini #}
-                    {% set featured_rssfeed = 'http://localhost:8002/blog.rss' %}
-                    {% if featured_rssfeed %}
-                        {% snippet 'home/snippets/feed_list.html', feed_url=featured_rssfeed, number_of_entries=1 %}
-                    {% endif %}
-                {% endblock %}
-                </article>
-            </div>
-            <div class="row midrow">
-                <div class="col-sm-12 text-center"><a href="/interact/blog" class="btn btn-md btn-info">View All Posts</a></div>
-            </div>
-            <div class="row midrow">
             </div>
         </div>
     </div>

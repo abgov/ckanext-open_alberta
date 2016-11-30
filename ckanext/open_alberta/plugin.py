@@ -112,7 +112,7 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
 
 
 class Open_AlbertaPlugin(plugins.SingletonPlugin):
-    plugins.implements(plugins.IConfigurer)
+    plugins.implements(plugins.IConfigurer, inherit=True)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.interfaces.IActions)
     plugins.implements(plugins.IRoutes, inherit=True)
@@ -136,12 +136,25 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
-    
+   
+    def update_config_schema(self, schema):
+        schema.update({
+            'menu_items': []
+        })
+        return schema
+ 
     #ITemplateHelpers
     def get_helpers(self):
-        return {'open_alberta_latest_datasets': latest_datasets,
-                'open_alberta_check_archive_date': check_archive_date,
-                'config_datasets_per_pg_options': oab_helpers.items_per_page_from_config}
+        return {
+            'open_alberta_latest_datasets': latest_datasets,
+            'open_alberta_check_archive_date': check_archive_date,
+            'config_datasets_per_pg_options': oab_helpers.items_per_page_from_config,
+            'topics': oab_helpers.topics,
+            'total_package_count': oab_helpers.total_package_count,
+            'menu_items': oab_helpers.menu_items,
+            'have_plugin': oab_helpers.have_plugin,
+            'is_future_date': oab_helpers.is_future_date,
+        }
 
 
     #IActions
