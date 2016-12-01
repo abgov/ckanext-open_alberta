@@ -9,7 +9,8 @@
   background: #36424a;
   font-family: lato, sans-serif;
   font-size: 1.6em;
-  /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */ }
+  /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
+  /* Helpers */ }
   #alberta-ca div[role=main] {
     background: url(/img/homepage-bg.jpg) top left repeat-x; }
   #alberta-ca #content {
@@ -69,6 +70,8 @@
           padding: 0 10px 0 0; }
         #alberta-ca #branding .search .input-group .fa-search {
           font-size: 24px; }
+  #alberta-ca .header-bg {
+    border-bottom: 0; }
   #alberta-ca .home .header {
     background: #fff;
     margin: auto 0;
@@ -121,6 +124,10 @@
           width: 10em;
           margin: 0 auto;
           margin-top: 15px; }
+  #alberta-ca .responsive-buttons {
+    height: 61px;
+    margin-top: 10px;
+    margin-bottom: 10px; }
   #alberta-ca .navbar, #alberta-ca .navbar-collapse {
     background-color: #77b800;
     border: none;
@@ -143,7 +150,7 @@
     #alberta-ca .navbar a {
       color: #000;
       min-height: 30px;
-      padding: 0 15px !important;
+      padding: 5px 15px !important;
       line-height: 30px; }
       #alberta-ca .navbar a:hover {
         color: #000;
@@ -154,6 +161,8 @@
     /* burger lines */
     background-color: #000; }
   @media only screen and (max-width: 40em) {
+    #alberta-ca .navbar {
+      border-radius: 0px; }
     #alberta-ca .navbar-header {
       float: none; }
     #alberta-ca .navbar-toggle {
@@ -293,3 +302,9 @@
       border: solid 1px #666;
       background: #005072;
       color: #fff; }
+  #alberta-ca .block-wrapper {
+    width: 100%; }
+  #alberta-ca .vertical-align-wrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); }
