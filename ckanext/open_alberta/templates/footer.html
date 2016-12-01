@@ -27,40 +27,48 @@
         </div>
     </div>
 </div> #}
-<footer class="footer-bg footer" role="contentinfo">
-    <h2 class="sr-only">Footer</h2>
-    <div class="row">
-        <div class="col-xs-12 col-sm-4 footer-quick-links">
-            <h3 id="title-quick-links">Quick links</h3>
-            <ul class="list-group" aria-labelledby="title-quick-links">
-                <li><a class="list-group-item" href="http://www.alberta.ca/index.aspx">Government of Alberta - Home</a></li>
-                <li><a class="list-group-item" href="http://www.alberta.ca/jobs-alberta.aspx">Find a job in Alberta</a></li>
-                <li><a class="list-group-item" href="http://www.alberta.ca/ministries.aspx">Ministries</a></li>
-                <li><a class="list-group-item" href="http://www.alberta.ca/news.aspx">Alberta government news</a></li>
-                <li><a class="list-group-item" href="http://www.alberta.ca/staff-directory.cfm">Government staff directory</a></li>
-                <li><a class="list-group-item" href="http://www.alberta.ca/contact.cfm">Contact government</a></li>
-            </ul>
+<div class="footer-bg">
+    <div class="container-fluid footer">
+        <div class="row">
+            <div class="col-xs-12">
+                <footer role="contentinfo">
+                    <h2 id="footerTitle" class="sr-only">Footer</h2>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 footer-quick-links">
+                            <h3 id="title-quick-links">Quick links</h3>
+                            <ul class="list-group" aria-labelledby="title-quick-links">
+                                <li><a class="list-group-item" href="http://www.alberta.ca/index.aspx">Government of Alberta - Home</a></li>
+                                <li><a class="list-group-item" href="http://www.alberta.ca/jobs-alberta.aspx">Find a job in Alberta</a></li>
+                                <li><a class="list-group-item" href="http://www.alberta.ca/ministries.aspx">Ministries</a></li>
+                                <li><a class="list-group-item" href="http://www.alberta.ca/news.aspx">Alberta government news</a></li>
+                                <li><a class="list-group-item" href="http://www.alberta.ca/staff-directory.cfm">Government staff directory</a></li>
+                                <li><a class="list-group-item" href="http://www.alberta.ca/contact.cfm">Contact government</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 footer-social">
+                            <h3 id="title-follow">Follow the Alberta Government</h3>
+                            <ul class="list-group" aria-labelledby="title-follow">
+                                <li><a class="list-group-item" href="https://www.facebook.com/youralberta.ca" target="_blank"><span class="fa fa-facebook"></span>Facebook</a></li>
+                                <li><a class="list-group-item" href="https://twitter.com/youralberta" target="_blank"><span class="fa fa-twitter"></span>Twitter</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 footer-disclaimer">
+                            <h3 id="title-about-site">About this site</h3>
+                            <ul class="list-group" aria-labelledby="title-about-site">
+                                <li><a class="list-group-item" href="http://www.alberta.ca/usingthissite.aspx">Using Alberta.ca</a></li>
+                                <li><a class="list-group-item" href="http://www.alberta.ca/disclaimer.aspx">Disclaimer</a></li>
+                                <li><a class="list-group-item" href="http://www.alberta.ca/privacystatement.aspx">Privacy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </footer>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-4 footer-social">
-            <h3 id="title-follow">Follow the Alberta Government</h3>
-            <ul class="list-group" aria-labelledby="title-follow">
-                <li><a class="list-group-item" href="https://www.facebook.com/youralberta.ca" target="_blank"><span class="fa fa-facebook"></span>Facebook</a></li>
-                <li><a class="list-group-item" href="https://twitter.com/youralberta" target="_blank"><span class="fa fa-twitter"></span>Twitter</a></li>
-            </ul>
-        </div>
-        <div class="col-xs-12 col-sm-4 footer-disclaimer">
-            <h3 id="title-about-site">About this site</h3>
-            <ul class="list-group" aria-labelledby="title-about-site">
-                <li><a class="list-group-item" href="http://www.alberta.ca/usingthissite.aspx">Using Alberta.ca</a></li>
-                <li><a class="list-group-item" href="http://www.alberta.ca/disclaimer.aspx">Disclaimer</a></li>
-                <li><a class="list-group-item" href="http://www.alberta.ca/privacystatement.aspx">Privacy</a></li>
-            </ul>
-        </div>						
+        {% block footer_debug %}
+        {% if g.debug %}
+            {% include 'snippets/debug.html' %}
+        {% endif %}
+        {% endblock %}
     </div>
-{% block footer_debug %}
-    {% if g.debug %}
-      {% include 'snippets/debug.html' %}
-    {% endif %}
-  {% endblock %}
-</footer>
+</div>
 {% endblock %}
