@@ -121,6 +121,10 @@ $light-border-color: #a0a0a0;
         }
     }
 
+    .header-bg {
+        border-bottom: 0;
+    }
+
     .home {
         .header {
             background: #fff;
@@ -206,6 +210,12 @@ $light-border-color: #a0a0a0;
 
     }
 
+    .responsive-buttons {
+        height: 61px;    
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
     .navbar, .navbar-collapse { 
         background-color: $menu-color; 
         border: none; 
@@ -241,7 +251,7 @@ $light-border-color: #a0a0a0;
         a { 
             color: #000;  
             min-height: $menu-height; 
-            padding: 0 15px !important; 
+            padding: 5px 15px !important; 
             line-height: $menu-height; 
 
             &:hover { 
@@ -262,6 +272,7 @@ $light-border-color: #a0a0a0;
 
     /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
     @include screen-sm() {
+        .navbar {border-radius: 0px;}
         .navbar-header { float: none; }
         .navbar-toggle { display: block; margin-left: 0; }
         .navbar-collapse.collapse { display: none !important; }
@@ -459,5 +470,13 @@ $light-border-color: #a0a0a0;
             }
 
         }
+    }
+
+    /* Helpers */
+    .block-wrapper { width: 100%; }
+    .vertical-align-wrapper {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
     }
 }

@@ -50,47 +50,50 @@
         </div>
     {% endblock %}
 </header>
-<header class="site-header">
-    {% block header_logo %}
-        <div id="branding" class="header-bg row">
-            <div class="col-xs-4 col-sm-5 col-md-7">
-                <a class="logo" href="{{ h.url('home') }}" title="Alberta Government">
-                    <h1 class="ab-logo">
-                        <span class="sr-only">Alberta Open Government</span>
-                        <img src="{{ g.site_logo or '/img/AlbertaLogo.svg' }}" alt="Alberta Government Logo">
-                    </h1>
-                </a>
-                {% if g.site_description %}<span class="mini">{{ g.site_description }}</span>{% endif %}
-            </div>
-    {% endblock %}
-            <div class="col-xs-8 col-sm-7 col-md-5 text-right search">
-                <form method="get" action="/dataset" id="top_search" _lpchecked="1">
-                    <div class="input-group">
-                        <input type="search" class="form-control" name="q" value="" autocomplete="on" 
-                               placeholder="{{ _('Search Open Government')}}">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default">
-                                <span class="fa fa-search"></span>
-                                <span class="sr-only">Search</span>
-                            </button>
-                        </span>
+<!-- NEW -->
+<div class="header-bg">
+    <div class="container-fluid header">
+        <div class="row logo-search-menu-topics">
+            <header role="banner">
+                <div class="skip-links">
+                    <a href="#content">Skip to content</a>
+                </div>
+                {% block header_logo %}
+                <div class="col-xs-6 col-sm-7 logo">
+                    <a href="home.htm"><img class="img-responsive" src="{{ g.site_logo or '/img/AlbertaLogo.svg' }}" alt="Alberta Government Logo" /></a>
+                    {% if g.site_description %}<span class="mini">{{ g.site_description }}</span>{% endif %}
+                </div>
+                {% endblock %}
+                <div class="col-xs-6 col-sm-5 text-right">
+                    <div class="search hidden-xs">
+                        <form action="story.htm" role="search">
+                            <div class="input-group input-group-lg">
+                                <input class="form-control" type="search"  name="q" value="" autocomplete="on" placeholder="{{ _('Search Open Government')}}" />
+                                <span class="input-group-btn"><button class="btn btn-default"><span class="fa fa-search"></span><span class="sr-only">Search</span></button></span>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
+                    <!-- Responsive Buttons -->
+                    <div class="responsive-buttons visible-xs" style="">
+                        <div class="vertical-align-wrapper">
+                            <button class="btn btn-default"><span class="fa fa-search"></span><span class="sr-only">Search</span></button>
+                            <button class="btn btn-default"><span class="fa fa-bars"></span><span class="sr-only">Menu</span></button>
+                        </div>
+                    </div>
+                    <!-- End Responsive Buttons -->
+                </div>
+            </header>
         </div>
+    </div>
+</div>
 
-        <nav class="navbar navbar-default row">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-            </div>
+<!-- END NEW -->
 
-            <div class="collapse navbar-collapse" id="navbar-collapse-1">
-              <ul class="nav">
+<!-- OLD -->
+<nav class="navbar navbar-default row hidden-xs">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav">
             {% macro menu_item(href, text) -%}
                 <li><a href="{{ href }}" {% if c.environ.PATH_INFO == href %}class="active"{% endif %}>{{ text|safe }}</a></li>
             {%- endmacro %}
@@ -101,10 +104,10 @@
             {% if not (c.controller == 'user' and c.action == 'login' or c.userobj) %} 
                 <li class="pull-right"><a href="{{ h.url_for(controller='user', action='login') }}"><i class="fa fa-lock"></i></a></li>
             {% endif %}
-              </ul>
-            </div>
-        </nav>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-</header>
 {% endblock %}
 {% endblock %}
