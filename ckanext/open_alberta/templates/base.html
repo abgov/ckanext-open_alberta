@@ -1,25 +1,21 @@
 {# base.html #}
 {% ckan_extends %}
 
-
 {% block styles %}
-	<link rel="stylesheet" href="/css/font-awesome.css">
-	{% resource 'open_alberta/css/jquery-ui.css' %}
-	{% resource 'open_alberta/js/cookies.js' %}
-	{#{% resource 'open_alberta/css/jquery-ui.theme.css' %}#}
-	{% resource 'open_alberta/css/main.css' %}
-	{% resource 'open_alberta/css/ab-opengov.css' %}
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    {% resource 'open_alberta/css/jquery-ui.css' %}
+    {% resource 'open_alberta/css/alberta.ca.css' %}
+    {% resource 'open_alberta/css/ab-opengov.css' %}
 {% endblock %}
 {% block scripts %}
-	{% resource 'open_alberta/js/jquery-ui.js' %}
-	{% resource 'open_alberta/js/ckan-wk.js' %}
-	{% resource 'open_alberta/js/addthis.js' %}
-	{% resource 'open_alberta/js/abca.js' %}
-	{% resource 'open_alberta/js/private-ds.js' %}
-	{% resource 'open_alberta/js/clone-ds.js' %}
-	{% resource 'open_alberta/js/date-fix.js' %}
-	{{ super() }}
+    {% resource 'open_alberta/js/jquery-ui.js' %}
+    {% resource 'open_alberta/js/ckan-wk.js' %}
+    {% resource 'open_alberta/js/abca.js' %}
+    {% resource 'open_alberta/js/private-ds.js' %}
+    {% resource 'open_alberta/js/clone-ds.js' %}
+    {% resource 'open_alberta/js/date-fix.js' %}
+    {% resource 'open_alberta/js/cookies.js' %}
+    {{ super() }}
 {% endblock %}
-{% block bodytag %}
-	class="alberta-theme" {{ super() }}
-{% endblock %}
+{% block bodytag %} id="alberta-ca" {{ super() }}{% endblock %}
