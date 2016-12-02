@@ -63,8 +63,8 @@ def latest_datasets():
 def topics(max=-1):
     search = toolkit.get_action('group_list')
     results = search(data_dict={'sort': 'package_count desc',
+                                'type': 'topics',
                                 'all_fields': True})
-    print '** groups: ', len(results)
     return results[:max] if max > 0 else results
 
 
