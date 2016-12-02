@@ -130,6 +130,7 @@ admin.AdminController._get_config_form_items = __patched__get_config_form_items
 
 
 class Open_AlbertaPlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IConfigurable)
     plugins.implements(plugins.IConfigurer, inherit=True)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.interfaces.IActions)
@@ -149,6 +150,11 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     ckan_api.ApiController._finish_ok = api._finish_ok
     ckan_api.CONTENT_TYPES = api.CONTENT_TYPES
 
+    """ IConfigurable """
+    def configure(self, config):
+        from ckan.controllers.group import GroupController
+        # Tell core group controller to handle topics groups
+        GroupController.add_group_type('topics')
 
     """ IAuthFunctions """
     def get_auth_functions(self):
@@ -161,7 +167,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
-   
+
     def update_config_schema(self, schema):
         schema.update({
             'menu_items': []
@@ -200,7 +206,12 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
                   controller='ckanext.open_alberta.controller:PackagesDeleteController',
                   action='delete_datasets')
 
+        m.connect('topics', '/topics', controller='group', action='index')
+
+        m.connect('topics_read', '/topics/{id}', controller='group', action='read')
+
         return m
+
 
     import ckan.controllers.package
     from .controller import PagedPackageController
