@@ -1,0 +1,8 @@
+{% ckan_extends %}
+
+{% block admin_form %}
+    {{ super() }}
+    {% if 'menu_items' in data %}
+        <input type="hidden" name="menu_items" value='{{ data.menu_items }}'>
+    {% endif %}
+{% endblock %}
