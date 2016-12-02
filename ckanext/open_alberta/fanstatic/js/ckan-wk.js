@@ -16,24 +16,26 @@ var delayPN = 0;
 //Document-level functionality
 $(document).ready(function(){
     activateTabs();
-    
-    $.ajax({url: '/api/3/action/counter_on', 
-        async: false,
-        success: function(q){
-                counter_on = q.result.counter_on;
-                if (Boolean(counter_on)){
-                    loadDatasetNumbers();
-                }   
-            },
-        error: function(){
-               // alert("Counter_on function not working.\n" +
-               //     "Please check if the two lines below in the config ini file.\n" +
-               //     "## Counter control on the home page ##\n" +
-               //     "ckan.open_alberta.counter_on = true\n");
-        
-            }
-    });
-        
+
+    var pathname = window.location.pathname;
+    if (pathname == '/'){
+        $.ajax({url: '/api/3/action/counter_on', 
+            async: false,
+            success: function(q){
+                    counter_on = q.result.counter_on;
+                    if (Boolean(counter_on)){
+                        loadDatasetNumbers();
+                    }   
+                },
+            error: function(){
+                   // alert("Counter_on function not working.\n" +
+                   //     "Please check if the two lines below in the config ini file.\n" +
+                   //     "## Counter control on the home page ##\n" +
+                   //     "ckan.open_alberta.counter_on = true\n");
+            
+                }
+        });
+    }   
     //var myURL = window.location.pathname.toLowerCase();
     //var dataset_type = $.QueryString['dataset_type'];
 });
