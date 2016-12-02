@@ -9,6 +9,7 @@ from ckanext.open_alberta import authz
 import helpers as oab_helpers
 import api
 import ckan.controllers.api as ckan_api
+from ckan.common import _
 
 
 @toolkit.side_effect_free
@@ -111,6 +112,23 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
         return m
 
 
+# Replace Homepage drop-down select contents
+
+import ckan.controllers.admin as admin
+
+_orig_get_config_form_items = admin.AdminController._get_config_form_items
+
+def __patched__get_config_form_items(self):
+    ret = _orig_get_config_form_items(self)
+    for item in ret:
+        if item['name'] == 'ckan.homepage_style':
+            item['options'] = [{'value': '1', 'text': _('IDDP home page')},
+                               {'value': '2', 'text': _('OGP home page')}]
+            return ret
+
+admin.AdminController._get_config_form_items = __patched__get_config_form_items
+
+
 class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer, inherit=True)
     plugins.implements(plugins.ITemplateHelpers)
@@ -130,6 +148,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     """
     ckan_api.ApiController._finish_ok = api._finish_ok
     ckan_api.CONTENT_TYPES = api.CONTENT_TYPES
+
 
     """ IAuthFunctions """
     def get_auth_functions(self):
@@ -172,6 +191,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         m.connect('private-packages' ,'/dashboard/datasets/private',
                   controller='ckanext.open_alberta.controller:DashboardPackagesController',
                   action='dashboard_datasets')
+
         m.connect('clone', '/dataset/clone/{id}',
                   controller='ckanext.open_alberta.controller:PackageCloneController',
                   action='index')
@@ -255,7 +275,6 @@ class ReviewPlugin(plugins.SingletonPlugin):
         from ckan.lib.activity_streams import (activity_stream_string_functions as as_funcs,
                                                activity_stream_string_icons as as_icons)
         from ckan.logic.validators import object_id_validators
-        from ckan.common import _
         as_funcs['package reviewed'] = lambda *args: _(self._REVIEWED_STR)
         as_icons['package reviewed'] = 'certificate'
         object_id_validators['package reviewed'] = toolkit.get_validator('package_id_exists')
