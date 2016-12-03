@@ -10,7 +10,7 @@ import helpers as oab_helpers
 import api
 import ckan.controllers.api as ckan_api
 from ckan.common import _
-
+from ckan.lib.plugins import DefaultGroupForm
 
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
@@ -129,13 +129,14 @@ def __patched__get_config_form_items(self):
 admin.AdminController._get_config_form_items = __patched__get_config_form_items
 
 
-class Open_AlbertaPlugin(plugins.SingletonPlugin):
+class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
     plugins.implements(plugins.IConfigurable)
     plugins.implements(plugins.IConfigurer, inherit=True)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.interfaces.IActions)
     plugins.implements(plugins.IRoutes, inherit=True)
     plugins.implements(plugins.IAuthFunctions)
+    plugins.implements(plugins.IGroupForm)
 
     """
     Monkey patch the ckan authz. Change the default behavior
@@ -211,6 +212,17 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         m.connect('topics_read', '/topics/{id}', controller='group', action='read')
 
         return m
+
+
+    # IGroupForm
+    def is_fallback(self):
+        return False
+
+    def group_types(self):
+        return ['topics']
+
+    def index_template(self):
+        return 'group/topics.html'
 
 
     import ckan.controllers.package

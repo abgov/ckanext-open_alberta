@@ -1,12 +1,9 @@
 {% ckan_extends %}
 
-{# Override Title with 'Site Tag Line"
-{% block subtitle %}{{ _("Welcome") }}{% endblock %}
-#}
-
-{% block subtitle %}{% if g.site_description %}{{ g.site_description }}{% endif %}{% endblock %}
-
-{% block breadcrumb_content %}
-  <li class="active"><a href="{{ h.url_for(controller='user', action='dashboard') }}">{{ _('Dashboard') }}</a></li>
+{% block content %}
+<div role="main">
+    <div class="container-fluid home">
+    {{ super() }}
+    </div>
+</div>
 {% endblock %}
-
