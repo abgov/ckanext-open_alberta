@@ -87,38 +87,40 @@
         background: #333; }
       #alberta-ca .home .search .btn .fa-search {
         color: #fff; }
-  #alberta-ca .home .topics {
+  #alberta-ca .topics {
     background: #d1d4d3;
     padding: 15px 15px 30px 15px;
     border-top: dotted 1px #a0a0a0;
     margin: auto 0; }
-    #alberta-ca .home .topics .inner {
+    #alberta-ca .topics .inner {
       background: #fff;
       padding-bottom: 15px;
       overflow: hidden; }
-      #alberta-ca .home .topics .inner .topic {
+      #alberta-ca .topics .inner > h3 {
+        padding-left: 15px; }
+      #alberta-ca .topics .inner .topic {
         width: 33%;
         float: left;
         margin-bottom: -500em;
         padding-bottom: 500em;
         /* Items have different height so stuff in the last row will render in a random column.
-                       Clears force starting the row in column 1 */ }
-        #alberta-ca .home .topics .inner .topic h3, #alberta-ca .home .topics .inner .topic p {
+                   Clears force starting the row in column 1 */ }
+        #alberta-ca .topics .inner .topic h3, #alberta-ca .topics .inner .topic p {
           margin: 10px; }
         @media screen and (min-width: 50em) {
-          #alberta-ca .home .topics .inner .topic.fourth {
+          #alberta-ca .topics .inner .topic.fourth {
             clear: left; } }
         @media screen and (max-width: 50em) {
-          #alberta-ca .home .topics .inner .topic {
+          #alberta-ca .topics .inner .topic {
             width: 50%; }
-            #alberta-ca .home .topics .inner .topic:nth-child(odd) {
+            #alberta-ca .topics .inner .topic:nth-child(odd) {
               clear: left; } }
         @media screen and (max-width: 30em) {
-          #alberta-ca .home .topics .inner .topic {
+          #alberta-ca .topics .inner .topic {
             width: 100%; } }
-      #alberta-ca .home .topics .inner > div:last-child {
+      #alberta-ca .topics .inner .see-all {
         clear: both; }
-        #alberta-ca .home .topics .inner > div:last-child .btn {
+        #alberta-ca .topics .inner .see-all .btn {
           text-transform: uppercase;
           display: block;
           width: 10em;
@@ -188,19 +190,12 @@
       display: block; }
     #alberta-ca .navbar-header {
       display: none; } }
-  #alberta-ca nav {
-    /*        .breadcrump.home {
-            background: url(/img/homepage-bg.jpg) top left repeat-x;
-        }           */ }
-    #alberta-ca nav .breadcrumb {
-      padding-left: 15px;
-      padding-right: 15px;
-      min-height: 20px;
-      margin: 0;
-      border-radius: 0; }
-  #alberta-ca .homepage {
-    background: url(/img/homepage-bg.jpg) top left repeat;
-    background-position-y: -36px; }
+  #alberta-ca nav .breadcrumb {
+    padding-left: 15px;
+    padding-right: 15px;
+    min-height: 20px;
+    margin: 0;
+    border-radius: 0; }
   #alberta-ca .nav-tabs {
     padding-left: 20px; }
   #alberta-ca .left-sidebar {

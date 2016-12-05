@@ -152,62 +152,65 @@ $light-border-color: #a0a0a0;
                 }
             }
         }
+    }
 
-        .topics {
-            background: #d1d4d3;
-            padding: 15px 15px 30px 15px;
-            border-top: dotted 1px $light-border-color;
-            margin: auto 0;
+    .topics {
+        background: #d1d4d3;
+        padding: 15px 15px 30px 15px;
+        border-top: dotted 1px $light-border-color;
+        margin: auto 0;
 
-            .inner {
-                background: #fff;
-                padding-bottom: 15px;
-                overflow: hidden;
+        .inner {
+            background: #fff;
+            padding-bottom: 15px;
+            overflow: hidden;
 
-                .topic {
-                    width: 33%;
-                    float: left;
-                    margin-bottom: -500em;
-                    padding-bottom: 500em;
+            >h3 {
+                padding-left: 15px;
+            }
 
-                    h3, p {
-                        margin: 10px;
-                    }
+            .topic {
+                width: 33%;
+                float: left;
+                margin-bottom: -500em;
+                padding-bottom: 500em;
 
-                    /* Items have different height so stuff in the last row will render in a random column.
-                       Clears force starting the row in column 1 */
-                    @media screen and (min-width: 50em) {
-                        &.fourth {
-                            clear: left;
-                        }
-                    }
+                h3, p {
+                    margin: 10px;
+                }
 
-                    @media screen and (max-width: 50em) {
-                        width: 50%;
-                        &:nth-child(odd) {
-                            clear: left;
-                        }
-                    }
-                    @media screen and (max-width: 30em) {
-                        width: 100%;
+                /* Items have different height so stuff in the last row will render in a random column.
+                   Clears force starting the row in column 1 */
+                @media screen and (min-width: 50em) {
+                    &.fourth {
+                        clear: left;
                     }
                 }
 
-
-                >div:last-child {
-                    clear: both;
-
-                    .btn {
-                        text-transform: uppercase;
-                        display: block;
-                        width: 10em;
-                        margin: 0 auto;
-                        margin-top: 15px;
+                @media screen and (max-width: 50em) {
+                    width: 50%;
+                    &:nth-child(odd) {
+                        clear: left;
                     }
+                }
+                @media screen and (max-width: 30em) {
+                    width: 100%;
+                }
+            }
+
+
+            .see-all {
+                clear: both;
+
+                .btn {
+                    text-transform: uppercase;
+                    display: block;
+                    width: 10em;
+                    margin: 0 auto;
+                    margin-top: 15px;
                 }
             }
         }
-
     }
 
     .responsive-buttons {
@@ -296,14 +299,6 @@ $light-border-color: #a0a0a0;
             border-radius: 0;
         }
 
-/*        .breadcrump.home {
-            background: url(/img/homepage-bg.jpg) top left repeat-x;
-        }           */
-    }
-
-    .homepage {
-        background: url(/img/homepage-bg.jpg) top left repeat;
-        background-position-y: -36px;
     }
 
     .nav-tabs {

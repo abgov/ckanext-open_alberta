@@ -10,7 +10,7 @@ import helpers as oab_helpers
 import api
 import ckan.controllers.api as ckan_api
 from ckan.common import _
-
+from ckan.lib.plugins import DefaultGroupForm
 
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
@@ -129,12 +129,14 @@ def __patched__get_config_form_items(self):
 admin.AdminController._get_config_form_items = __patched__get_config_form_items
 
 
-class Open_AlbertaPlugin(plugins.SingletonPlugin):
+class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
+    plugins.implements(plugins.IConfigurable)
     plugins.implements(plugins.IConfigurer, inherit=True)
     plugins.implements(plugins.ITemplateHelpers)
     plugins.implements(plugins.interfaces.IActions)
     plugins.implements(plugins.IRoutes, inherit=True)
     plugins.implements(plugins.IAuthFunctions)
+    plugins.implements(plugins.IGroupForm)
 
     """
     Monkey patch the ckan authz. Change the default behavior
@@ -149,6 +151,11 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
     ckan_api.ApiController._finish_ok = api._finish_ok
     ckan_api.CONTENT_TYPES = api.CONTENT_TYPES
 
+    """ IConfigurable """
+    def configure(self, config):
+        from ckan.controllers.group import GroupController
+        # Tell core group controller to handle topics groups
+        GroupController.add_group_type('topics')
 
     """ IAuthFunctions """
     def get_auth_functions(self):
@@ -161,7 +168,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
-   
+
     def update_config_schema(self, schema):
         schema.update({
             'menu_items': []
@@ -200,7 +207,23 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
                   controller='ckanext.open_alberta.controller:PackagesDeleteController',
                   action='delete_datasets')
 
+        m.connect('topics', '/topics', controller='group', action='index')
+
+        m.connect('topics_read', '/topics/{id}', controller='group', action='read')
+
         return m
+
+
+    # IGroupForm
+    def is_fallback(self):
+        return False
+
+    def group_types(self):
+        return ['topics']
+
+    def index_template(self):
+        return 'group/topics.html'
+
 
     import ckan.controllers.package
     from .controller import PagedPackageController
