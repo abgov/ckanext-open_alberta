@@ -76,6 +76,9 @@
     padding: 0 15px; }
   #alberta-ca.IDDP .page-preprimary {
     margin-bottom: 30px; }
+  #alberta-ca.IDDP .logo a {
+    background: url(/img/AlbertaLogoWhiteV.svg) no-repeat center center;
+    background-size: 120px 51px; }
   #alberta-ca.IDDP #content {
     background-color: #fff;
     padding-top: 0; }

@@ -43,6 +43,11 @@ $light-border-color: #a0a0a0;
         margin-bottom: 30px;
     }
 
+    .logo a {
+        background: url(/img/AlbertaLogoWhiteV.svg) no-repeat center center;
+        background-size: 120px 51px;
+    }
+
     #content {
         background-color: #fff;
         padding-top: 0;
