@@ -25,7 +25,7 @@ $light-border-color: #a0a0a0;
     }
 }
 
-#alberta-ca {
+#alberta-ca.IDDP {
     overflow-x: hidden;
     background: #36424a;
     font-family: lato, sans-serif;
@@ -35,8 +35,78 @@ $light-border-color: #a0a0a0;
         background: url(/img/homepage-bg.jpg) top left repeat-x;
     }
 
+    .wrapper-main {
+        padding: 0 15px;
+    }
+
+    .page-preprimary {
+        margin-bottom: 30px;
+    }
+
     #content {
         background-color: #fff;
+        padding-top: 0;
+
+        .primary {
+            padding: 10px;
+            @include screen-med-up() {
+                width: 75%;
+                float: right;
+            }
+            @include screen-sm() {
+                width: 100%;
+            }
+        }
+
+        &.no-sidebar .primary {
+            width: 100%;
+            float: none;
+        }
+
+        aside.secondary {
+            @include screen-med-up() {
+                 width: 25%;
+                 float: left;
+            }
+
+            border: dotted 1px #ccc;
+
+            h3 {
+                color: #fff;
+                background: #606060;
+                font-size: 1.2em;
+                margin: 0;
+                padding: 5px 10px;
+            }
+
+            h4 {
+                color: #000;
+                background: #ccc;
+                font-size: 1em;
+                padding: 5px 10px;
+                margin: 0;
+
+                &.suggest {
+                    text-align: center;
+                }
+            }
+
+            li.nav-item {
+                font-size: 0.9em;
+                margin: 0 -5px;
+                padding: 5px 10px;
+                border-bottom: dotted 1px #ccc;
+
+                a {
+                    margin: -5px -5px;
+                    padding: 5px;
+                }
+            }
+        }
+
+        &.no-sidebar aside.secondary {
+            display: none;
+        }
     }
 
     .account-masthead { 
@@ -65,64 +135,21 @@ $light-border-color: #a0a0a0;
         }
     }
 
-    #branding {
-        border-bottom: none !important; /* menu replaces the green divider defined in alberta.ca.css */
-        padding: 10px 15px 5px 15px;
-        margin-right: 0;
+    .header-bg {
+        border-bottom: 0;
 
-        @include screen-sm() {
-            >div {
-                width: 100%;   /* make search box 100% only at 480px and less */
-            }
-            .search {
-                margin-top: 10px !important;
-                margin-bottom: 5px;
-            }
-        }
+        .search button {
+            background: #fff;
+            color: #606060;
 
-
-        h1 {
-            margin: 0;
-        }
-
-        img {
-            display: block;
-            height: 40px;
-            margin: 0;
-        }
-
-        .search { 
-            padding: 0; 
-            margin-top: 5px;
-            @include screen-sm() {
-                padding-left: 15px;
-            }
-
-            input {
-                height: $top-search-height;
-                line-height: $top-search-height;
-                padding: 0 10px;
-                font-size: 15px;
-            }
-
-            .input-group {
-                height: $top-search-height;
-
-                .btn {
-                    border-radius: 0 !important;
-                    height: $top-search-height;
-                    padding: 0 10px 0 0;
-                }
-
-                .fa-search {
-                    font-size: 24px;
-                }
+            &:hover, &:focus {
+                color: #000;
             }
         }
     }
 
-    .header-bg {
-        border-bottom: 0;
+    #content > div {
+        padding-top: 0; /* turn off 30px from alberta.css */
     }
 
     .home {
@@ -152,62 +179,65 @@ $light-border-color: #a0a0a0;
                 }
             }
         }
+    }
 
-        .topics {
-            background: #d1d4d3;
-            padding: 15px 15px 30px 15px;
-            border-top: dotted 1px $light-border-color;
-            margin: auto 0;
+    .topics {
+        background: #d1d4d3;
+        padding: 15px 15px 30px 15px;
+        border-top: dotted 1px $light-border-color;
+        margin: auto 0;
 
-            .inner {
-                background: #fff;
-                padding-bottom: 15px;
-                overflow: hidden;
+        .inner {
+            background: #fff;
+            padding-bottom: 15px;
+            overflow: hidden;
 
-                .topic {
-                    width: 33%;
-                    float: left;
-                    margin-bottom: -500em;
-                    padding-bottom: 500em;
+            >h3 {
+                padding-left: 15px;
+            }
 
-                    h3, p {
-                        margin: 10px;
-                    }
+            .topic {
+                width: 33%;
+                float: left;
+                margin-bottom: -500em;
+                padding-bottom: 500em;
 
-                    /* Items have different height so stuff in the last row will render in a random column.
-                       Clears force starting the row in column 1 */
-                    @media screen and (min-width: 50em) {
-                        &.fourth {
-                            clear: left;
-                        }
-                    }
+                h3, p {
+                    margin: 10px;
+                }
 
-                    @media screen and (max-width: 50em) {
-                        width: 50%;
-                        &:nth-child(odd) {
-                            clear: left;
-                        }
-                    }
-                    @media screen and (max-width: 30em) {
-                        width: 100%;
+                /* Items have different height so stuff in the last row will render in a random column.
+                   Clears force starting the row in column 1 */
+                @media screen and (min-width: 50em) {
+                    &.fourth {
+                        clear: left;
                     }
                 }
 
-
-                >div:last-child {
-                    clear: both;
-
-                    .btn {
-                        text-transform: uppercase;
-                        display: block;
-                        width: 10em;
-                        margin: 0 auto;
-                        margin-top: 15px;
+                @media screen and (max-width: 50em) {
+                    width: 50%;
+                    &:nth-child(odd) {
+                        clear: left;
                     }
+                }
+                @media screen and (max-width: 30em) {
+                    width: 100%;
+                }
+            }
+
+
+            .see-all {
+                clear: both;
+
+                .btn {
+                    text-transform: uppercase;
+                    display: block;
+                    width: 10em;
+                    margin: 0 auto;
+                    margin-top: 15px;
                 }
             }
         }
-
     }
 
     .responsive-buttons {
@@ -287,30 +317,58 @@ $light-border-color: #a0a0a0;
         .navbar-header { display: none; }
     }
 
-    nav {
-        .breadcrumb {
-            padding-left: 15px;
-            padding-right: 15px;
-            min-height: 20px;
-            margin: 0;
-            border-radius: 0;
-        }
+    .breadcrumb {
+        padding-left: 0;
+        padding-right: 15px;
+        min-height: 20px;
+        margin: 0;
+        border-radius: 0;
+        text-transform: uppercase;
 
-/*        .breadcrump.home {
-            background: url(/img/homepage-bg.jpg) top left repeat-x;
-        }           */
+        li:last-child:after {
+            content: "";  /* do not display the last "/" */
+        }
     }
 
-    .homepage {
-        background: url(/img/homepage-bg.jpg) top left repeat;
-        background-position-y: -36px;
+    .primary > article {
+        padding: 0 15px;
+
+        .topics {
+            margin: 0 -15px;
+        }
     }
 
     .nav-tabs {
         padding-left:20px;
     }
 
-    .left-sidebar {
+    .filter-toggle {
+        display: none;
+
+        @include screen-sm {
+            display: block;
+            width: 6em;
+            margin-bottom: 15px;
+        }
+    }
+
+    .filter-list {
+        border-top: solid 1px $light-border-color;
+        border-bottom: solid 1px $light-border-color;
+        margin: 15px 0;
+        padding: 5px 0;
+    }
+
+    .resources-order-by, .resources-page-size {
+        display: inline-block;
+        width: 48%;
+        @include screen-sm() {
+            width: 100%;
+        }
+    }
+
+
+/*    .left-sidebar {
         padding: 0 !important;
         border: 1px solid #dddddd;
         font-size: 0.9em;
@@ -368,6 +426,7 @@ $light-border-color: #a0a0a0;
             padding: 8px;
         }
     }
+*/
 
     .control-medium {
         input, textarea, select {
@@ -392,12 +451,12 @@ $light-border-color: #a0a0a0;
             margin-right: 25px;
         }
     }
-
+  
     .btn {
         color: #fff;
         background: #0080a4;
         background-image: linear-gradient(#00aad2 0%, #005072 100%);
-        /* border-radius: 5px !important; */
+        border-radius: 5px;
         font-weight: bold;
 
         &:focus, &:hover {
@@ -407,14 +466,38 @@ $light-border-color: #a0a0a0;
         }
     }
 
+    .search button {
+        border-radius: 0;
+    }
+
     .dataset-list { 
         padding: 0;
         list-style-type: none;
 
-        li {
+        li.dataset-item {
             border-bottom: dotted 1px $light-border-color;
             list-style: none;
             padding-bottom: 1em;
+        }
+
+        .package-description {
+            margin-top: 15px;
+        }
+
+        ul.dataset-resources {
+            list-style-type: none;
+            margin: 15px 0 0 0;
+            padding: 0;
+
+            li {
+                list-style: none;
+                display: inline-block;
+
+                a {
+                    color: white;
+                    background: #a0a0a0;
+                }
+            }
         }
 
         .pub-date {
@@ -479,4 +562,31 @@ $light-border-color: #a0a0a0;
         top: 50%;
         transform: translateY(-50%);
     }
+
+    .left-icon-input {
+        position: relative;
+
+        i.fa {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            margin-left: 5px;
+        }
+
+        input {
+            padding-left: 25px;
+        }
+    }
+
+    section.date-range {
+        .wrapper {
+            padding: 5px;
+        }
+
+        input {
+            font-size: 0.9em;
+            width: 100%;
+        }
+    }
+
 }

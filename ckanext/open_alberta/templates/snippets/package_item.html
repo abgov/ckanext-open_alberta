@@ -37,17 +37,12 @@ Example:
             <h3 class="package-header"><a href="/{{package.type}}/{{package.name}}">{{package.title}}</a></h3>
         {% endblock %}
 
-        {% block heading_meta %}
-          
-          {% if package.private %}
-                <div>
-                <span class="dataset-private label"><i class="icon-lock"></i>{{ _('Private') }}</span>
-                
-          {% endif %}
-          
-          {{ super() }}
-        {% endblock %}
-    </div>
+    {% block heading_meta %}
+      {% if package.private %}
+            <span class="dataset-private label"><i class="icon-lock"></i>{{ _('Private') }}</span>
+      {% endif %}
+      {{ super() }}
+    {% endblock %}
   {% endblock %}
 
   {% block banner %}
@@ -55,6 +50,11 @@ Example:
   {% endblock %}
 
   {% block notes %}
+    <div class="package-description">{{ super() }}</div>
+    {{ super() }}
+  {% endblock %}
+
+  {% block resources %}
     {{ super() }}
   {% endblock %}
 

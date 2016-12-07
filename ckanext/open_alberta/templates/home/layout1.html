@@ -1,36 +1,32 @@
-<main>
-    <div class="container-fluid content-main home">
-        <div class="row header">
-            <h2>Open Government</h2>
-            <p>Search {{ h.total_package_count() }} Alberta Government resources
-            <div class="col-xs-12 col-md-10">
-                <form method="get" action="/dataset" _lpchecked="1">
-                    <div class="input-group input-group-lg search">
-                        <input type="search" class="form-control" name="q" value="" autocomplete="on"
-                               placeholder="{{ _('Search government information for...')}}">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default">
-                                <span class="fa fa-search"></span>
-                                <span class="sr-only">Search</span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            </div>
+    <div class="row header">
+        <h2>Open Government</h2>
+        <p>Search {{ h.total_package_count() }} Alberta Government resources
+        <div class="col-xs-12 col-md-10">
+            <form method="get" action="/dataset" _lpchecked="1">
+                <div class="input-group input-group-lg search">
+                    <input type="search" class="form-control" name="q" value="" autocomplete="on"
+                           placeholder="{{ _('Search government information for...')}}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default">
+                            <span class="fa fa-search"></span>
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </span>
+                </div>
+            </form>
         </div>
-        <div class="row topics">
-            <h3>Browse Resources by Topic</h3>
-            <div class="inner">
-            {% for grp in h.topics(12) %}
-                <div class="topic{% if loop.index is divisibleby 4 %} fourth{% endif %}">
-                    <h3><a href="/topics/{{ grp.name }}">{{ grp.title }}</a></h3>
-                    <p> {{ grp.description }}</p>
-                </div>
-            {% endfor %}
-                <div>
-                    <a class="btn btn-default" href="/topics">View all topics</a>
-                </div>
+    </div>
+    <div class="row topics">
+        <h3>Browse Resources by Topic</h3>
+        <div class="inner">
+        {% for grp in h.topics(12) %}
+            <div class="topic{% if loop.index is divisibleby 4 %} fourth{% endif %}">
+                <h3><a href="/topics/{{ grp.name }}">{{ grp.title }}</a></h3>
+                <p> {{ grp.description }}</p>
+            </div>
+        {% endfor %}
+            <div class="see-all">
+                <a class="btn btn-default" href="/topics">View all topics</a>
             </div>
         </div>
     </div>
-</main>
