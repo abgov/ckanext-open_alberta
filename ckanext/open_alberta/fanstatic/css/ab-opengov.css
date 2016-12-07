@@ -153,17 +153,15 @@
     background: #fff;
     margin: auto 0;
     padding: 15px 15px 30px 15px; }
-  #alberta-ca.IDDP .home .search {
-    margin-left: -15px; }
-    #alberta-ca.IDDP .home .search input {
-      border: 1px solid #ccc;
-      border-right: none; }
-    #alberta-ca.IDDP .home .search .btn {
-      background: #555; }
-      #alberta-ca.IDDP .home .search .btn:hover {
-        background: #333; }
-      #alberta-ca.IDDP .home .search .btn .fa-search {
-        color: #fff; }
+  #alberta-ca.IDDP .home .search input {
+    border: 1px solid #ccc;
+    border-right: none; }
+  #alberta-ca.IDDP .home .search .btn {
+    background: #555; }
+    #alberta-ca.IDDP .home .search .btn:hover {
+      background: #333; }
+    #alberta-ca.IDDP .home .search .btn .fa-search {
+      color: #fff; }
   #alberta-ca.IDDP .topics {
     background: #d1d4d3;
     padding: 15px 15px 30px 15px;
