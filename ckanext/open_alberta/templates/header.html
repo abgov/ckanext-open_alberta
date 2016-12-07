@@ -59,7 +59,7 @@
                 </div>
                 {% block header_logo %}
                 <div class="col-xs-6 col-sm-7 logo">
-                    <a href="home.htm"><img class="img-responsive" src="{{ g.site_logo or '/img/AlbertaLogo.svg' }}" alt="Alberta Government Logo" /></a>
+                    <a href="{{ h.url('home') }}"><img class="img-responsive" src="{{ g.site_logo or '/img/AlbertaLogo.svg' }}" alt="Alberta Government Logo" /></a>
                     {% if g.site_description %}<span class="mini">{{ g.site_description }}</span>{% endif %}
                 </div>
                 {% endblock %}
@@ -75,7 +75,7 @@
                 <!-- Search bar -->
                 <div class="col-xs-12 col-sm-5 text-right">
                     <div class="search">
-                        <form action="story.htm" role="search">
+                        <form action="/dataset" role="search">
                             <div class="input-group input-group-lg">
                                 <input class="form-control" type="search"  name="q" value="" autocomplete="on" placeholder="{{ _('Search Open Government')}}" />
                                 <span class="input-group-btn"><button class="btn btn-default"><span class="fa fa-search"></span><span class="sr-only">Search</span></button></span>
