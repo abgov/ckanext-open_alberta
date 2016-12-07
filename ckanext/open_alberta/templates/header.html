@@ -63,8 +63,18 @@
                     {% if g.site_description %}<span class="mini">{{ g.site_description }}</span>{% endif %}
                 </div>
                 {% endblock %}
-                <div class="col-xs-6 col-sm-5 text-right">
-                    <div class="search hidden-xs">
+                <!-- Responsive buttons -->
+                <div class="col-xs-6 visible-xs text-right">
+                    <div class="responsive-buttons " style="">
+                        <div class="vertical-align-wrapper">
+                            <button class="btn btn-default"><span class="fa fa-bars"></span><span class="sr-only">Menu</span></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Responsive buttons -->
+                <!-- Search bar -->
+                <div class="col-xs-12 col-sm-5 text-right">
+                    <div class="search">
                         <form action="story.htm" role="search">
                             <div class="input-group input-group-lg">
                                 <input class="form-control" type="search"  name="q" value="" autocomplete="on" placeholder="{{ _('Search Open Government')}}" />
@@ -72,15 +82,8 @@
                             </div>
                         </form>
                     </div>
-                    <!-- Responsive Buttons -->
-                    <div class="responsive-buttons visible-xs" style="">
-                        <div class="vertical-align-wrapper">
-                            <button class="btn btn-default"><span class="fa fa-search"></span><span class="sr-only">Search</span></button>
-                            <button class="btn btn-default"><span class="fa fa-bars"></span><span class="sr-only">Menu</span></button>
-                        </div>
-                    </div>
-                    <!-- End Responsive Buttons -->
                 </div>
+                <!-- End Search bar -->
             </header>
         </div>
     </div>
