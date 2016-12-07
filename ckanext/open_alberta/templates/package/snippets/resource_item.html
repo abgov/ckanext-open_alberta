@@ -1,34 +1,5 @@
 {% ckan_extends %}
-	
-{% set resource_icon = "fa-file-o" %}
-{% if res.format.lower() == "pdf" %}
-  {% set resource_icon = "fa-file-pdf-o" %}
-{% elif res.format.lower() == "zip" %}
-  {% set resource_icon = "fa-file-archive-o" %}
-{% elif res.format.lower() == "xls" or res.format.lower() == "csv" or res.format.lower() == "xslx" %}
-  {% set resource_icon = "fa-file-excel-o" %}
-{% elif res.format.lower() == "doc" or res.format.lower() == "docx" %}
-  {% set resource_icon = "fa-file-word-o" %}
-{% elif res.format.lower() == "xml" or res.format.lower() == "json" or res.format.lower() == "odata" %}
-  {% set resource_icon = "fa-file-code-o" %}
-{% elif res.format.lower() == "" %}
-{% endif %}
 
-  {% block resource_item_title %}
-    <h3>
-    <a class="heading" href="{{ res.url }}" title="{{ res.name or res.description }}">
-      {% if resource_icon != "" %}<i class="fa {{ resource_icon }}"></i>{% endif %}
-      {{ h.resource_display_name(res) | truncate(300) }}
-      {{ h.popular('views', res.tracking_summary.total, min=10) }}
-    </a>
-    {% if res.classification %}
-      {% block classification %}
-         {{ super() }}
-      {% endblock %}
-    {% endif %}
-    </h3>
-  {% endblock %}
-  
   {% block resource_item_explore %}
     {% if  url_is_edit %}
       {% block resource_item_explore_links %}
