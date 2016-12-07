@@ -240,6 +240,10 @@
   #alberta-ca.IDDP .icon-bar {
     /* burger lines */
     background-color: #000; }
+  #alberta-ca.IDDP .footer h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
   @media only screen and (max-width: 40em) {
     #alberta-ca.IDDP .navbar {
       border-radius: 0px; }

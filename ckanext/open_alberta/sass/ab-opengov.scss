@@ -266,7 +266,7 @@ $light-border-color: #a0a0a0;
         width: 100%;
         margin: 0;
          border-radius: 0;
-         
+
         ul {
             list-style: none;
         }
@@ -299,6 +299,12 @@ $light-border-color: #a0a0a0;
 
     .icon-bar {  /* burger lines */
         background-color: #000;
+    }
+
+    .footer h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
