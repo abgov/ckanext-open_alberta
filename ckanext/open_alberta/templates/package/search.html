@@ -2,7 +2,7 @@
 
 {% set visible_facets = {
         "all": ["topic", "organization", "res_format"],
-        "dataset": ["dataset_type", "topic", "organization", "res_format", "audience", "pubtype",],
+        "dataset": ["dataset_type", "groups", "organization", "res_format"],
         "publications": ["topic", "organization", "audience", "pubtype"],
         "opendata": ["topic", "organization", "res_format"],
         "documentation": []
@@ -21,10 +21,16 @@
     }
 %}
 
+{# Seems to be unused...
 {% set daterange_facets = {} %}
+#}
 
+{% block subtitle %}{% endblock %}
 
-{% block subtitle %}{{dataset_type}}{% endblock %}
+{% block page_preprimary %}
+    <h1>Resources</h1>
+    <p>Find information in Alberta Government datasets and publications.</p>
+{% endblock %}
 
 {% block page_primary_action %}
   {% if h.check_access('package_create') %}
@@ -66,22 +72,9 @@
 {% block package_search_results_api %}
 {% endblock %}
 
-
-
 {% block secondary_content %}
-  {% if dataset_type == "dataset" %}
-      <h3>Search all Resources</h3>
-  {% elif dataset_type == "publications" %}
-      <h3>Search Publications</h3>
-  {% elif dataset_type == "documentation" %}
-      <h3>Search Documentation</h3>
-  {% elif dataset_type == "opendata" %}
-      <h3>Search Open Data</h3>
-  {% endif %}
-  {% snippet 'snippets/small_search.html' %}
-  {# {% snippet "spatial/snippets/spatial_query.html" %}  #}
   {% if not dataset_type in facets_hide %}
-      <h3>Refine Results</h3>
+      <h3>Filter Results</h3>
   {% endif %}
   {% set facets = visible_facets[dataset_type] if dataset_type in visible_facets else c.facet_titles %}
   {% for facet in facets %}
@@ -95,19 +88,23 @@
 
   {# This <section> is the date-range picker widget in the sidebar. #}
   {% if dataset_type in pubdate_facets %}
-    <section class="module module-narrow module-shallow">
+    <section class="module module-narrow module-shallow date-range">
       <h4 class="module-heading">
-        <i class="icon-medium icon-calendar"></i> {{ _('Date Added to Catalogue') }}
+        {{ _('Date Added to Catalogue') }}
         <a href="{{ h.remove_url_param(['start_date', 'end_date']) }}"
            class="action">{{ _('Reset') }}</a>
       </h4>
-      <div class="module-content input-prepend" data-module="daterange-query">
-        <span class="add-on"><i class="icon-calendar"></i></span>
-        <input type="text" style="width: 150px" id="daterange-publication"
-               data-module="daterangepicker-module" data-field="metadata_created" />
+      <div class="wrapper">
+        <div class="left-icon-input" data-module="daterange-query">
+          <i class="fa fa-calendar"></i>
+          <input type="text" id="daterange-publication"
+                 data-module="daterangepicker-module" data-field="metadata_created" />
+        </div>
       </div>
     </section>
   {% endif %}
+
+  {# This doesn't seem to be used...
 
   {% if dataset_type in daterange_facets %}
     <section class="module module-narrow module-shallow">
@@ -121,10 +118,10 @@
         <input type="text" style="width: 150px" id="daterange-coverage" data-module="daterangepicker-module" data-field="modify_date" />
       </div>
     </section>
-  {% endif %}
+    {% endif %}  #}
 
   {% if not dataset_type in facets_hide %}
-      <h4><a target="_blank" href="{{ h.url_for('/suggest') }}">Suggest a Resource</a></h4>
+      <h4 class="suggest"><a target="_blank" href="{{ h.url_for('/suggest') }}">Suggest a Resource</a></h4>
   {% endif %}
 {% endblock %}
 

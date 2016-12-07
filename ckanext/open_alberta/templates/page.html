@@ -2,7 +2,15 @@
 
 {%- block content %}
   {% block maintag %}{{ super() }}{% endblock %}
-  <div id="content" class="container-fluid">
-    {% block main_content %}{{ super() }}{% endblock %}
+  <div id="content" class="container-fluid {% block content_tag_classes%}{% endblock %}">
+      {% block main_content %}{{ super() }}{% endblock %}
   </div>
 {% endblock -%}
+
+{% block wrapper_class %}-main{% endblock %}
+
+{% block pre_primary %}
+<div class="page-preprimary">
+{% block page_preprimary %}{% endblock %}
+</div>
+{% endblock %}

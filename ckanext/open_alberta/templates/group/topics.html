@@ -2,6 +2,8 @@
 
 {% block subtitle %}{{ _('Topics') }}{% endblock %}
 
+{% block content_tag_classes %}no-sidebar{% endblock %}
+
 {% block breadcrumb_content %}
   <li class="active">{% link_for _('Topics'), named_route='topics' %}</li>
 {% endblock %}

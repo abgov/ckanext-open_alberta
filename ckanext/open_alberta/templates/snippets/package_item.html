@@ -38,13 +38,11 @@ Example:
     {% endblock %}
 
     {% block heading_meta %}
-        <div>
       {% if package.private %}
             <span class="dataset-private label"><i class="icon-lock"></i>{{ _('Private') }}</span>
       {% endif %}
       {{ super() }}
     {% endblock %}
-        </div>
   {% endblock %}
 
   {% block banner %}
@@ -52,6 +50,11 @@ Example:
   {% endblock %}
 
   {% block notes %}
+    <div class="package-description">{{ super() }}</div>
+    {{ super() }}
+  {% endblock %}
+
+  {% block resources %}
     {{ super() }}
   {% endblock %}
 
