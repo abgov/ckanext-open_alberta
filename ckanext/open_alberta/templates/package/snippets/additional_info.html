@@ -20,9 +20,167 @@
 
 
 {% set details_by_type = {
-  "dataset":{},
+  "dataset":{
+    "groups":[
+      {"Title and Dataset Information":{
+        "label":"true",
+        "fields":["alternatetitle","date_modified","updatefrequency"],
+        "meta":{
+            "alternatetitle":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "updatefrequency":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+        }
+      }},
+      {"Publisher / Creator Information":{
+        "label":"true",
+        "fields":["creator","owner_org"],
+        "meta":{
+            "creator":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "owner_org":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","lookup":"organization.title"},
+        }
+      }},
+      {"Subject Information":{
+        "label":"true",
+        "fields":["topic","time_coverage_from","time_coverage_to","spatialcoverage1"],
+        "meta":{
+            "topic":{"columns":"12","linked":"?topic=","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "time_coverage_from":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "time_coverage_to":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "spatialcoverage1":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+        }
+      }},
+        {"Resource Dates":{
+            "label":"true",
+            "fields":["date_created","metadata_created","date_issued","date_modified","archive_date"],
+            "meta":{
+                "date_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "metadata_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","wrapperclass":"format_as_date_simple","showblank":"false","nullvalue":"N/A","alt":"Date Added to catalogue"},
+                "date_issued":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "archive_date":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            }
+        }},
+        {"Audience information":{
+            "label":"true",
+            "fields":["audience"],
+            "meta":{
+                "audience":{"columns":"12","linked":"?audience=","label":"false","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+            }
+        }},
+      {"Language":{
+        "label":"true",
+        "fields":["language"],
+        "meta":{
+          "language":{"columns":"12","linked":"true","label":"false","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+        }
+      }},
+      {"Identifiers":{
+        "label":"true",
+        "fields":["identifier"],
+        "meta":{
+          "identifier":{"columns":"10","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+        }
+      }},
+        {"Usage / Licence":{
+            "label":"true",
+            "fields":["usage","license_title"],
+            "meta":{
+                "usage":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "license_title":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A","link_lookup":"license_url"}
+            }
+        }},
+        {"Contact":{
+            "label":"true",
+            "fields":["contact","contact_email","contactother"],
+            "meta":{
+                "contact":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "contact_email":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "contactother":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+            }
+        }}
+      ]
+     },
   "documentation":{},
-
+  "inventory":{
+    "groups":[
+      {"Title and Dataset Information":{
+        "label":"true",
+        "fields":["alternatetitle","date_modified","updatefrequency"],
+        "meta":{
+            "alternatetitle":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"None"},
+            "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "updatefrequency":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+        }
+      }},
+      {"Publisher / Creator Information":{
+        "label":"true",
+        "fields":["creator","owner_org"],
+        "meta":{
+            "creator":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "owner_org":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","lookup":"organization.title"},
+        }
+      }},
+      {"Subject Information":{
+        "label":"true",
+        "fields":["topic","time_coverage_from","time_coverage_to","spatialcoverage1"],
+        "meta":{
+            "topic":{"columns":"12","linked":"?topic=","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "time_coverage_from":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "time_coverage_to":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            "spatialcoverage1":{"columns":"6","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+        }
+      }},
+        {"Resource Dates":{
+            "label":"true",
+            "fields":["date_created","metadata_created","date_issued","date_modified","archive_date"],
+            "meta":{
+                "date_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "metadata_created":{"columns":"6","linked":"false","label":"true","wrapper":"p","wrapperclass":"format_as_date_simple","showblank":"false","nullvalue":"N/A","alt":"Date Added to catalogue"},
+                "date_issued":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "date_modified":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "archive_date":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+            }
+        }},
+        {"Audience information":{
+            "label":"true",
+            "fields":["audience"],
+            "meta":{
+                "audience":{"columns":"12","linked":"?audience=","label":"false","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+            }
+        }},
+      {"Language":{
+        "label":"true",
+        "fields":["language"],
+        "meta":{
+          "language":{"columns":"12","linked":"true","label":"false","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+        }
+      }},
+      {"Identifiers":{
+        "label":"true",
+        "fields":["identifier"],
+        "meta":{
+          "identifier":{"columns":"10","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+        }
+      }},
+        {"Usage / Licence":{
+            "label":"true",
+            "fields":["usage","license_title"],
+            "meta":{
+                "usage":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "license_title":{"columns":"12","linked":"true","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A","link_lookup":"license_url"}
+            }
+        }},
+        {"Contact":{
+            "label":"true",
+            "fields":["contact","contact_email","contactother"],
+            "meta":{
+                "contact":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "contact_email":{"columns":"6","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"},
+                "contactother":{"columns":"12","linked":"false","label":"true","wrapper":"p","showblank":"false","nullvalue":"N/A"}
+            }
+        }}
+      ]
+    },
   "opendata":{
     "groups":[
       {"Title and Dataset Information":{
