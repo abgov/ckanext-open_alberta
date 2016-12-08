@@ -37,6 +37,11 @@ $light-border-color: #a0a0a0;
         margin-right: 0;
     }
 
+    .badge a.remove {
+        color: white;
+        margin-left: 5px;
+    }
+
     div[role=main] {
         background: url(/img/homepage-bg.jpg) top left repeat-x;
     }
