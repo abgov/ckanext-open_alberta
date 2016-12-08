@@ -31,6 +31,12 @@ $light-border-color: #a0a0a0;
     font-family: lato, sans-serif;
     font-size: 1.6em;
 
+    // overrides
+    .form-horizontal .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
     div[role=main] {
         background: url(/img/homepage-bg.jpg) top left repeat-x;
     }
@@ -43,20 +49,14 @@ $light-border-color: #a0a0a0;
         margin-bottom: 30px;
     }
 
+    .logo a {
+        background: url(/img/AlbertaLogoWhiteV.svg) no-repeat center center;
+        background-size: 120px 51px;
+    }
+
     #content {
         background-color: #fff;
         padding-top: 0;
-
-        .primary {
-            padding: 10px;
-            @include screen-med-up() {
-                width: 75%;
-                float: right;
-            }
-            @include screen-sm() {
-                width: 100%;
-            }
-        }
 
         &.no-sidebar .primary {
             width: 100%;
@@ -64,12 +64,13 @@ $light-border-color: #a0a0a0;
         }
 
         aside.secondary {
-            @include screen-med-up() {
-                 width: 25%;
-                 float: left;
-            }
-
             border: dotted 1px #ccc;
+            padding: 15px;
+
+            section {
+                *:first-child { margin-top: 0; }
+                *:last-child { margin-bottom: 0; }
+            }
 
             h3 {
                 color: #fff;
