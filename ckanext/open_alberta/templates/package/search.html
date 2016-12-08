@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {% set visible_facets = {
-        "all": ["topic", "organization", "res_format"],
+        "all": ["dataset_type", "groups", "topic", "organization", "res_format"],
         "dataset": ["dataset_type", "groups", "organization", "res_format"],
         "publications": ["topic", "organization", "audience", "pubtype"],
         "opendata": ["topic", "organization", "res_format"],
@@ -16,6 +16,7 @@
 
 {% set pubdate_facets = { 
         "dataset":"dataset",
+        "inventory":"inventory",
         "opendata":"opendata",
         "publications":"publications"
     }
