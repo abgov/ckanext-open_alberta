@@ -31,7 +31,6 @@
     <div style="display:none;">{{ notes }}</div>
     {% resource 'open_alberta/js/read-more.js' %}
     <hr>
-    <pre>{{ pkg }}</pre>
     <h2>Publishing Info</h2>
     <table class="publishig-info">
         <tr> <td>Publisher:</td><td>{{ pkg.organization.title }}</td> </tr>
@@ -61,20 +60,19 @@
     <h2>Dates</h2>
     <table>
         <tr><td>Date created:</td><td>{{ pkg.metadata_created }}</td></tr>
-        <tr><td>Date added to catalogue:</td><td>?</td></tr>
         <tr><td>Date published:</td><td>{{ pkg.published_date }}</td></tr>
         <tr><td>Record modified:</td><td>{{ pkg.metadata_modified }}</td></tr>
-        <tr><td>Start date:</td><td>?</td></tr>
-        <tr><td>End date:</td><td>?</td></tr>
+        <tr><td>Start date:</td><td>{{ pkg.time_coverage_from }}</td></tr>
+        <tr><td>End date:</td><td>{{ pkg.time_coverage_from }}</td></tr>
     </table>
     <hr>
     <h2>Additional Metadata</h2>
     <table>
         <tr>Topic(s):<td></td><td></td></tr>
-        <tr>Alternative title:<td></td><td></td></tr>
-        <tr>Update frequency:<td></td><td></td></tr>
-        <tr>Creator:<td></td><td></td></tr>
-        <tr>Published:<td></td><td></td></tr>
+        <tr>Alternative title:<td></td><td>{{ pkg.alternatetitle }}</td></tr>
+        <tr>Update frequency:<td></td><td>{{ pkg.updatefrequency }}</td></tr>
+        <tr>Creator:<td></td><td>{{ pkg.cfreator }}</td></tr>
+        <tr>Publisher:<td></td><td></td></tr>
         <tr>Spatial coverage:<td></td><td></td></tr>
     </table>
     <div>
