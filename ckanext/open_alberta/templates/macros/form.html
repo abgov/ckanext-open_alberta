@@ -46,7 +46,7 @@ Example:
 #}
 {% macro checkbox(name, id='', label='', value='', checked=false, placeholder='', error="", classes=[], attrs={}, is_required=false) %}
   {%- set extra_html = caller() if caller -%}
-  <div class="form-group{{ " " ~ classes | join(" ") }}{% if error %} error{% endif %}">
+  <div class="form-group{{ " " ~ classes | join(" ") }} control-group{{ " " ~ classes | join(" ") }}{% if error %} error{% endif %}">
     <div class="controls">
       <label class="checkbox" for="{{ id or name }}">
         <input id="{{ id or name }}" type="checkbox" name="{{ name }}" value="{{ value | empty_and_escape }}" {{ "checked " if checked }} {{ attributes(attrs) }} />
@@ -261,7 +261,7 @@ Example:
 
 #}
 {% macro input_block(for, label="", error="", classes=[], control_classes=[], extra_html="", is_required=false) %}
-  <div class="form-group{{ " error" if error }}{{ " " ~ classes | join(' ') }}">
+  <div class="form-group control-group{{ " error" if error }}{{ " " ~ classes | join(' ') }}">
     <label for="{{ for }}">{% if is_required %}<span title="{{ _("This field is required") }}" class="control-required">*</span> {% endif %}{{ label or _('Custom') }}</label>
     <div class="controls{{ " " ~ control_classes | join(' ') }}">
       {{ caller() }}
@@ -428,3 +428,4 @@ Example
   {% if is_upload_enabled %}</div>{% endif %}
 
 {% endmacro %}
+
