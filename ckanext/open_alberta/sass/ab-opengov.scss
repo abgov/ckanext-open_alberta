@@ -39,6 +39,11 @@ $active-bg-color: #005072;
         margin-right: 0;
     }
 
+    .badge a.remove {
+        color: white;
+        margin-left: 5px;
+    }
+
     div[role=main] {
         background: url(/img/homepage-bg.jpg) top left repeat-x;
     }

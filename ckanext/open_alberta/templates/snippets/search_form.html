@@ -41,12 +41,12 @@
     {% endif %}
     {% if facets %}
         <div class="col-xs-12">
-            <p class="filter-list">FILTERS: {% if facets.fields|length == 0 %}<span>None selected</span>{% endif %}
+            <p class="filter-list"><strong>FILTERS:</strong> {% if facets.fields|length == 0 %}<span>None selected</span>{% endif %}<br/>
         {% for field in facets.fields %}
             {% set search_facets_items = facets.search.get(field)['items'] %}
                 <span class="facet">{{ facets.titles.get(field) }}:</span>
             {% for value in facets.fields[field] %}
-                <span class="filtered pill">
+                <span class="filtered badge">
                 {%- if facets.translated_fields and facets.translated_fields.has_key((field,value)) -%}
                     {{ facets.translated_fields[(field,value)] }}
                 {%- else -%}
@@ -55,6 +55,7 @@
                     <a href="{{ facets.remove_field(field, value) }}" class="remove" title="{{ _('Remove') }}"><i class="icon-remove"></i></a>
                 </span>
             {% endfor %}
+            <br/>
         {% endfor %}
             </p>
         </div>
