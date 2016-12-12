@@ -9,7 +9,9 @@ $menu-active-color: #478800;
 $menu-height: 30px;
 $top-search-height: 30px;
 $light-border-color: #a0a0a0;
-
+$tag-bg-color: #a0a0a0;
+$active-color: #fff;
+$active-bg-color: #005072;
 
 /* Bootstrap v3.x folds the naviation at viewport width <= 768px, so desktop users see phone interface in many cases.
    This helps to override that to a custom value without rebuilding bootstrap. */
@@ -75,6 +77,21 @@ $light-border-color: #a0a0a0;
 
         tr td:first-child {
             text-transform: uppercase;
+        }
+
+        .page-footer {
+            margin: 20px auto ;
+            overflow: auto;
+
+            a {
+                margin-right: 30px;
+            }
+
+            button {
+                @media screen and (min-width: 25em) {
+                    float: right;
+                }
+            }
         }
     }
 
@@ -156,10 +173,10 @@ $light-border-color: #a0a0a0;
                     }
                 }
             }
+        }
 
-            &.no-sidebar .secondary aside {
-                display: none;
-            }
+        &.no-sidebar .secondary {
+            display: none;
         }
     }
 
@@ -593,14 +610,14 @@ $light-border-color: #a0a0a0;
 
                 &:hover {
                     border: solid 1px #666;
-                    background: #005072;
+                    background: $active-bg-color;
                     color: #fff;
                 }
             }
 
             &.active a {
                 border: solid 1px #666;
-                background: #005072;
+                background: $active-bg-color;
                 color: #fff;
             }
 
@@ -613,6 +630,87 @@ $light-border-color: #a0a0a0;
         position: relative;
         top: 50%;
         transform: translateY(-50%);
+    }
+
+    ul.unstyled {
+        list-style-type: none;
+        margin-left: 0;
+        padding-left: 0;
+
+        li {
+            list-style: none;
+        }
+    }
+
+    .resource-items > :first-child {
+        border-top: solid 1px #ddd;
+    }
+
+    .resource-items > :last-child {
+        border-bottom: solid 1px #ddd;
+    }
+
+    .resource-item {
+        padding: 8px 5px;
+        border: solid 1px #ddd;
+        border-top: none;
+        border-bottom: dashed 1px #ddd;
+        border-right: none;
+        position: relative;
+
+        >a.heading {
+            margin-left: 35px;
+        }
+
+        i.rc-icon {
+            color: #000;
+            padding: 10px;
+            background: #ccc;
+            position: absolute;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .links {
+            float: right;
+            a {
+                margin-left: 10px;
+                text-transform: uppercase;
+            }
+
+            .fa-download {
+                margin-right: 5px;
+            }
+
+            .fa-info-circle {
+                margin-left: 5px;
+            }
+        }
+    }
+
+    .tags {
+        li {
+            display: inline-block;
+            margin-left: 5px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+
+        a, li.tag a, li a.tag {
+            color: #000;
+            background: $tag-bg-color;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            text-decoration: none;
+
+            &:focus,  &:hover {
+                background: $active-bg-color;
+                color: $active-color;
+            }
+        }
     }
 
     .left-icon-input {

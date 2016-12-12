@@ -27,55 +27,58 @@
         {{ notes_short }}
         <p><a class="read-more" href="#read-more">Read more</a></p>
     </div>
-  {% endif %}
     <div style="display:none;">{{ notes }}</div>
+  {% else %}
+    <div>{{ notes }}</div>
+  {% endif %}
     {% resource 'open_alberta/js/read-more.js' %}
     <hr>
     <h2>Publishing Info</h2>
     <table class="publishig-info">
         <tr> <td>Publisher:</td><td>{{ pkg.organization.title }}</td> </tr>
         <tr> <td>Date published:</td><td>{{ pkg.published_date }}</td> </tr>
-        <tr> <td>Record modified:</td><td>{{ pkg.metadata_modified }}</td> </tr>
+        <tr> <td>Record modified:</td><td>{{ h.render_datetime(pkg.metadata_modified, '%Y-%m-%d') }}</td> </tr>
     </table>
     <hr>
     <h2>Licence & Usage</h2>
-    <p class="licence">{{ pkg.license_title }}</p>
-    <p class="licence-notes">...</p>
+    <p class="licence"><a href="{{ pkg.license_url }}">{{ pkg.license_title }}</a></p>
+    <p class="licence-notes">
+    Acknowledgement of the {{ pkg.organization.title }} for the Province of Alberta as the originator/source of this information is required as described in the {{ pkg.license_title }} at <a href="{{ pkg.license_url }}">{{ pkg.license_url }}</a>.
+    </p>
     <hr>
     <h2>Resources</h2>
-  {% for r in pkg.resources %}
+    <div class="resource-items">
+  {% for res in pkg.resources %}
+    {% snippet "package/snippets/resource_item.html", pkg=pkg, res=res %}
   {% endfor %}
+    </div>
     <hr>
     <h2>Tags</h2>
   {% if pkg.tags|length %}
-    <ul class="tags unstyled">
-    {% for tag in pkg.tags %}
-        <li>{{ tag.display_name }}</li>
-    {% endfor %}
-    </ul>
+      {% snippet "snippets/tag_list.html", tags=pkg.tags %}
   {% else %}
     <p>No tags</p>
   {% endif %}
     <hr>
     <h2>Dates</h2>
     <table>
-        <tr><td>Date created:</td><td>{{ pkg.metadata_created }}</td></tr>
+        <tr><td>Date created:</td><td>{{ h.render_datetime(pkg.metadata_created, '%Y-%m-%d') }}</td></tr>
         <tr><td>Date published:</td><td>{{ pkg.published_date }}</td></tr>
-        <tr><td>Record modified:</td><td>{{ pkg.metadata_modified }}</td></tr>
+        <tr><td>Record modified:</td><td>{{ h.render_datetime(pkg.metadata_modified, '%Y-%m-%d') }}</td></tr>
         <tr><td>Start date:</td><td>{{ pkg.time_coverage_from }}</td></tr>
         <tr><td>End date:</td><td>{{ pkg.time_coverage_from }}</td></tr>
     </table>
     <hr>
     <h2>Additional Metadata</h2>
     <table>
-        <tr>Topic(s):<td></td><td></td></tr>
-        <tr>Alternative title:<td></td><td>{{ pkg.alternatetitle }}</td></tr>
-        <tr>Update frequency:<td></td><td>{{ pkg.updatefrequency }}</td></tr>
-        <tr>Creator:<td></td><td>{{ pkg.cfreator }}</td></tr>
-        <tr>Publisher:<td></td><td></td></tr>
-        <tr>Spatial coverage:<td></td><td></td></tr>
+        <tr><td>Topic(s):</td><td>{% for tp in pkg.groups %}{% if loop.index0 %} , {% endif %}{{ tp.display_name }}{% endfor %}</td></tr>
+        <tr><td>Alternative title:</td><td>{{ pkg.alternatetitle }}</td></tr>
+        <tr><td>Update frequency:</td><td>{{ pkg.updatefrequency }}</td></tr>
+        <tr><td>Creator:</td><td>{% if pkg.creator|length %}{{ pkg.creator|join(' , ') }}{% endif %}</td></tr>
+        <tr><td>Publisher:</td><td>{{ pkg.organization.title }}</td></tr>
+        <tr><td>Spatial coverage:</td><td>{{ pkg.spatialcoverage1 }}</td></tr>
     </table>
-    <div>
+    <div class="page-footer">
         <a href="#back" onclick="history.go(-1); return false;">&lt; Back to Results</a>
         <button class="btn btn-default">Download Metadata</button>
     </div>

@@ -1,5 +1,4 @@
-{% ckan_extends %}
-	
+
 {% set resource_icon = "fa-file-o" %}
 {% if res.format.lower() == "pdf" %}
   {% set resource_icon = "fa-file-pdf-o" %}
@@ -11,57 +10,24 @@
   {% set resource_icon = "fa-file-word-o" %}
 {% elif res.format.lower() == "xml" or res.format.lower() == "json" or res.format.lower() == "odata" %}
   {% set resource_icon = "fa-file-code-o" %}
-{% elif res.format.lower() == "" %}
 {% endif %}
 
+<div class="resource-item">
   {% block resource_item_title %}
-    <h3>
+    {% if resource_icon != "" %}<i class="rc-icon fa {{ resource_icon }}"></i>{% endif %}
     <a class="heading" href="{{ res.url }}" title="{{ res.name or res.description }}">
-      {% if resource_icon != "" %}<i class="fa {{ resource_icon }}"></i>{% endif %}
       {{ h.resource_display_name(res) | truncate(300) }}
       {{ h.popular('views', res.tracking_summary.total, min=10) }}
     </a>
-    {% if res.classification %}
-      {% block classification %}
-         {{ super() }}
-      {% endblock %}
-    {% endif %}
-    </h3>
   {% endblock %}
   
-  {% block resource_item_explore %}
-    {% if  url_is_edit %}
-      {% block resource_item_explore_links %}
-        <a href="{{ url }}" class="btn btn-primary">
-          {% if res.has_views %}
-            <i class="icon-bar-chart"></i>
-            {{ _('Preview') }}
-          {% else %}
-            <i class="icon-info-sign"></i>
-            {{ _('More information') }}
-          {% endif %}
-        </a>
-        <a href="{{ res.url }}" class="btn btn-primary" target="_blank">
-          {% if res.has_views %}
-            <i class="fa fa-download"></i>
-            {{ _('Download') }}
-          {% else %}
-            <i class="fa fa-download"></i>
-            {{ _('Download') }}
-          {% endif %}
-        </a>
-      {% if can_edit %}
-        <a href="{{ h.url_for(controller='package', action='resource_edit', id=pkg.name, resource_id=res.id) }}" class="btn btn-primary">
-          <i class="icon-edit"></i>
-          {{ _('Edit') }}
-        </a>
-      {% endif %}
-      {% if h.check_access('resource_delete', {'id': res.id})  %}
-          {% set locale = h.dump_json({'content': _('Are you sure you want to delete this resource?')}) %}
-          <a class="btn btn-danger" href="{% url_for controller='package', action='resource_delete', resource_id=res.id, id=pkg.name %}" data-module="confirm-action" data-module-i18n="{{ locale }}">{% block delete_button_text %}{{ _('Delete') }}{% endblock %}</a>
-      {% endif %}
-      {% endblock %}
-
-    {% endif %}
+  {% block resource_item_links %}
+  <div class="links">
+    <a class="btn btn-sm" href="{{ h.url_for(controller='package', action='resource_read', id=pkg.name, resource_id=res.id) }}">More <i class="fa fa-info-circle"></i></a>
+  {% if res.has_views and res.can_be_previewed %}
+    <a class="btn btn-small" href="#">Preview</a>
+  {% endif %}
+    <a class="btn btn-sm" href="{{ res.url }}"><i class="fa fa-download"></i>Download</a>
+  </div>
   {% endblock %}
-
+</div>
