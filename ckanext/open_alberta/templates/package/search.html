@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {% set visible_facets = {
-        "all": ["topic", "organization", "res_format"],
+        "all": ["dataset_type", "groups", "topic", "organization", "res_format"],
         "dataset": ["dataset_type", "groups", "organization", "res_format"],
         "publications": ["topic", "organization", "audience", "pubtype"],
         "opendata": ["topic", "organization", "res_format"],
@@ -16,6 +16,7 @@
 
 {% set pubdate_facets = { 
         "dataset":"dataset",
+        "inventory":"inventory",
         "opendata":"opendata",
         "publications":"publications"
     }
@@ -35,6 +36,12 @@
 {% block page_primary_action %}
   {% if h.check_access('package_create') %}
     <div class="page_primary_action">
+    {% if dataset_type == "inventory" %}
+            <a class="btn btn-primary" href="/inventory/new"><i class="icon-plus-sign-alt"></i> Add Inventory</a>
+        {% endif %}
+	{% if dataset_type == "dataset" %}
+            <a class="btn btn-primary" href="/dataset/new"><i class="icon-plus-sign-alt"></i> Add Dataset</a>
+        {% endif %}
         {% if dataset_type == "opendata" %}
             <a class="btn btn-primary" href="/opendata/new"><i class="icon-plus-sign-alt"></i> Add OpenData</a>
         {% endif %}
@@ -76,6 +83,7 @@
   {% if not dataset_type in facets_hide %}
       <h3>Filter Results</h3>
   {% endif %}
+  {% snippet 'snippets/small_search.html' %}
   {% set facets = visible_facets[dataset_type] if dataset_type in visible_facets else c.facet_titles %}
   {% for facet in facets %}
         {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}

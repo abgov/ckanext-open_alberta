@@ -31,6 +31,17 @@ $light-border-color: #a0a0a0;
     font-family: lato, sans-serif;
     font-size: 1.6em;
 
+    // overrides
+    .form-horizontal .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .badge a.remove {
+        color: white;
+        margin-left: 5px;
+    }
+
     div[role=main] {
         background: url(/img/homepage-bg.jpg) top left repeat-x;
     }
@@ -39,8 +50,41 @@ $light-border-color: #a0a0a0;
         padding: 0 15px;
     }
 
-    .page-preprimary {
+    .wrapper-package-read {
+        .page-header {
+            margin: 0;
+            border: none;
+        }
+
+        .nav-tabs {
+            border: none;
+        }
+
+        .primary article {
+            padding: 0;
+        }
+
+        tr:nth-child(even) {
+            background: #ddd;
+        }
+
+        td {
+            padding: 3px 10px;
+            border: dotted 1px $light-border-color;
+        }
+
+        tr td:first-child {
+            text-transform: uppercase;
+        }
+    }
+
+    .page-preprimary > :last-child {
         margin-bottom: 30px;
+    }
+
+    .logo a {
+        background: url(/img/AlbertaLogoWhiteV.svg) no-repeat center center;
+        background-size: 120px 51px;
     }
 
     #content {
@@ -48,64 +92,74 @@ $light-border-color: #a0a0a0;
         padding-top: 0;
 
         .primary {
-            padding: 10px;
-            @include screen-med-up() {
-                width: 75%;
-                float: right;
-            }
-            @include screen-sm() {
-                width: 100%;
+            float: right;
+
+            > article {
+                padding: 0 15px;
+
+                .topics {
+                    margin: 0 -15px;
+                }
             }
         }
+
 
         &.no-sidebar .primary {
             width: 100%;
             float: none;
         }
 
-        aside.secondary {
-            @include screen-med-up() {
-                 width: 25%;
-                 float: left;
+        .secondary {
+            float: left;
+
+            @include screen-sm() {
             }
+            
+            aside {
+                border: dotted 1px #ccc;
+                padding: 15px;
 
-            border: dotted 1px #ccc;
+                section {
+                    *:first-child { margin-top: 0; }
+                    *:last-child { margin-bottom: 0; }
+                }
 
-            h3 {
-                color: #fff;
-                background: #606060;
-                font-size: 1.2em;
-                margin: 0;
-                padding: 5px 10px;
-            }
+                h3 {
+                    color: #fff;
+                    background: #606060;
+                    font-size: 1.2em;
+                    margin: 0;
+                    padding: 5px 10px;
+                }
 
-            h4 {
-                color: #000;
-                background: #ccc;
-                font-size: 1em;
-                padding: 5px 10px;
-                margin: 0;
+                h4 {
+                    color: #000;
+                    background: #ccc;
+                    font-size: 1em;
+                    padding: 5px 10px;
+                    margin: 0;
 
-                &.suggest {
-                    text-align: center;
+                    &.suggest {
+                        text-align: center;
+                    }
+                }
+
+                li.nav-item {
+                    font-size: 0.9em;
+                    margin: 0 -5px;
+                    padding: 5px 10px;
+                    border-bottom: dotted 1px #ccc;
+
+                    a {
+                        margin: -5px -5px;
+                        padding: 5px;
+                    }
                 }
             }
 
-            li.nav-item {
-                font-size: 0.9em;
-                margin: 0 -5px;
-                padding: 5px 10px;
-                border-bottom: dotted 1px #ccc;
-
-                a {
-                    margin: -5px -5px;
-                    padding: 5px;
-                }
+            &.no-sidebar .secondary aside {
+                display: none;
             }
-        }
-
-        &.no-sidebar aside.secondary {
-            display: none;
         }
     }
 
@@ -160,7 +214,6 @@ $light-border-color: #a0a0a0;
         }
 
         .search {
-            margin-left: -15px;
 
             input {
                 border: 1px solid #ccc;
@@ -265,6 +318,7 @@ $light-border-color: #a0a0a0;
     .navbar {
         width: 100%;
         margin: 0;
+         border-radius: 0;
 
         ul {
             list-style: none;
@@ -300,6 +354,12 @@ $light-border-color: #a0a0a0;
         background-color: #000;
     }
 
+    .footer h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
     @include screen-sm() {
         .navbar {border-radius: 0px;}
@@ -327,14 +387,6 @@ $light-border-color: #a0a0a0;
 
         li:last-child:after {
             content: "";  /* do not display the last "/" */
-        }
-    }
-
-    .primary > article {
-        padding: 0 15px;
-
-        .topics {
-            margin: 0 -15px;
         }
     }
 
