@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
   {% block resource_item_explore %}
-    {% if  url_is_edit %}
+    {% if url_is_edit %}
       {% block resource_item_explore_links %}
         <a href="{{ url }}" class="btn btn-primary">
           {% if res.has_views %}
@@ -34,7 +34,7 @@
       {% endblock %}
 
     {% endif %}
-
+  
 {% set resource_icon = "fa-file-o" %}
 {% if res.format.lower() == "pdf" %}
   {% set resource_icon = "fa-file-pdf-o" %}
@@ -67,3 +67,6 @@
   </div>
   {% endblock %}
 </div>
+
+{% endblock %}
+
