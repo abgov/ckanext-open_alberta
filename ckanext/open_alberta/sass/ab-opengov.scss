@@ -739,4 +739,12 @@ $active-bg-color: #005072;
         }
     }
 
+    .modal-backdrop {
+        z-index: -1;
+        background-color: #e6e6e6;
+    }
+    
+    .modal-backdrop.in {
+       opacity: 1;
+    }
 }

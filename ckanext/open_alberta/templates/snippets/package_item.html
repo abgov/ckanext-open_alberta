@@ -31,11 +31,11 @@ Example:
 {% endblock %}
 
 {% block content %}
-    <div class="dataset-content">
   {% block heading %}
-    {% block heading_title %}
-        <h3 class="package-header"><a href="/{{package.type}}/{{package.name}}">{{package.title}}</a></h3>
-    {% endblock %}
+    <div class="dataset-content">
+        {% block heading_title %}
+            <h3 class="package-header"><a href="/{{package.type}}/{{package.name}}">{{package.title}}</a></h3>
+        {% endblock %}
 
     {% block heading_meta %}
       {% if package.private %}

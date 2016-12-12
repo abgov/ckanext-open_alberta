@@ -203,10 +203,6 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
                   controller='ckanext.open_alberta.controller:PackageCloneController',
                   action='index')
 
-        m.connect('delete-multiple' ,'/datasets/delete_multiple',
-                  controller='ckanext.open_alberta.controller:PackagesDeleteController',
-                  action='delete_datasets')
-
         m.connect('topics', '/topics', controller='group', action='index')
 
         m.connect('topics_read', '/topics/{id}', controller='group', action='read')
