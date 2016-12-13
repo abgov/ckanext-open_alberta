@@ -36,25 +36,14 @@
 {% block page_primary_action %}
   {% if h.check_access('package_create') %}
     <div class="page_primary_action">
-    {% if dataset_type == "inventory" %}
-            <a class="btn btn-primary" href="/inventory/new"><i class="icon-plus-sign-alt"></i> Add Inventory</a>
-        {% endif %}
-	{% if dataset_type == "dataset" %}
-            <a class="btn btn-primary" href="/dataset/new"><i class="icon-plus-sign-alt"></i> Add Dataset</a>
-        {% endif %}
-        {% if dataset_type == "opendata" %}
-            <a class="btn btn-primary" href="/opendata/new"><i class="icon-plus-sign-alt"></i> Add OpenData</a>
-        {% endif %}
-        {% if dataset_type == "publications" %}
-            <a class="btn btn-primary" href="/publications/new"><i class="icon-plus-sign-alt"></i> Add Publication</a>
-        {% endif %}
-        {% if dataset_type == "documentation" %}
-            <a class="btn btn-primary" href="/documentation/new"><i class="icon-plus-sign-alt"></i> Add Documentation</a>
-        {% endif %}
+        <a class="btn btn-primary" href="/inventory/new"><i class="icon-plus-sign-alt"></i> Add Inventory</a>
+        <a class="btn btn-primary" href="/dataset/new"><i class="icon-plus-sign-alt"></i> Add Dataset</a>
+        <a class="btn btn-primary" href="/opendata/new"><i class="icon-plus-sign-alt"></i> Add OpenData</a>
+        <a class="btn btn-primary" href="/publications/new"><i class="icon-plus-sign-alt"></i> Add Publication</a>
+        <a class="btn btn-primary" href="/documentation/new"><i class="icon-plus-sign-alt"></i> Add Documentation</a>
     </div>
   {% endif %}
 {% endblock %}
-
 
 {% block form %}
   {% set facets = {
