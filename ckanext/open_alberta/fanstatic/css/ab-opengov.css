@@ -70,6 +70,8 @@
     }
 */
   /* Helpers */ }
+  #alberta-ca.IDDP table td {
+    border: 0px; }
   #alberta-ca.IDDP .form-horizontal .form-group {
     margin-left: 0;
     margin-right: 0; }
