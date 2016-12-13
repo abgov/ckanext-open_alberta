@@ -53,11 +53,11 @@
   {% endfor %}
     </div>
     <hr>
-    <h2>Tags</h2>
+    <h2>Keywords</h2>
   {% if pkg.tags|length %}
       {% snippet "snippets/tag_list.html", tags=pkg.tags %}
   {% else %}
-    <p>No tags</p>
+    <p>No keywords</p>
   {% endif %}
     <hr>
     <h2>Dates</h2>

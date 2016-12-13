@@ -70,6 +70,8 @@
     }
 */
   /* Helpers */ }
+  #alberta-ca.IDDP table td {
+    border: 0px; }
   #alberta-ca.IDDP .form-horizontal .form-group {
     margin-left: 0;
     margin-right: 0; }
@@ -77,7 +79,7 @@
     color: white;
     margin-left: 5px; }
   #alberta-ca.IDDP div[role=main] {
-    background: url(/img/homepage-bg.jpg) top left repeat-x; }
+    background: url(/img/homepage-bg.jpg) top left repeat; }
   #alberta-ca.IDDP .wrapper-main {
     padding: 0 15px; }
   #alberta-ca.IDDP .wrapper-package-read .page-header {

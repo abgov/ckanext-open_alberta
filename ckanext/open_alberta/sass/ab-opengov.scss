@@ -34,6 +34,9 @@ $active-bg-color: #005072;
     font-size: 1.6em;
 
     // overrides
+    table td {
+        border: 0px;
+    }
     .form-horizontal .form-group {
         margin-left: 0;
         margin-right: 0;
@@ -45,7 +48,7 @@ $active-bg-color: #005072;
     }
 
     div[role=main] {
-        background: url(/img/homepage-bg.jpg) top left repeat-x;
+        background: url(/img/homepage-bg.jpg) top left repeat;
     }
 
     .wrapper-main {
