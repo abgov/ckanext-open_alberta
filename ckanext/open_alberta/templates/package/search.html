@@ -43,7 +43,9 @@
         <a class="btn btn-primary" href="/documentation/new"><i class="icon-plus-sign-alt"></i> Add Documentation</a>
     </div>
   {% endif %}
+  {% snippet 'snippets/small_search.html' %}
 {% endblock %}
+
 
 {% block form %}
   {% set facets = {
@@ -72,7 +74,7 @@
   {% if not dataset_type in facets_hide %}
       <h3>Filter Results</h3>
   {% endif %}
-  {% snippet 'snippets/small_search.html' %}
+  
   {% set facets = visible_facets[dataset_type] if dataset_type in visible_facets else c.facet_titles %}
   {% for facet in facets %}
         {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}

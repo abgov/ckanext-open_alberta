@@ -107,6 +107,16 @@ $active-bg-color: #005072;
         background-size: 120px 51px;
     }
 
+    .page_primary_action {
+        margin-bottom: 15px;
+    }
+
+    .search-giant .btn {
+        background: #555;
+        border-radius: 0;
+        border: 1px solid #555;
+    }
+
     #content {
         background-color: #fff;
         padding-top: 0;
@@ -428,17 +438,9 @@ $active-bg-color: #005072;
         border-top: solid 1px $light-border-color;
         border-bottom: solid 1px $light-border-color;
         margin: 15px 0;
-        padding: 5px 0;
+        padding: 15px 0;
+        font-size: 0.8em;
     }
-
-    .resources-order-by, .resources-page-size {
-        display: inline-block;
-        width: 48%;
-        @include screen-sm() {
-            width: 100%;
-        }
-    }
-
 
 /*    .left-sidebar {
         padding: 0 !important;
