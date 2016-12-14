@@ -390,6 +390,10 @@ $active-bg-color: #005072;
         text-overflow: ellipsis;
     }
 
+    .suggest-resource {
+        p { margin-bottom: 0; }
+    }
+
     /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
     @include screen-sm() {
         .navbar {border-radius: 0px;}
