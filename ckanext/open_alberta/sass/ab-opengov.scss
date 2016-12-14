@@ -186,6 +186,10 @@ $active-bg-color: #005072;
                     }
                 }
             }
+
+            &.no-padding {
+                padding: 0;
+            }
         }
 
         &.no-sidebar .secondary {
@@ -392,6 +396,45 @@ $active-bg-color: #005072;
 
     .suggest-resource {
         p { margin-bottom: 0; }
+    }
+
+    .dataset-content {
+        position: relative;
+    }
+
+    .dataset-flag-wrapper {
+        position: absolute;
+        right: 0;
+        top: 0;
+        overflow: hidden;
+        width: 100px;
+        height: 100px;
+    }
+
+    .dataset-flag-wrapper span {
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+        -webkit-transform-origin: top left;
+        -moz-transform-origin: top left;
+        -ms-transform-origin: top left;
+        -o-transform-origin: top left;
+        transform-origin: top left;
+        position: absolute;
+        right: 0;
+        width: 120px;
+        height: 26px;
+        line-height: 26px;
+        text-align: center;
+        top: -18px;
+        right: -54px;
+        font-size: 11px;
+        font-weight: bold;
+        color: white;
+        background-color: #666;
+        text-transform: capitalize;
     }
 
     /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
