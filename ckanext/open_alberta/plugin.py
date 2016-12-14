@@ -186,6 +186,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
             'menu_items': oab_helpers.menu_items,
             'have_plugin': oab_helpers.have_plugin,
             'is_future_date': oab_helpers.is_future_date,
+            'resource_format_to_icon': oab_helpers.resource_format_to_icon,
         }
 
 
