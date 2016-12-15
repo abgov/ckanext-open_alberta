@@ -87,3 +87,13 @@ def have_plugin(name):
     from ckan.plugins.core import plugin_loaded
     return plugin_loaded(name)
 
+
+def resource_format_to_icon(fmt):
+    iconmap = {'pdf': 'pdf',
+               'zip': 'archive',
+               'xls': 'excel', 'cvs': 'excel', 'xlsx': 'excel',
+               'doc': 'word', 'docx': 'word',
+               'xml': 'code', 'json': 'code', 'odata': 'code'}
+    fmt1 = fmt.lower()
+    return 'fa-file-{}-o'.format(iconmap.get(fmt1,'')) if fmt1 in iconmap else 'fa-file-o'
+
