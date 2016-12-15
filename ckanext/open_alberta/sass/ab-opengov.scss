@@ -90,7 +90,7 @@ $active-bg-color: #005072;
                 margin-right: 30px;
             }
 
-            button {
+            a:last-child { /* Download Metadata button */
                 @media screen and (min-width: 25em) {
                     float: right;
                 }
