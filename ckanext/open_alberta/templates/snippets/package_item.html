@@ -24,48 +24,54 @@ Example:
 {# set ministry = package.organization.title #}
 
 {% block package_item %}
-  {% if c.display_private_only and not package.private %}
-  {% else %}
-      {{ super() }}
-  {% endif %}
+    {% if c.display_private_only and not package.private %}
+    {% else %}
+            {{ super() }}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-  {% block heading %}
-    <div class="dataset-content">
-        {% block heading_title %}
-            <h3 class="package-header"><a href="/{{package.type}}/{{package.name}}">{{package.title}}</a></h3>
-        {% endblock %}
+    {% block heading %}
+        <div class="dataset-content" style="position:relative">
+            <div class="dataset-flag-wrapper">
+                <span style="    ">
+                {{ pubtype }}
+                </span>
+            </div>
+            
+            {% block heading_title %}
+                    <h3 class="package-header"><a href="/{{package.type}}/{{package.name}}">{{package.title}}</a></h3>
+            {% endblock %}
 
-    {% block heading_meta %}
-      {% if package.private %}
-            <span class="dataset-private label label-default"><i class="icon-lock"></i>{{ _('Private') }}</span>
-      {% endif %}
-      {{ super() }}
+            {% block heading_meta %}
+                {% if package.private %}
+                    <span class="dataset-private label label-default"><i class="icon-lock"></i>{{ _('Private') }}</span>
+                {% endif %}
+                {{ super() }}
+            {% endblock %}
     {% endblock %}
-  {% endblock %}
 
-  {% block banner %}
-    {{ super() }}
-  {% endblock %}
+    {% block banner %}
+        {{ super() }}
+    {% endblock %}
 
-  {% block notes %}
-    <div class="package-description">{{ super() }}</div>
-  {% endblock %}
+    {% block notes %}
+        <div class="package-description">{{ super() }}</div>
+    {% endblock %}
 
-  {% block resources %}
-    {{ super() }}
-  {% endblock %}
+    {% block resources %}
+        {{ super() }}
+    {% endblock %}
 
-  {% block pubdate %}
+    {% block pubdate %}
         <div class="pub-date">
         {% if package.published_date and not h.is_future_date(package.published_date) %}
             <span>Published: {{ package.published_date }}</span> |
             <span>Record Modified: {{ package.date_modified }}</span>
         {% else %}
-            <span>Unpublished</span>
+                    
         {% endif %}
         </div>
-  {% endblock %}
-
+    {% endblock %}
+    
 {% endblock %}
