@@ -39,7 +39,7 @@ Example:
 
     {% block heading_meta %}
       {% if package.private %}
-            <span class="dataset-private label"><i class="icon-lock"></i>{{ _('Private') }}</span>
+            <span class="dataset-private label label-default"><i class="icon-lock"></i>{{ _('Private') }}</span>
       {% endif %}
       {{ super() }}
     {% endblock %}
