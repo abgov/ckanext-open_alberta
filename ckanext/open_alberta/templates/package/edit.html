@@ -1,0 +1,26 @@
+{% ckan_extends %}
+
+{# Adminscreens sidebar #}
+{% block secondary_content %}
+  {% block info_module %}
+	
+    <section class="module module-narrow module-shallow">
+      <h2 class="module-heading"><i class="icon-info-sign"></i> {{ _(dataset_type|capitalize) }}</h2>
+      <div class="module-content">
+        <p>
+          {% if dataset_type == "publications" %}
+             {% trans %}
+  	           Information published by the government in a format meant for an end user/public.
+             {% endtrans %}
+          {% else %}
+             {% trans %}
+               GoA’s data whose release is not subject to privacy, security or legislative restrictions and which is made available to the public in a structured, machine-readable format with minimal restrictions on its use or re-use.
+             {% endtrans %}
+          {% endif %}  
+        </p>
+      </div>
+    </section>
+
+  {% endblock %}
+{% endblock %}
+{# Adminscreens sidebar #}
