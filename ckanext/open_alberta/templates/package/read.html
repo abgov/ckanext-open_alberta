@@ -15,7 +15,7 @@
 {% block wrapper_class %}-package-read{% endblock %}
 
 {% block breadcrumb_content %}
-    <li><a href="/dataset">Resources</a></li>
+    <li><a href="/dataset">Catalogue</a></li>
 {% endblock %}
 
 {% block content_primary_nav %}{% endblock %}
@@ -36,7 +36,9 @@
     <h2>Publishing Info</h2>
     <table class="publishig-info">
         <tr> <td>Publisher:</td><td>{{ pkg.organization.title }}</td> </tr>
+      {% if pkg.published_date %}
         <tr> <td>Date published:</td><td>{{ pkg.published_date }}</td> </tr>
+      {% endif %}
         <tr> <td>Record modified:</td><td>{{ h.render_datetime(pkg.metadata_modified, '%Y-%m-%d') }}</td> </tr>
     </table>
     <hr>
@@ -46,13 +48,15 @@
     Acknowledgement of the {{ pkg.organization.title }} for the Province of Alberta as the originator/source of this information is required as described in the {{ pkg.license_title }} at <a href="{{ pkg.license_url }}">{{ pkg.license_url }}</a>.
     </p>
     <hr>
+  {% if pkg.type != 'inventory' %}
     <h2>Resources</h2>
     <div class="resource-items">
-  {% for res in pkg.resources %}
-    {% snippet "package/snippets/resource_item.html", pkg=pkg, res=res %}
-  {% endfor %}
+    {% for res in pkg.resources %}
+      {% snippet "package/snippets/resource_item.html", pkg=pkg, res=res %}
+    {% endfor %}
     </div>
     <hr>
+  {% endif %}
     <h2>Keywords</h2>
   {% if pkg.tags|length %}
       {% snippet "snippets/tag_list.html", tags=pkg.tags %}
@@ -63,23 +67,35 @@
     <h2>Dates</h2>
     <table>
         <tr><td>Date created:</td><td>{{ h.render_datetime(pkg.metadata_created, '%Y-%m-%d') }}</td></tr>
+      {% if pkg.published_date %}
         <tr><td>Date published:</td><td>{{ pkg.published_date }}</td></tr>
+      {% endif %}
         <tr><td>Record modified:</td><td>{{ h.render_datetime(pkg.metadata_modified, '%Y-%m-%d') }}</td></tr>
+      {% if pkg.time_coverage_from %}
         <tr><td>Start date:</td><td>{{ pkg.time_coverage_from }}</td></tr>
+      {% endif %}
+      {% if pkg.time_coverage_from %}
         <tr><td>End date:</td><td>{{ pkg.time_coverage_from }}</td></tr>
+      {% endif %}
     </table>
     <hr>
     <h2>Additional Metadata</h2>
     <table>
+      {% if pkg.groups %}
         <tr><td>Topic(s):</td><td>{% for tp in pkg.groups %}{% if loop.index0 %} , {% endif %}{{ tp.display_name }}{% endfor %}</td></tr>
+      {% endif %}
+      {% if pkg.alternatetitle %}
         <tr><td>Alternative title:</td><td>{{ pkg.alternatetitle }}</td></tr>
+      {% endif %}
         <tr><td>Update frequency:</td><td>{{ pkg.updatefrequency }}</td></tr>
         <tr><td>Creator:</td><td>{% if pkg.creator|length %}{{ pkg.creator|join(' , ') }}{% endif %}</td></tr>
         <tr><td>Publisher:</td><td>{{ pkg.organization.title }}</td></tr>
+      {% if pkg.spatialcoverage1 %}
         <tr><td>Spatial coverage:</td><td>{{ pkg.spatialcoverage1 }}</td></tr>
+      {% endif %}
     </table>
     <div class="page-footer">
         <a href="#back" onclick="history.go(-1); return false;">&lt; Back to Results</a>
-        <button class="btn btn-default">Download Metadata</button>
+        <a class="btn btn-default" href="/api/3/action/package_show?id={{ pkg.name }}&download=true">Download Metadata</a>
     </div>
 {% endblock %}
