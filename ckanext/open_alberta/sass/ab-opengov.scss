@@ -437,6 +437,17 @@ $active-bg-color: #005072;
         text-transform: capitalize;
     }
 
+    #field-image-upload {
+        width: 84px;
+        position: absolute;
+        opacity: 0.01;
+        height: 32px;
+        cursor: pointer;
+        &::-webkit-file-upload-button { // chrome work around for cursor issue
+            cursor: pointer;
+        }
+    }
+
     /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
     @include screen-sm() {
         .navbar {border-radius: 0px;}
