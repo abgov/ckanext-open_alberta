@@ -440,7 +440,7 @@ $active-bg-color: #005072;
     #field-image-upload {
         width: 84px;
         position: absolute;
-        opacity: 0.01;
+        opacity: 0;
         height: 32px;
         cursor: pointer;
         &::-webkit-file-upload-button { // chrome work around for cursor issue
@@ -450,9 +450,10 @@ $active-bg-color: #005072;
 
     /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
     @include screen-sm() {
-        .navbar {border-radius: 0px;}
+        .navbar {border: 2px solid #77B800;min-height: 0;}
         .navbar-header { float: none; }
         .navbar-toggle { display: block; margin-left: 0; }
+        .navbar-collapse {min-height: 0;}
         .navbar-collapse.collapse { display: none !important; }
         .navbar-nav { float: none; margin: 0; }
         .navbar li { float: none !important; margin: 0; }
