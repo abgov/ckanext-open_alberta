@@ -41,6 +41,9 @@ $active-bg-color: #005072;
         margin-left: 0;
         margin-right: 0;
     }
+    .list-group > .clearfix {
+        list-style: none;
+    }
 
     .badge a.remove {
         color: white;

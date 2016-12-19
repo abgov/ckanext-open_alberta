@@ -1,14 +1,27 @@
 {% ckan_extends %}
 
-{% block image %}
-    <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" 
-         alt="{{ organization.name }}"  class="organization-media-image">
-{% endblock %}
+{% block image %}{% endblock %}
+
+{% block datasets %}{% endblock %}
 
 {% block item %}
-<li class="open_alberta_media-item">
-  {% block item_inner %}
-    {{ super() }} <br/><br/>
-  {% endblock %}
+<li class="list-group-item">
+	{% block item_inner %}
+		{{ super() }}
+	{% endblock %}
 </li>
+{% endblock %}
+
+{% block title %}
+    <h3 class="media-heading">{{ organization.display_name }} <small>({% if organization.packages %}
+      {{ ungettext('{num} Dataset', '{num} Datasets', organization.packages).format(num=organization.packages) }}
+    {% else %}
+      {{ _('0 Datasets') }}
+    {% endif %})</small></h3>
+{% endblock %}
+
+{% block link %}
+<a class="btn btn-default" href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization.display_name) }}" class="media-view">
+	<span>{{ _('View {organization_name}').format(organization_name=organization.display_name) }}</span>
+</a>
 {% endblock %}
