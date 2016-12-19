@@ -75,6 +75,8 @@
   #alberta-ca.IDDP .form-horizontal .form-group {
     margin-left: 0;
     margin-right: 0; }
+  #alberta-ca.IDDP .list-group > .clearfix {
+    list-style: none; }
   #alberta-ca.IDDP .badge a.remove {
     color: white;
     margin-left: 5px; }
@@ -101,14 +103,22 @@
     overflow: auto; }
     #alberta-ca.IDDP .wrapper-package-read .page-footer a {
       margin-right: 30px; }
-    @media screen and (min-width: 25em) {
-      #alberta-ca.IDDP .wrapper-package-read .page-footer button {
-        float: right; } }
+    #alberta-ca.IDDP .wrapper-package-read .page-footer a:last-child {
+      /* Download Metadata button */ }
+      @media screen and (min-width: 25em) {
+        #alberta-ca.IDDP .wrapper-package-read .page-footer a:last-child {
+          float: right; } }
   #alberta-ca.IDDP .page-preprimary > :last-child {
     margin-bottom: 30px; }
   #alberta-ca.IDDP .logo a {
     background: url(/img/AlbertaLogoWhiteV.svg) no-repeat center center;
     background-size: 120px 51px; }
+  #alberta-ca.IDDP .page_primary_action {
+    margin-bottom: 15px; }
+  #alberta-ca.IDDP .search-giant .btn {
+    background: #555;
+    border-radius: 0;
+    border: 1px solid #555; }
   #alberta-ca.IDDP #content {
     background-color: #fff;
     padding-top: 0; }
@@ -152,6 +162,8 @@
           #alberta-ca.IDDP #content .secondary aside li.nav-item a {
             margin: -5px -5px;
             padding: 5px; }
+      #alberta-ca.IDDP #content .secondary.no-padding {
+        padding: 0; }
     #alberta-ca.IDDP #content.no-sidebar .secondary {
       display: none; }
   #alberta-ca.IDDP .account-masthead {
@@ -275,14 +287,60 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
+  #alberta-ca.IDDP .suggest-resource p {
+    margin-bottom: 0; }
+  #alberta-ca.IDDP .dataset-content {
+    position: relative; }
+  #alberta-ca.IDDP .dataset-flag-wrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+    width: 100px;
+    height: 100px; }
+  #alberta-ca.IDDP .dataset-flag-wrapper span {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: top left;
+    -moz-transform-origin: top left;
+    -ms-transform-origin: top left;
+    -o-transform-origin: top left;
+    transform-origin: top left;
+    position: absolute;
+    right: 0;
+    width: 120px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    top: -18px;
+    right: -54px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    background-color: #666;
+    text-transform: capitalize; }
+  #alberta-ca.IDDP #field-image-upload {
+    width: 84px;
+    position: absolute;
+    opacity: 0;
+    height: 32px;
+    cursor: pointer; }
+    #alberta-ca.IDDP #field-image-upload::-webkit-file-upload-button {
+      cursor: pointer; }
   @media only screen and (max-width: 40em) {
     #alberta-ca.IDDP .navbar {
-      border-radius: 0px; }
+      border: 2px solid #77B800;
+      min-height: 0; }
     #alberta-ca.IDDP .navbar-header {
       float: none; }
     #alberta-ca.IDDP .navbar-toggle {
       display: block;
       margin-left: 0; }
+    #alberta-ca.IDDP .navbar-collapse {
+      min-height: 0; }
     #alberta-ca.IDDP .navbar-collapse.collapse {
       display: none !important; }
     #alberta-ca.IDDP .navbar-nav {
@@ -326,13 +384,8 @@
     border-top: solid 1px #a0a0a0;
     border-bottom: solid 1px #a0a0a0;
     margin: 15px 0;
-    padding: 5px 0; }
-  #alberta-ca.IDDP .resources-order-by, #alberta-ca.IDDP .resources-page-size {
-    display: inline-block;
-    width: 48%; }
-    @media only screen and (max-width: 40em) {
-      #alberta-ca.IDDP .resources-order-by, #alberta-ca.IDDP .resources-page-size {
-        width: 100%; } }
+    padding: 15px 0;
+    font-size: 0.8em; }
   #alberta-ca.IDDP .control-medium input, #alberta-ca.IDDP .control-medium textarea, #alberta-ca.IDDP .control-medium select {
     min-width: 320px; }
   #alberta-ca.IDDP .control-full input, #alberta-ca.IDDP .control-full textarea, #alberta-ca.IDDP .control-full select {
@@ -449,7 +502,7 @@
         text-transform: uppercase; }
       #alberta-ca.IDDP .resource-item .links .fa-download {
         margin-right: 5px; }
-      #alberta-ca.IDDP .resource-item .links .fa-info-circle {
+      #alberta-ca.IDDP .resource-item .links .fa-info-circle, #alberta-ca.IDDP .resource-item .links .fa-edit {
         margin-left: 5px; }
   #alberta-ca.IDDP .tags li {
     display: inline-block;
