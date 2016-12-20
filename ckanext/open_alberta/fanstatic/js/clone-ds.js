@@ -1,14 +1,27 @@
 $(function() {
+    $('#clone-btn').click(function() {
+        var icon = $('i', this);
+        if (icon.hasClass('icon-caret-down')) {
+            $('fieldset.clone').show()
+                               .find('input:eq(0)').focus();
+            icon.removeClass('icon-caret-down')
+                .addClass('icon-caret-up');
+        }
+        else {
+            $('fieldset.clone').hide();
+            icon.removeClass('icon-caret-up')
+                .addClass('icon-caret-down');
+        }
+    });
     /* This submits dataset clone request via Ajax.
      * It has to be done this way because the dataset view page has javascript tabs,
      * unlike vanilla CKAN.
      * */
-    $('#id-clone-ds-form button[type=submit]').click(function(e) {
-        console.log('clone clicked...');
-        var url = $('#id-clone-ds-form').attr('action');
+    $('#clone-form button[type=submit]').click(function(e) {
+        var url = $('#clone-form').attr('action');
         var titleInp = $('#field-title');
         var urlInp = $('#field-name');
-        $('#id-clone-ds-form .top-error-msg').text('').hide();
+        $('#clone-form .top-errors').text('').hide();
         titleInp.parent().removeClass('error').find('span.error-block').remove();
         urlInp.parent().removeClass('error').find('span.error-block').remove();
         $.post(url,
@@ -19,7 +32,7 @@ $(function() {
                     window.location.href = data.redirect_url;
                 else if (data.status == 'error') {
                     if (data.errorMessage) {
-                        $('#id-clone-ds-form .top-error-msg').text(data.errorMessage).show();
+                        $('#clone-form .top-errors').text(data.errorMessage).show();
                     }
                     else {
                         if (data.errors.title)
