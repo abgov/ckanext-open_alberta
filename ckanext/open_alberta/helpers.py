@@ -9,6 +9,7 @@ import json
 from errors import ConfigError
 from datetime import date
 from dateutil import parser
+import logging
 
 
 def fetch_feed(feed_url, number_of_entries=1):
@@ -18,7 +19,9 @@ def fetch_feed(feed_url, number_of_entries=1):
 
 
 DEFAULT_DATASETS_PER_PAGE_OPTIONS = '10 25 50'
+DEFAULT_SEARCH_FACET_ITEMS_LIMIT = 5
 
+logger = logging.getLogger(__name__)
 
 def items_per_page_from_config():
     """ Parse open_alberta.datasets_per_page_options from the config file and return a tuple
@@ -89,6 +92,7 @@ def have_plugin(name):
 
 
 def resource_format_to_icon(fmt):
+    """ Return Font Awesome icon name corresponding to the provided resource format """
     iconmap = {'pdf': 'pdf',
                'zip': 'archive',
                'xls': 'excel', 'cvs': 'excel', 'xlsx': 'excel',
@@ -97,3 +101,14 @@ def resource_format_to_icon(fmt):
     fmt1 = fmt.lower()
     return 'fa-file-{}-o'.format(iconmap.get(fmt1,'')) if fmt1 in iconmap else 'fa-file-o'
 
+
+def search_facet_items():
+    """ Return the number of search facet items that should be visible based on the config.
+        The value is specified under open_alberta.search_facet_limit key (optional).
+        The default is 5. """
+    try:
+        return int(config.get('open_alberta.search_facet_limit', DEFAULT_SEARCH_FACET_ITEMS_LIMIT))
+    except ValueError:
+        logger.fatal('Invalid value of open_alberta.search_facet_limit in the config. Using default %s',
+                     DEFAULT_SEARCH_FACET_ITEMS_LIMIT)
+        return DEFAULT_SEARCH_FACET_ITEMS_LIMIT

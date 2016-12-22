@@ -190,6 +190,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
             'have_plugin': oab_helpers.have_plugin,
             'is_future_date': oab_helpers.is_future_date,
             'resource_format_to_icon': oab_helpers.resource_format_to_icon,
+            'search_facet_items': oab_helpers.search_facet_items,
         }
 
 
@@ -244,7 +245,6 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
                                  'capacity': 'public'})
             else:
                 del_action(ctx, {'id': grp, 'object': pkg['id'], 'object_type': 'package'})
-
 
 
     import ckan.controllers.package
