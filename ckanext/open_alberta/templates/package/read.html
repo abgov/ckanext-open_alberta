@@ -21,7 +21,8 @@
 {% block content_primary_nav %}{% endblock %}
 
 {% block primary_content_inner %}
-    <h1>{{ pkg.title }}</h1>
+    <h1>{{ pkg.title }}</h1> 
+    {% block after_title_line %} {% endblock %}
   {% if notes_short|length < notes|length %}
     <div class="short">
         {{ notes_short }}
