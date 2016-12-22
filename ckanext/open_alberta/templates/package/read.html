@@ -29,13 +29,12 @@
 {% endblock %}
 
 {% block primary_content_inner %}
-    <h1>{{ pkg.title }}</h1> 
-    {% block after_title_line %} {% endblock %}
   {% if can_clone %}
     {% snippet 'package/snippets/clone_form.html', pkg=pkg %}
     {% resource 'open_alberta/js/clone-ds.js' %}
   {% endif %}
     <h1>{{ pkg.title }}</h1>
+    {% block after_title_line %} {% endblock %}
   {% if notes_short|length < notes|length %}
     <div class="short">
         {{ notes_short }}
