@@ -145,12 +145,14 @@ $active-bg-color: #005072;
         .secondary {
             float: left;
 
-            @include screen-sm() {
-            }
-            
             aside {
                 border: dotted 1px #ccc;
                 padding: 15px;
+
+                /* TODO:
+                &.filter-results {
+                }
+                */
 
                 section {
                     *:first-child { margin-top: 0; }
@@ -168,12 +170,23 @@ $active-bg-color: #005072;
                 h4 {
                     color: #000;
                     background: #ccc;
-                    font-size: 1em;
+                    font-size: 0.9em;
                     padding: 5px 10px;
                     margin: 0;
 
                     &.suggest {
                         text-align: center;
+                    }
+
+                    i.fa {
+                        float: right;
+                        margin-left: 5px;
+                        color: #808080;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: #000;
+                        }
                     }
                 }
 
@@ -186,6 +199,17 @@ $active-bg-color: #005072;
                     a {
                         margin: -5px -5px;
                         padding: 5px;
+                    }
+                }
+
+                p.module-footer {
+                    text-align: center;
+                    font-size: 0.8em;
+                    background: #ddd;
+                    padding: 5px;
+
+                    a.show-less {
+                        display: none;
                     }
                 }
             }
