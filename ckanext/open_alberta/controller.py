@@ -19,6 +19,7 @@ from pylons.decorators import jsonify
 import ckan.lib.captcha as captcha
 from ckanext.open_alberta import DATE_FORMAT
 from ckanext.open_alberta.errors import *
+import helpers as ab_helpers
 
 unflatten = dictization_functions.unflatten
 
@@ -252,11 +253,11 @@ class PackageCloneController(BaseController):
                 # TODO: handle publication
                 pkg = toolkit.get_action('package_show')(None, dict(id=id))
 
-                cfg_adst = config.get('ckanext.openalberta.clonable_ds_types', 'opendata,publication')
-                allowed_types = set(re.split('\s*,\s*', cfg_adst))
+                cfgval = config.get('ckanext.openalberta.clonable_ds_types', 'dataset,opendata')
+                allowed_types = set(re.split('\s*,\s*', cfgval))
                 if pkg['type'] not in allowed_types:
                     logger.warn('Requested cloning of unsupported package type (%s). Supported types: %s.',
-                                pkg['type'], cfg_adt)
+                                pkg['type'], cfgval)
                     return {
                         'status': 'error',
                         'errorMessage': _('This package type is not allowed to be cloned.')
@@ -266,6 +267,12 @@ class PackageCloneController(BaseController):
                 pkg['name'] = toolkit.request.params.getone('name')
                 pkg['date_created'] = pkg['date_modified'] = datetime.now()
                 pkg['state'] = 'draft'
+
+                if ab_helpers.have_plugin('workflow'):
+                    pkg['state'] = 'active'
+                    pkg['process_state'] = 'Modified'
+                    pkg['private'] = True
+
                 del pkg['id']
 
                 action = toolkit.get_action('package_create')
