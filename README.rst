@@ -39,6 +39,15 @@ Config Settings
 
     ckan.plugins = ... open_alberta openalbertapages
 
+Required: remove search facet limit
+
+    search.facets.default = 10000
+
+Optional: search facet default visible items (the default is 5)
+
+    open_alberta.search_facet_limit = 5
+
+
 Default Dataset review interval:
 
     # Format: \d+ (day|days|week|weeks|month|months|year|years)

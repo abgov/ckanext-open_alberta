@@ -1,4 +1,22 @@
 $(function() {
+    /* Fife facet items are initially shown.
+     * The rest can be viewed by clicking 'Show More' link at the facet section footer
+     */
+    $('section.module p.module-footer a').click(function(e) {
+        var me = $(this);
+        var ul = me.closest('section').find('>nav>ul:eq(0)');
+        if (me.hasClass('show-more')) {
+            ul.find('>li').removeClass('hidden');
+            me.hide().next().show();
+        }
+        else if (me.hasClass('show-less')) {
+            var limit = parseInt(ul.data('limit'));
+            ul.find('>li:gt(' + (limit-1) + ')').addClass('hidden');
+            me.hide().prev().show();
+        }
+        e.preventDefault();
+        return false;
+    });
     /*
      * Sort the search facets lists in "Refine Results" side bar
      */
@@ -45,6 +63,19 @@ $(function() {
                     data2sort.sort(cmp).forEach(function(elem) {
                         ul.append(elem.li);
                     });
+                    // re-apply hidden if necessary
+                    var hiddens = ul.find('>li.hidden');
+                    var all = ul.find('>li');
+                    if (hiddens.length > 0) {
+                        var totalCount = all.length;
+                        var hiddenStart = totalCount - hiddens.length;
+                        all.each(function(idx) {
+                            if (idx < hiddenStart)
+                                $(all[idx]).removeClass('hidden');
+                            else
+                                $(all[idx]).addClass('hidden');
+                        });
+                    }
                     break;
                 }
             }
