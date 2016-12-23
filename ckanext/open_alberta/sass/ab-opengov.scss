@@ -13,7 +13,7 @@ $tag-bg-color: #a0a0a0;
 $active-color: #fff;
 $active-bg-color: #005072;
 
-/* Bootstrap v3.x folds the naviation at viewport width <= 768px, so desktop users see phone interface in many cases.
+/* Bootstrap v3.x folds the navigation at viewport width <= 768px, so desktop users see phone interface in many cases.
    This helps to override that to a custom value without rebuilding bootstrap. */
 @mixin screen-sm() {
     @media only screen and (max-width: $screen-xs) { 
@@ -145,12 +145,14 @@ $active-bg-color: #005072;
         .secondary {
             float: left;
 
-            @include screen-sm() {
-            }
-            
             aside {
                 border: dotted 1px #ccc;
                 padding: 15px;
+
+                /* TODO:
+                &.filter-results {
+                }
+                */
 
                 section {
                     *:first-child { margin-top: 0; }
@@ -168,12 +170,23 @@ $active-bg-color: #005072;
                 h4 {
                     color: #000;
                     background: #ccc;
-                    font-size: 1em;
+                    font-size: 0.9em;
                     padding: 5px 10px;
                     margin: 0;
 
                     &.suggest {
                         text-align: center;
+                    }
+
+                    i.fa {
+                        float: right;
+                        margin-left: 5px;
+                        color: #808080;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: #000;
+                        }
                     }
                 }
 
@@ -186,6 +199,17 @@ $active-bg-color: #005072;
                     a {
                         margin: -5px -5px;
                         padding: 5px;
+                    }
+                }
+
+                p.module-footer {
+                    text-align: center;
+                    font-size: 0.8em;
+                    background: #ddd;
+                    padding: 5px;
+
+                    a.show-less {
+                        display: none;
                     }
                 }
             }
@@ -650,6 +674,28 @@ $active-bg-color: #005072;
                     padding-left: 1em;
                 }
             }
+        }
+    }
+
+    .clone {
+        display: none;
+        border-radius: 5px;
+        padding: 10px 15px 0 15px;
+
+        .control-group {
+            max-width: 40em;
+
+            input {
+                width: 100%;
+            }
+        }
+
+        .slug-preview {
+            margin-top: 10px;
+        }
+
+        .form-actions {
+            margin: 0 auto 15px;
         }
     }
 

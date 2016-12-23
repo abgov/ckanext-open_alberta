@@ -20,8 +20,21 @@
 
 {% block content_primary_nav %}{% endblock %}
 
+{% set can_clone =  h.check_access('package_update', {'id':pkg.id }) %}
+{% block content_action %}
+  {{ super() }}
+  {% if can_clone %}
+    <a id="clone-btn" href="#" class="btn btn-primary">Clone <i class="icon-caret-down"></i></a>
+  {% endif %}
+{% endblock %}
+
 {% block primary_content_inner %}
+  {% if can_clone %}
+    {% snippet 'package/snippets/clone_form.html', pkg=pkg %}
+    {% resource 'open_alberta/js/clone-ds.js' %}
+  {% endif %}
     <h1>{{ pkg.title }}</h1>
+    {% block after_title_line %} {% endblock %}
   {% if notes_short|length < notes|length %}
     <div class="short">
         {{ notes_short }}

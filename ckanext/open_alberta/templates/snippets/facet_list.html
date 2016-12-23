@@ -46,44 +46,45 @@ within_tertiary
     {% set title = 'Publisher' %}
     {% endif %}
     {{ title }}
+    <i class="fa fa-sort-alpha-asc"></i>
+    <i class="fa fa-sort-amount-asc"></i>
   </h4>
 {% endblock %}
 
-
 {% block facet_list_items %}
+  {% set limit = h.search_facet_items() %}
   {% with items = items or h.get_facet_items_dict(name) %}
   {% if items %}
     <nav>
-      <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}">
-        {% for item in items %}
-          {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
-          {% set label = label_function(item) if label_function else item.display_name %}
-          {% set label_truncated = label if not label_function else label %}
-          {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
-            <li class="{{ nav_item_class or 'nav-item' }}{% if item.active %} active{% endif %}">
-              <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
-                <span>{{ label_truncated }} {{ count }}</span>
-              </a>
-            </li>
-        {% endfor %}
+      <ul class="{{ nav_class or 'unstyled nav nav-simple nav-facet' }}" data-limit="{{ limit }}">
+      {# We need all the items in order to sort to work properly.
+         The CKAN's ini file has to have "search.facets.default" value set to a large number, so all of the items
+         are in the list. We display only the first 5 and the rest is hidden/shown via css + javascript. #}
+      {% set remaining_items = items|length - limit %}
+      {% for item in items %}
+        {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+        {% set label = label_function(item) if label_function else item.display_name %}
+        {% set label_truncated = label if not label_function else label %}
+        {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+        {% set active = ' active' if item.active else '' %}
+        {% set hidden = ' hidden' if loop.index > limit else '' %}
+        <li class="{{ nav_item_class or 'nav-item' }}{{ active }}{{hidden }}">
+          <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
+            <span>{{ label_truncated }} {{ count }}</span>
+          </a>
+        </li>
+      {% endfor %}
       </ul>
     </nav>
 
-    <p class="module-footer">
-      {% if h.get_param_int('_%s_limit' % name) %}
-        {% if h.has_more_facets(name) %}
-          <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" class="read-more">{{ _('Show More').format(facet_type=title) }}</a>
-        {% endif %}
-      {% else %}
-        <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" class="read-more">{{ _('Show Fewer').format(facet_type=title) }}</a>
-      {% endif %}
-    </p>
+    {% if remaining_items > 0 %}
+      <p class="module-footer">
+        <a class="show-more" href="#">{{ _('Show more') }} ({{ remaining_items }})</a>
+        <a class="show-less" href="#">{{ _('Show fewer') }}</a>
+      </p>
+    {% endif %}
   {% else %}
     <p class="module-content empty">{{ _('There are no {facet_type} that match this search').format(facet_type=title) }}</p>
   {% endif %}
   {% endwith %}
 {% endblock %}
-
-
-
-
