@@ -226,9 +226,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
         return 'group/topics.html'
 
     # IPackageController
-    def after_update(self, ctx, pkg):
-        """ Update group membership of the dataset that was just saved based on the value of topics field """
-
+    def _update_group_topics(self, ctx, pkg):
         if 'topics' not in pkg:
             return
         del_action = toolkit.get_action('member_delete')
@@ -246,6 +244,13 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
             else:
                 del_action(ctx, {'id': grp, 'object': pkg['id'], 'object_type': 'package'})
 
+    def after_update(self, ctx, pkg):
+        """ Update group membership of the dataset that was just saved based on the value of topics field """
+        self._update_group_topics(ctx, pkg)
+        
+    def after_create(self, ctx, pkg):
+        """ Update group membership of the dataset that was just saved based on the value of topics field """
+        self._update_group_topics(ctx, pkg)
 
     import ckan.controllers.package
     from .controller import PagedPackageController
