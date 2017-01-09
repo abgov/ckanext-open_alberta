@@ -44,12 +44,16 @@ class NotifyPublishedCommand(CommandBase):
             """published_date is later than today"""
             return False
         else:
-            pkg_dict['private'] = False
-            pkg_dict['state'] = 'active'
-            datasets = tk.get_action('package_update')(
-                        context=context, data_dict=pkg_dict)
-            logger.info("Dataset '%s' is updated.", pkg_dict['name'])
-        return True
+            if not pkg_dict.get('process_state') or \
+               pkg_dict.get('process_state') == 'Approved' and pkg_dict['private']:
+                pkg_dict['private'] = False
+                pkg_dict['state'] = 'active'
+                datasets = tk.get_action('package_update')(
+                            context=context, data_dict=pkg_dict)
+                logger.info("Dataset '%s' is updated.", pkg_dict['name'])
+                return True
+            else:
+                return False
 
     def get_org_admin(self, users_dict):
         admin_ids =[]
