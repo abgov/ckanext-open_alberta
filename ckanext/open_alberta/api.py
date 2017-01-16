@@ -31,7 +31,7 @@ def download(fn):
                 response.headers['Content-Disposition'] = "attachment; filename={0}.txt".format(id)
             elif not response.headers.has_key('Content-Disposition'):
                 response.headers['Content-Disposition'] = "attachment; filename=none.txt"
-            if not isinstance(response_data, str):
+            if isinstance(response_data, dict):
                 response_data = json.dumps(response_data, indent=2)
         return fn(self, response_data, content_type, resource_location)
 
