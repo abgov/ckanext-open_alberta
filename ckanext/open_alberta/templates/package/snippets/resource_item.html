@@ -1,7 +1,7 @@
 {% set can_edit = h.check_access('package_update', {'id': pkg.id }) %}
 {% set resource_icon = h.resource_format_to_icon(res.format) %}
 
-<div class="resource-item">
+<div class="resource-item" data-id="{{ res.id }}">
   {% if resource_icon != "" %}<i class="rc-icon fa {{ resource_icon }}"></i>{% endif %}
 
   {% block resource_item_title %}
