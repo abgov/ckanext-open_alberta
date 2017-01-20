@@ -771,8 +771,9 @@ $active-bg-color: #005072;
         border-right: none;
         position: relative;
 
-        >a.heading {
-            margin-left: 35px;
+        div.heading {
+            width: auto; 
+            word-wrap: break-word;
         }
 
         i.rc-icon {
