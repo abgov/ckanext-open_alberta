@@ -2,55 +2,56 @@
 
 {%- block content %}
   {% block maintag %}{{ super() }}{% endblock %}
-  <div id="content" class="container-fluid {% block content_tag_classes%}{% endblock %}">
-      {% block main_content %}{{ super() }}{% endblock %}
+  <div class="page-top-bg">
+    <div class="page-top container-fluid">
+      <div class="flash-messages">{% block flash %} {{ super() }} {% endblock %}</div>
+      <div class="toolbar">{% block toolbar %} {{ super() }} {% endblock %}</div>
+      <div class="page-preprimary">{% block pre_primary %}{% endblock %}</div>
+    </div>
+  </div>
+  <div class="page-main-bg">
+    <div id="content" class="container-fluid {% block content_tag_classes%}{% endblock %}">
+      <div class="row">
+  {% block primary %}
+        <div class="primary col-sm-9">
+    {% block primary_content %}
+          <article class="module">
+      {% block page_header %}
+        {% if c["user"] != "" or self.content_action() | trim %}
+            <header class="module-content page-header">
+          {% if self.content_action() | trim %}
+              <div class="content_action">
+                {% block content_action %}{% endblock %}
+              </div>
+          {% endif %}
+              <ul class="nav nav-tabs">
+                {% block content_primary_nav %}{% endblock %}
+              </ul>
+            </header>
+        {% endif %}
+      {% endblock %}
+            <div class="module-content">
+      {% if self.page_primary_action() | trim %}
+              <div class="page_primary_action">
+                {% block page_primary_action %}{% endblock %}
+              </div>
+      {% endif %}
+              {% block primary_content_inner %}{% endblock %}
+            </div>
+          </article>
+    {% endblock %}
+        </div>
+  {% endblock %}
+
+  {% block secondary %}
+        <div class="secondary col-sm-3">
+          <aside>
+            {% block secondary_content %}{% endblock %}
+          </aside>
+        </div>
+  {% endblock %}
+      </div>
+    </div>
   </div>
 {% endblock -%}
 
-{% block wrapper_class %}-main{% endblock %}
-
-{% block pre_primary %}
-<div class="page-preprimary">
-{% block page_preprimary %}{% endblock %}
-</div>
-{% endblock %}
-
-
- {% block primary %}
-<div class="primary col-sm-9">
-	{% block primary_content %}
-		<article class="module">
-		{% block page_header %}
-			{% if c["user"] != "" or self.content_action() | trim %}
-			<header class="module-content page-header">
-				{% if self.content_action() | trim %}
-					<div class="content_action">
-				 		{% block content_action %}{% endblock %}
-					</div>
-				{% endif %}
-				<ul class="nav nav-tabs">
-					{% block content_primary_nav %}{% endblock %}
-				</ul>
-			</header>
-			{% endif %}
-		{% endblock %}
-		<div class="module-content">
-			{% if self.page_primary_action() | trim %}
-				<div class="page_primary_action">
-					{% block page_primary_action %}{% endblock %}
-				</div>
-			{% endif %}
-			{% block primary_content_inner %}{% endblock %}
-		</div>
-		</article>
-	{% endblock %}
-</div>
-{% endblock %}
-
-{% block secondary %}
-	<div class="secondary col-sm-3">
-		<aside class="secondary">
-		{% block secondary_content %}{% endblock %}
-		</aside>
-	</div>
-{% endblock %}
