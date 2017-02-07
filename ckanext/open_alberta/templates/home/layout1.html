@@ -21,7 +21,7 @@
         <div class="topics">
             <h3>Browse Resources by Topic</h3>
         {% for grp in h.topics(12) %}
-            <div class="topic{% if loop.index is divisibleby 4 %} fourth{% endif %}">
+        <div class="topic">
                 <h3><a href="/topics/{{ grp.name }}">{{ grp.title }}</a></h3>
                 <p> {{ grp.description }}</p>
             </div>

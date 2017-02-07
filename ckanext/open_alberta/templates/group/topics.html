@@ -19,7 +19,7 @@
     <div class="row topics">
         <h3>Resource Topics</h3>
         {% for topic in h.topics() %}
-        <div class="topic{% if loop.index is divisibleby 4 %} fourth{% endif %}">
+        <div class="topic">
             <h3><a href="/topics/{{ topic.name }}">{{ topic.title }}</a></h3>
             <p> {{ topic.description }}</p>
         </div>
