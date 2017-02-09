@@ -17,7 +17,7 @@
 
 {% block primary_content_inner %}
     <div class="row topics">
-        <h3>Resource Topics</h3>
+        <h2>Resource Topics</h2>
         {% for topic in h.topics() %}
         <div class="topic">
             <h3><a href="/topics/{{ topic.name }}">{{ topic.title }}</a></h3>

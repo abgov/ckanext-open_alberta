@@ -1,6 +1,9 @@
 function hide_filters_on_body_click() {
     $('body').off('click', hide_filters_on_body_click);
-    $('.mobile-filters-panel').animate({'margin-left': '-350px'}, 300);
+    $('.mobile-filters-panel')
+        .animate({'margin-left': '-350px'}, 
+                 {duration: 300,
+                  complete: function() { $(this).hide() }});
 }
 
 $(function() {
@@ -17,7 +20,6 @@ $(function() {
     var mfp = $('.catalogue div.secondary').clone();
     mfp.prependTo('body')
        .addClass('mobile-filters-panel')
-       .show()
        .click(function(e) { 
            // prevent tap/click on filters panel to get to the body element
            // e.stopPropagation(); 

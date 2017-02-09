@@ -124,10 +124,12 @@ $active-bg-color: #005072;
     }
 
     #content {
-        background: #fff;
         padding-top: 0;
+        padding-left: 30px;
+        padding-right: 30px;
 
         > .row {
+            background: #fff;
             padding-top: 0;
         }
 
@@ -147,6 +149,10 @@ $active-bg-color: #005072;
         &.no-sidebar .primary {
             width: 100%;
             float: none;
+        }
+
+        &.no-sidebar .secondary {
+            display: none;
         }
     }
 
@@ -324,23 +330,32 @@ $active-bg-color: #005072;
 
     .topics {
         background: #fff;
-        padding-bottom: 30px;
-        margin-bottom:  20px;
+        padding: 0;
+        margin-bottom:  0;
 
-        >h3 {
-            padding-left: 15px;
+        >h2 {
+            padding-left: 19px;
+            margin: 20px 0 15px !important;
         }
 
         .topic {
             width: 33%;
             float: left;
             overflow: hidden;
-            margin-top: 15px;
+            padding: 4px 19px 2000px 19px;
             margin-bottom: -2000px;
-            padding-bottom: 2000px;
 
-            h3, p {
-                margin: 10px;
+            h3 {
+                font-size: 24px;
+                margin: 5px 0 10px;
+
+                a {
+                    text-decoration: underline;
+                }
+            }
+
+            p {
+                margin-bottom: 15px;
             }
 
             /* Items have different height so stuff in the last row will render in a random column.
@@ -365,7 +380,7 @@ $active-bg-color: #005072;
 
         .see-all {
             clear: both;
-            padding-top: 30px;
+            padding: 30px 0;
 
             .btn {
                 text-transform: uppercase;
@@ -859,6 +874,7 @@ $active-bg-color: #005072;
         background-color: #eee;
         overflow-y: auto;
         height: 100%;
+        display: none;
 
         aside {
             padding: 0 !important;

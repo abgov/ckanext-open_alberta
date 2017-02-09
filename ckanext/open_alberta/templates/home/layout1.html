@@ -18,8 +18,8 @@
 </div>
 <div class="page-main-bg">
     <div id="content" class="container-fluid">
-        <div class="topics">
-            <h3>Browse Resources by Topic</h3>
+        <div class="row topics">
+            <h2>Browse Resources by Topic</h2>
         {% for grp in h.topics(12) %}
         <div class="topic">
                 <h3><a href="/topics/{{ grp.name }}">{{ grp.title }}</a></h3>
