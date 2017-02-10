@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {%- block content %}
-  {% block maintag %}{{ super() }}{% endblock %}
+{% block maintag %}<div role="main" class="{% block main_div_classes %}{% endblock %}">{% endblock %}
   <div class="page-top-bg">
     <div class="page-top container-fluid">
       <div class="flash-messages">{% block flash %} {{ super() }} {% endblock %}</div>

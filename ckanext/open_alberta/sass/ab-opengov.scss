@@ -39,9 +39,13 @@ $active-bg-color: #005072;
     }
 
     .page-main-bg {
-        background-color: #d1d4d3;
+        background-color: #fff;
         padding-top: 20px;
         padding-bottom: 20px;
+    }
+
+    [role=main].gray .page-main-bg {
+        background-color: #d1d4d3;
     }
 
     // overrides

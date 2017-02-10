@@ -2,6 +2,8 @@
 
 {% set homepage_style = ( g.homepage_style or '1' ) %}
 
+{% block main_div_classes %}gray{% endblock %}
+
 {% block content %}
   {% block maintag %}{{ super() }}{% endblock %}
   <div class="homepage layout-{{ homepage_style }}">
