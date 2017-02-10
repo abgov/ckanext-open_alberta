@@ -18,12 +18,7 @@
 {% block primary_content_inner %}
     <div class="row topics">
         <h2>Resource Topics</h2>
-        {% for topic in h.topics() %}
-        <div class="topic">
-            <h3><a href="/topics/{{ topic.name }}">{{ topic.title }}</a></h3>
-            <p> {{ topic.description }}</p>
-        </div>
-    {% endfor %}
+        {% snippet 'snippets/topics.html', limit=-1 %}
     </div>
 
 {% endblock %}

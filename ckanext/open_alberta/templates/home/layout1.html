@@ -20,12 +20,7 @@
     <div id="content" class="container-fluid">
         <div class="row topics">
             <h2>Browse Resources by Topic</h2>
-        {% for grp in h.topics(12) %}
-        <div class="topic">
-                <h3><a href="/topics/{{ grp.name }}">{{ grp.title }}</a></h3>
-                <p> {{ grp.description }}</p>
-            </div>
-        {% endfor %}
+            {% snippet 'snippets/topics.html', limit=12 %}
             <div class="see-all">
                 <a class="btn btn-default" href="/topics">View all topics</a>
             </div>

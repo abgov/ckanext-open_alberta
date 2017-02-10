@@ -1,0 +1,6 @@
+{% for grp in h.topics(limit) %}
+<div class="topic{% if loop.index0 > 0 and loop.index0 % 3 == 0 %} fourth{% endif %}">
+        <h3><a href="/topics/{{ grp.name }}">{{ grp.title }}</a></h3>
+        <p> {{ grp.description }}</p>
+    </div>
+{% endfor %}
