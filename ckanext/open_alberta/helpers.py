@@ -68,6 +68,7 @@ def topics(max=-1):
     results = search(data_dict={'sort': 'package_count desc',
                                 'type': 'topics',
                                 'all_fields': True})
+    results = sorted(results, key=lambda item: item['title'])
     return results[:max] if max > 0 else results
 
 
