@@ -162,10 +162,12 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
 
     """ IAuthFunctions """
     def get_auth_functions(self):
-        return {'package_list': package_authentication,
-                'package_show': package_authentication,
-                'package_search': package_authentication }
-
+        if toolkit.asbool(config.get('ckan.open_alberta.login_before_everything', False)):
+            return {'package_list': package_authentication,
+                    'package_show': package_authentication,
+                    'package_search': package_authentication }
+        else:
+            return {}
     #IConfigurer
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
