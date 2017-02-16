@@ -4,6 +4,7 @@ from ckanext.open_alberta import helpers
 import pylons.config as config
 import datetime
 import dateutil.parser as parser
+from ckan.common import _
 
 @toolkit.side_effect_free
 def counter_on_off(context, data_dict=None):
@@ -97,6 +98,55 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
         return m
 
 
+import ckan.controllers.admin as admin
+import ckan.controllers.home as home
+
+_orig__get_config_form_items = admin.AdminController._get_config_form_items
+_orig_home_index = home.HomeController.index
+
+def patch_ckan_admin():
+    def _get_config_form_items_patched(self):
+        """ This function alters the data created by intenal CKAN admin config code.
+            The following is done:
+              1. Homepage layout labels are replaced
+              2. New input with redirect url is added.
+        """
+        ret = _orig__get_config_form_items(self)
+        # Alter home page layouts drop-down
+        for item in ret:
+            if item['name'] == 'ckan.homepage_style':
+                item['options'] = [{'value': '1', 'text': _('OGP Home Page')},
+                                   {'value': '301', 'text': _('Redirect Home Page to External Site')}]
+                break
+        # Add input for 301 redirect URL from the home page
+        ret.append({'name': 'ckan.abgov_301_url',
+                    'control': 'input',
+                    'label': _('Home Page URL'),
+                    'placeholder': _('Redirect URL')})
+        return ret
+
+    def _index_or_redirect(self):
+        """ Overide CKAN home controller to allow for home page redirect.
+            The redirect happens when home page layout number is set to 301.
+            The url is saved by CKAN admin Config Options page (customized above).
+        """
+        from ckan.lib.app_globals import app_globals
+        from pylons.controllers.util import redirect
+        if app_globals.homepage_style == '301':
+            redirect(app_globals.abgov_301_url, code=301)
+        else:
+            return _orig_home_index(self)
+
+    # Monkey patch CKAN Admin controller helper
+    admin.AdminController._get_config_form_items = _get_config_form_items_patched
+    # Monkey patch CKAN home controller
+    home.HomeController.index = _index_or_redirect
+
+
+# Execute the patches
+patch_ckan_admin()
+
+
 class Open_AlbertaPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
@@ -107,6 +157,10 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
+
+    def update_config_schema(self, schema):
+        schema.update({'ckan.abgov_301_url': []})
+        return schema
 
     def get_helpers(self):
         return {'open_alberta_latest_datasets': latest_datasets,
