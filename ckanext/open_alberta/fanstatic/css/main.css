@@ -8,9 +8,14 @@
 */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
-html { font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
-
-body { margin: 0; }
+html { 
+    font-family: sans-serif; 
+    -ms-text-size-adjust: 100%; 
+    -webkit-text-size-adjust: 100%; 
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; }
 
@@ -516,7 +521,7 @@ td, th { padding: 0; }
 
 html { font-size: 10px; -webkit-tap-highlight-color: transparent; }
 
-body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857; color: #333333; background-color: #fff; }
+body { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857; color: #333333; background: #36424a; }
 
 input, button, select, textarea { font-family: inherit; font-size: inherit; line-height: inherit; }
 
@@ -2072,7 +2077,9 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme header.site-header #ab-top-nav ul li a:hover { color: #ffffff; }
 .alberta-theme header.site-header .nav-sub-section { /* HIDDEN BY DEFAULT: REVEAL BY ADDING "opened" CLASS */ display: none; }
 .alberta-theme header.site-header .nav-sub-section.opened { display: inline-block; }
-.alberta-theme header.site-header .local-nav-top { background-color: #f39b30; }
+.alberta-theme header.site-header .local-nav-top { 
+    background-color: #77b800; 
+}
 .alberta-theme header.site-header .local-nav-top nav { display: block; width: 100%; overflow-y: hidden; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
 @media screen and (min-width: 480px) {
@@ -2091,8 +2098,20 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme header.site-header .local-nav-top nav ul li { margin-right: 24px; }
 .alberta-theme header.site-header .local-nav-top nav ul li.active { background-image: url("../img/subnav-active.png"); background-position: bottom center; background-repeat: no-repeat; }
 .alberta-theme header.site-header .local-nav-top nav ul li.active a { color: #333132; }
-.alberta-theme header.site-header .local-nav-top nav ul li a { color: #414042; padding: 12px 0; display: inline; line-height: 3; font-size: 14px; }
-.alberta-theme header.site-header .local-nav-top nav ul li a i { color: #414042; font-size: 19px; position: relative; top: 2px; }
+.alberta-theme header.site-header .local-nav-top nav ul li a { 
+    color: #414042; 
+    padding: 12px 0; 
+    display: inline; 
+    line-height: 3; 
+    min-height: 30px;
+    font-size: 16px; 
+}
+.alberta-theme header.site-header .local-nav-top nav ul li a i { 
+    color: #414042; 
+    font-size: 19; 
+    position: relative; 
+    top: 2px; 
+}
 .alberta-theme header.site-header .local-nav-top nav ul li a:hover { color: #333132; }
 .alberta-theme header.site-header .local-nav-sub { background: #eeeeee; border-top: 3px solid #eeeeee; border-bottom: 2px solid #a5a7aa; }
 .alberta-theme header.site-header .local-nav-sub ul li { float: left; margin-right: 24px; }
@@ -2146,7 +2165,13 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme .search-input a.search-submit i.fa-search { background-color: transparent; padding: 12px; font-size: 24px; height: 46px; position: relative; top: 1px; color: #ccc; }
 .alberta-theme .search-input .top-search.form-control { position: relative; top: 0; right: 0; margin-right: auto; margin-left: auto; min-width: auto !important; width: 100%; height: 50px; font-size: 18px; padding-right: 50px }
 @media screen and (min-width: 992px) { .alberta-theme .search-input .top-search.form-control { max-width: 510px; float: right; } }
-.alberta-theme header.site-header { position: relative; background-color: #58595b; background-image: none; color: #000; z-index: 100; }
+.alberta-theme header.site-header { 
+    position: relative; 
+    background-color: #36424a;
+    background-image: none; 
+    color: #000; 
+    z-index: 100; 
+}
 .alberta-theme header.site-header .ab-logo { background-image: url("../img/AlbertaLogo.svg"); background-repeat: no-repeat; background-size: contain; background-position: center; display: inline-block; width: 290px; padding: 0; margin: 0; height: 70px; }
 @media screen and (max-width: 992px) { .alberta-theme header.site-header .ab-logo { width: 300px; } }
 .alberta-theme header.site-header #site-search { display: inline-block; margin-top: 10px; white-space: nowrap; width: 70%; height: 50px; position: relative; text-align: right; }
@@ -2170,7 +2195,7 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme #emergency-content a { border-bottom: 1px solid #dddddd; }
 .alberta-theme #emergency-content a:hover { color: #000; text-decoration: none; border-bottom: 1px solid #000; }
 .alberta-theme #emergency-content .container-fluid { background: #990000; padding: 12px 0; }
-.alberta-theme main { height: auto; min-height: 62.9%; margin-bottom: 40px; }
+.alberta-theme main { height: auto; min-height: 62.9%; padding-bottom: 40px; }
 .alberta-theme main h3, .alberta-theme main h4, .alberta-theme main h5, .alberta-theme main h6 { margin-bottom: 12px; margin-top: 24px; }
 .alberta-theme main header h1 { margin-bottom: 24px; }
 .alberta-theme main .container.block { padding-bottom: 12px; }
@@ -2219,11 +2244,54 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme .footer-social ul li a:hover { background: #58595b; }
 .alberta-theme .footer-social ul li a:hover i { color: #ffffff !important; }
 .alberta-theme .footer-social ul li span { display: none; }
-.alberta-theme footer.page-footer { display: inline-block; padding: 12px 12px 16px 12px; margin: 0; width: 100%; background: #000000; bottom: 0; left: 0; }
-.alberta-theme footer.page-footer ul { list-style: none; padding: 0; }
-.alberta-theme footer.page-footer ul li { display: inline-block; margin: 0 12px 0 0; font-size: 21px; color: #ffffff; }
-.alberta-theme footer.page-footer ul li:last-child:after { content: ""; }
-.alberta-theme footer.page-footer ul li a { font-size: 13px; color: #ffffff; }
+
+.alberta-theme footer.page-footer { 
+    font-size: 16px;
+    border-top: 4px solid #71b800;
+    display: inline-block; 
+    padding: 12px 12px 16px 12px; 
+    margin: 0; 
+    width: 100%; 
+    background: #36424a; 
+    bottom: 0; left: 0; 
+}
+.alberta-theme footer.page-footer h3 {
+    font-size: 1em;
+    border-bottom: 1px solid #77b800;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    color: #d1d4d3;
+}
+.alberta-theme footer.page-footer ul { 
+    list-style: none; 
+    padding: 0; 
+}
+.alberta-theme footer.page-footer li {
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+    border-radius: 0;
+    background: 0 0;
+}
+.alberta-theme footer.page-footer a { 
+    font-size: 0.8em; 
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+}
+.alberta-theme footer.page-footer li:hover {
+    text-decoration: none;
+    background: #56626a;
+}
+.alberta-theme footer.page-footer a:hover {
+    text-decoration: none;
+}
+.alberta-theme footer.page-footer .fa {
+    margin-right: 5px;
+    color: #fff;
+}
+
 .alberta-theme main > div:first-of-type { padding-top: 6px; }
 .alberta-theme .block-background-primary { background-color: #ffffff; }
 .alberta-theme .block-background-secondary { background-color: #d3d3d3; }
@@ -2443,4 +2511,8 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
     padding: 0.5em;
     font-weight: bold;
     display: none;
+}
+
+.homepage, div[role=main], main {
+    background: #fff;
 }
