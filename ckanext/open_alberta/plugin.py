@@ -142,6 +142,10 @@ def patch_ckan_admin():
     # Monkey patch CKAN home controller
     home.HomeController.index = _index_or_redirect
 
+    # Ensure new key is loaded by CKAN - IConfigurer.update_config_schema was added in 2.4.0
+    from ckan.lib.app_globals import auto_update
+    auto_update.append('ckan.abgov_301_url')
+
 
 # Execute the patches
 patch_ckan_admin()
@@ -157,10 +161,6 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'open_alberta')
-
-    def update_config_schema(self, schema):
-        schema.update({'ckan.abgov_301_url': []})
-        return schema
 
     def get_helpers(self):
         return {'open_alberta_latest_datasets': latest_datasets,
