@@ -2531,5 +2531,11 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
 }
 
 .homepage, div[role=main], main {
-    background: #fff;
+    background-color: #fff;
+}
+
+.alberta-theme .btn.btn-info {
+    background-color: #6d9324;
+    border: none;
+    color: #fff;
 }

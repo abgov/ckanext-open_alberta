@@ -19,6 +19,8 @@ then the "resources" section will be active and expanded on page load.
 {% set level_one_section = "" %}
 {% endif %}
 
+{% set rss_feed = h.url(controller='feed', action='custom', q=c.q) %}
+
 {% block header_wrapper %}
 
 {% block header_account %}
@@ -72,21 +74,6 @@ then the "resources" section will be active and expanded on page load.
     </div>
 </header>
 <header class="site-header compressed">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-
-                <nav id="ab-top-nav" role="navigation" class="hidden-sm hidden-xs">
-                    <ul>
-                        <li><a href="http://alberta.ca">Government of Alberta Home</a></li>
-                        <li><a href="http://alberta.ca/ministries.cfm">Ministries</a></li>
-                        <li><a href="http://www.programs.alberta.ca">Services</a></li>
-                        <li><a href="http://alberta.ca/contact.cfm">Contact Government</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
     {% block header_logo %}
     {% if g.site_logo %}
     <div class="container">
@@ -133,6 +120,9 @@ then the "resources" section will be active and expanded on page load.
                                             <a href="{{ h.url_for(controller='user', action='login') }}"><i class="fa fa-lock"></i></a>
                                         {% endif %}
                                     {% endif %}
+                                    </li>
+                                    <li class="navbar-right">
+                                        <a title="RSS" href="{{ rss_feed }}"><i class="fa fa-fw fa-rss"></i></a>
                                     </li>
                                 </ul>
                             </nav>
