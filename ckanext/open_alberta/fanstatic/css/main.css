@@ -2096,7 +2096,8 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme header.site-header .nav-sub-section { /* HIDDEN BY DEFAULT: REVEAL BY ADDING "opened" CLASS */ display: none; }
 .alberta-theme header.site-header .nav-sub-section.opened { display: inline-block; }
 .alberta-theme header.site-header .local-nav-top { 
-    background-color: #77b800; 
+    background-color: #6a747d; 
+    border-top: 5px solid #6d9324;
 }
 .alberta-theme header.site-header .local-nav-top nav { display: block; width: 100%; overflow-y: hidden; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
@@ -2115,22 +2116,20 @@ body.pushed { right: 75%; overflow: hidden; }
 
 .alberta-theme header.site-header .local-nav-top nav ul li { margin-right: 24px; }
 .alberta-theme header.site-header .local-nav-top nav ul li.active { background-image: url("../img/subnav-active.png"); background-position: bottom center; background-repeat: no-repeat; }
-.alberta-theme header.site-header .local-nav-top nav ul li.active a { color: #333132; }
 .alberta-theme header.site-header .local-nav-top nav ul li a { 
-    color: #414042; 
+    color: #fff; 
     padding: 12px 0; 
     display: inline; 
     line-height: 3; 
     min-height: 30px;
-    font-size: 16px; 
+    font-size: 18px; 
 }
 .alberta-theme header.site-header .local-nav-top nav ul li a i { 
-    color: #414042; 
+    color: #fff; 
     font-size: 19; 
     position: relative; 
     top: 2px; 
 }
-.alberta-theme header.site-header .local-nav-top nav ul li a:hover { color: #333132; }
 .alberta-theme header.site-header .local-nav-sub { background: #eeeeee; border-top: 3px solid #eeeeee; border-bottom: 2px solid #a5a7aa; }
 .alberta-theme header.site-header .local-nav-sub ul li { float: left; margin-right: 24px; }
 @media screen and (max-width: 992px) { .alberta-theme header.site-header .local-nav-sub ul li { clear: both; padding: 0; height: 25px; }
