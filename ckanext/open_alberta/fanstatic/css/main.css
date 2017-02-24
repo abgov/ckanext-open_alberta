@@ -2097,7 +2097,7 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme header.site-header .nav-sub-section.opened { display: inline-block; }
 .alberta-theme header.site-header .local-nav-top { 
     background-color: #6a747d; 
-    border-top: 5px solid #6d9324;
+    border-top: 8px solid #77b800;
 }
 .alberta-theme header.site-header .local-nav-top nav { display: block; width: 100%; overflow-y: hidden; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
@@ -2177,10 +2177,33 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme ul.topics li a { color: #000; line-height: 24px; margin-top: 12px; display: inline-block; text-decoration: none; max-width: 120%; min-width: 90%; }
 .alberta-theme ul.topics li a h2 { color: #000; font-size: 21px; line-height: 21px; display: inline-block; vertical-align: bottom; margin: 0 12px 0 0; border-bottom: 1px solid #000000; font-weight: 700; padding-bottom: 2px; margin-bottom: 6px; }
 .alberta-theme ul.topics li a p { color: #000; white-space: nowrap; line-height: 25px; vertical-align: bottom; margin: 0; max-width: 80%; overflow: hidden; text-overflow: ellipsis; }
-.alberta-theme .search-input { display: inline-block; width: 100%; position: relative; margin-top: 10px; }
+.alberta-theme .search-input { 
+    display: inline-block; 
+    width: 100%; 
+    position: relative; 
+    margin-top: 17px; 
+}
+@media screen and (max-width:992px) {
+    .alberta-theme .search-input {
+        margin-top: 10px;
+        margin-left: -10px;
+    }
+}
 .alberta-theme .search-input a.search-submit { display: block; position: absolute; right: 8px; top: 0; z-index: 100; }
-.alberta-theme .search-input a.search-submit i.fa-search { background-color: transparent; padding: 12px; font-size: 24px; height: 46px; position: relative; top: 1px; color: #ccc; }
-.alberta-theme .search-input .top-search.form-control { position: relative; top: 0; right: 0; margin-right: auto; margin-left: auto; min-width: auto !important; width: 100%; height: 50px; font-size: 18px; padding-right: 50px }
+.alberta-theme .search-input a.search-submit i.fa-search { background-color: transparent; padding: 12px; font-size: 28px; height: 46px; position: relative; top: 1px; color: #ccc; }
+.alberta-theme .search-input a.search-submit:hover i.fa-search {
+    color: #444 !important;
+}
+.alberta-theme .search-input .top-search.form-control { 
+    position: relative; top: 0; 
+    right: 0; margin-right: auto; 
+    margin-left: auto; 
+    min-width: auto !important; 
+    width: 100%; 
+    height: 50px; 
+    font-size: 18px; 
+    padding-right: 50px;
+}
 @media screen and (min-width: 992px) { .alberta-theme .search-input .top-search.form-control { max-width: 510px; float: right; } }
 .alberta-theme header.site-header { 
     position: relative; 
@@ -2189,8 +2212,20 @@ body.pushed { right: 75%; overflow: hidden; }
     color: #000; 
     z-index: 100; 
 }
-.alberta-theme header.site-header .ab-logo { background-image: url("../img/AlbertaLogo.svg"); background-repeat: no-repeat; background-size: contain; background-position: center; display: inline-block; width: 290px; padding: 0; margin: 0; height: 70px; }
-@media screen and (max-width: 992px) { .alberta-theme header.site-header .ab-logo { width: 300px; } }
+/*.alberta-theme header.site-header .ab-logo { background-image: url("../img/AlbertaLogo.svg"); background-repeat: no-repeat; background-size: contain; background-position: center; display: inline-block; width: 290px; padding: 0; margin: 0; height: 70px; }
+@media screen and (max-width: 992px) { .alberta-theme header.site-header .ab-logo { width: 300px; } } */
+.alberta-theme header.site-header a.logo {
+    display: block;
+    width: 131px;
+    height: 61px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: url('/img/AlbertaLogoWhiteV.svg') center center no-repeat;
+    background-size: 120px 51px;
+}
+.alberta-theme header.site-header a.logo:hover {
+    background-color: #56626a;
+}
 .alberta-theme header.site-header #site-search { display: inline-block; margin-top: 10px; white-space: nowrap; width: 70%; height: 50px; position: relative; text-align: right; }
 .alberta-theme header.site-header #site-search .inner { display: inline-block; padding: 0; margin: 0; position: absolute; right: 0; top: 0; text-align: right; width: auto; }
 .alberta-theme header.site-header #site-search .form-item { margin: 0; padding: 0; display: inline-block; width: 500px; max-width: 90%; text-align: left; float: left; }
