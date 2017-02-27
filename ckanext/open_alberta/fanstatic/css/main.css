@@ -2356,13 +2356,11 @@ body.pushed { right: 75%; overflow: hidden; }
     color: #fff;
     display: inline-block;
     width: 100%;
+    text-decoration: none;
 }
 .alberta-theme footer.page-footer li:hover {
     text-decoration: none;
     background: #56626a;
-}
-.alberta-theme footer.page-footer a:hover {
-    text-decoration: none;
 }
 .alberta-theme footer.page-footer .fa {
     margin-right: 5px;
