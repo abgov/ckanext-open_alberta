@@ -23,9 +23,7 @@ Example:
 {# set ministry = package.organization.title #}
 
 {% block package_item %}
-{% if c.display_private_only and not package.private %}
-{# skip #}
-{% elif package.type == 'opendata' %}
+{% if not (c.display_private_only and not package.private) %}
 <div class="row {{ item_class or "dataset-item" }}">
     <div class="col-sm-12 col-md-8 nopadding">
     {% block content %}
