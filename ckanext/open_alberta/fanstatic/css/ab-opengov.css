@@ -392,7 +392,16 @@ blockquote:before, blockquote:after { content: "" !important; }
 
 .dataset-item .btn-sm { color: #737373; }
 
-#pageParentStub { text-decoration: none; font-size: 14px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 6px solid #77b800; text-transform: uppercase; color: #58595b; font-weight: 700; }
+#pageParentStub { 
+    text-decoration: none; 
+    font-size: 14px; 
+    margin-bottom: 12px; 
+    padding-bottom: 6px; 
+    border-bottom: 2px solid #77b800; 
+    text-transform: uppercase; 
+    color: #58595b; 
+    font-weight: 700; 
+}
 
 .local-nav a { display: inline-block; padding: 10px 14px; text-decoration: none; }
 @media screen and (max-width: 600px) { .local-nav a { padding: 10px 8px; font-size: 16px; } }

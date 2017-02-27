@@ -17,7 +17,7 @@
 {% endif %}
 
 {% set page_title = "" %}
-{% set page_parent_title = "Open Government" %}
+{% set page_parent_title = "Open Government Program" %}
 
 {% if path_length == 2 %}
     {% if level_one_section != "" and level_one_section in show_left_col %}
@@ -64,7 +64,7 @@ file.
                 <section id="breadcrumbs" class="hidden-xs hidden-sm">
                     {% block breadcrumb %}
                     <ul>
-                        <li><a href="http://alberta.ca"><span>Alberta.ca</span></a></li>
+                        <li><a href="http://alberta.ca"><span>Home</span></a></li>
                         <li><a href="/"><span>Open Government</span></a></li>
                         {% if path_length > 2 %}
                         <li><a href="/{{ level_one_section }}">{{ page_parent_title }}</a></li>
