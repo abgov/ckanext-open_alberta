@@ -3,7 +3,6 @@
 {% set show_left_level_two = ["trash","config","admin","new","activity","edit"] %}
 {% set section_terms = {"dataset":"All Resources","publications":"Publications","documentation":"Documentation","opendata":"Open Data","ckan-admin":"Admin"} %}
 {% set path_length = c.environ.PATH_INFO.split("/")|length %}
-{%- set rss_feed = h.url(controller='feed', action='custom', q=c.q) -%}
 
 {% if path_length > 1 %}
     {% set level_one_section = c.environ.PATH_INFO.split("/")[1] %}
@@ -59,7 +58,7 @@ file.
 
 {% block toolbar %}
 <header>
-    <div class="container-fluid" id="breadcrumbs-share">
+    <div class="container" id="breadcrumbs-share">
         <div class="row">
             <div class="col-sm-12 col-md-8 nopadding">
                 <section id="breadcrumbs" class="hidden-xs hidden-sm">
@@ -74,35 +73,9 @@ file.
                     {% endblock %}
                 </section>
             </div>
-{# Render Social media links only on allowed pages, and if data package is not private#} 
-    {% if c.pkg.private %} 
-
-  {% else %} 
-  {%  if (( c.action == "search" or c.action == "read" or c.action == "list" or c.action == "about" or c.action == "policy" or c.action == "licence") and 
-    ( c.controller == "package" or c.controller == "related" or c.controller == "home" or c.controller == "ckanext.open_alberta.controller:PagesController")) %} 
-  <!-- Social Links are allowed --> 
-
-
-
-            
-            <div class="col-sm-12 col-md-4 nopadding">
-                <ul class="addthis_toolbox addthis_custom_sharing social visible-md visible-lg">
-                    <li><a class="addthis_button_facebook" title="Facebook" href="#"><i class="fa fa-fw fa-facebook"></i><span>Facebook</span></a></li>
-                    <li><a class="addthis_button_twitter" title="Tweet" href="#"><i class="fa fa-fw fa-twitter"></i><span>Twitter</span></a></li>
-                    <li><a title="RSS" href="{{rss_feed}}"><i class="fa fa-fw fa-rss"></i><span>RSS</span></a></li>
-                    <div class="atclear"></div></ul>
-            </div>
-{% else %}
-<div class="col-sm-12 col-md-4 nopadding">
-</br>
-</div>
-&nbsp;
-<!-- No Social Links are Allowed -->
-  {% endif %}
-{% endif %}
-
         </div>
     </div>
+<br/>
 </header>
 {% endblock %}
 
