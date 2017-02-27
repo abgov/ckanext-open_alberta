@@ -1546,6 +1546,40 @@ tbody.collapse.in { display: table-row-group; }
     content: "/";
 }
 
+header ul.social {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    font-size: 0;
+}
+header .social li {
+    display: inline-block;
+    margin: 0 0 0 5px;
+    padding: 0;
+}
+header .social h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 5px;
+}
+header .social a {
+    display: inline-block;
+    width: 36px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 0;
+    box-shadow: none;
+    background: #d1d4d3;
+    color: #36424a;
+    padding: 6px 12px 8px;
+}
+header .social a:hover {
+    background: #36424a;
+}
+header .social a:hover i {
+    color: #fff;
+}
+
 .breadcrumb { padding: 8px 15px; margin-bottom: 20px; list-style: none; background-color: #f5f5f5; border-radius: 0; }
 .breadcrumb > li { display: inline-block; }
 .breadcrumb > li + li:before { content: "/ "; padding: 0 5px; color: #ccc; }
