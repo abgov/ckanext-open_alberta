@@ -7,9 +7,8 @@ then the "resources" section will be active and expanded on page load.
 -->
 {% set placeholder = _('Search all Resources') %}
 {% set subsections = {
-"resources":["resources","dataset","opendata","publications"],
-"interact":["interact","blog","apps","developers","visualizations","suggest","contact"],
-"about":["about","faq","documentation","licence","policy"]
+"resources":["resources","dataset","opendata","publications","documentation"],
+"interact":["interact","blog","apps","developers","visualizations","suggest","contact"]
 }   %}
 
 {% set path_length = c.environ.PATH_INFO.split("/")|length %}
@@ -109,9 +108,6 @@ then the "resources" section will be active and expanded on page load.
                                     <li id="nav-top-interact" {% if level_one_section in subsections["interact"] %}class="active"{% endif %}>
                                         <a href="/interact">Interact</a>
                                     </li>
-                                    <li id="nav-top-about" {% if level_one_section in subsections["about"] %}class="active"{% endif %}>
-                                        <a href="/about">About</a>
-                                    </li>
                                     <li class="navbar-right">
                                     {% if not (c.controller == 'user' and c.action == 'login') %}
                                         {% if not c.userobj %}
@@ -142,6 +138,9 @@ then the "resources" section will be active and expanded on page load.
                                         <li>
                                             <a href="/publications">Publications</a>
                                         </li>
+                                        <li>
+                                            <a href="/documentation">Documentation</a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="nav-sub-section {% if level_one_section in subsections["interact"] %}opened{% endif %}" id="nav-sub-interact">
@@ -163,22 +162,6 @@ then the "resources" section will be active and expanded on page load.
                                         </li>
                                         <li>
                                             <a href="/interact/for-developers">For Developers</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="nav-sub-section {% if level_one_section in subsections["about"] %}opened{% endif %}" id="nav-sub-about">
-                                    <ul>
-                                        <li>
-                                            <a href="/interact/faq">FAQ's</a>
-                                        </li>
-                                        <li>
-                                            <a href="/licence">Licence</a>
-                                        </li>
-                                        <li>
-                                            <a href="/policy">Policy</a>
-                                        </li>
-                                        <li>
-                                            <a href="/documentation">Documentation</a>
                                         </li>
                                     </ul>
                                 </div>
