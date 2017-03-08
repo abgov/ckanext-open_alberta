@@ -10,6 +10,7 @@ from errors import ConfigError
 from datetime import date
 from dateutil import parser
 import logging
+import locale
 
 
 def fetch_feed(feed_url, number_of_entries=1):
