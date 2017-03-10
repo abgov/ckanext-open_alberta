@@ -564,7 +564,6 @@ $active-bg-color: #005072;
 
     .catalogue {
         position: relative;
-
         div.primary {
             position: relative;
         }
@@ -589,6 +588,25 @@ $active-bg-color: #005072;
             display: block;
             width: 12em;
             margin-top: 3px;
+        }
+    }
+
+    .dropdown-menu {
+        padding: 2px 5px 5px;
+        a.btn {
+            display: block;
+            width: 12em;
+            margin-top: 3px;
+        }
+    }
+
+    .wrapper-resources {
+        position: relative;
+
+        @include screen-sm() {
+            .secondary {
+                
+            }
         }
     }
 
