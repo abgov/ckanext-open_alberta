@@ -860,4 +860,13 @@ $active-bg-color: #005072;
     .modal-backdrop.in {
        opacity: 1;
     }
+
+    .item {
+        >p {
+            width: auto;
+            word-wrap: break-word;
+        }
+    }
+
 }
+
