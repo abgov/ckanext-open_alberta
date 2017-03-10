@@ -860,4 +860,9 @@ $active-bg-color: #005072;
     .modal-backdrop.in {
        opacity: 1;
     }
+
+    .alert-error {
+      background-color: #f8f0f0;
+      color: #b55457;
+    }
 }
