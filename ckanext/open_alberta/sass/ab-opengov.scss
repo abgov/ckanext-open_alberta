@@ -101,8 +101,14 @@ $active-bg-color: #005072;
         }
     }
 
-    .page-preprimary > :last-child {
-        margin-bottom: 30px;
+    .page-preprimary {
+        & > :last-child {
+            margin-bottom: 30px;
+        }
+
+        @include screen-sm() {
+            padding: 0 15px;
+        }
     }
 
     .logo a {
@@ -192,7 +198,7 @@ $active-bg-color: #005072;
 
                 li.nav-item {
                     font-size: 0.9em;
-                    margin: 0 -5px;
+                    /*margin: 0 -5px;*/
                     padding: 5px 10px;
                     border-bottom: dotted 1px #ccc;
 
@@ -510,13 +516,23 @@ $active-bg-color: #005072;
         padding-left:20px;
     }
 
-    .filter-toggle {
+    #show-filters {
         display: none;
 
         @include screen-sm {
-            display: block;
+            display: inline-block;
             width: 6em;
-            margin-bottom: 15px;
+        }
+    }
+
+    .wrapper-resources {
+        div.primary {
+            position: relative;
+        }
+
+        div.secondary {
+            background-color: #fff;
+            z-index: 5;
         }
     }
 
@@ -587,6 +603,25 @@ $active-bg-color: #005072;
         }
     }
 */
+
+    .dropdown-menu {
+        padding: 2px 5px 5px;
+        a.btn {
+            display: block;
+            width: 12em;
+            margin-top: 3px;
+        }
+    }
+
+    .wrapper-resources {
+        position: relative;
+
+        @include screen-sm() {
+            .secondary {
+                
+            }
+        }
+    }
 
     .control-medium {
         input, textarea, select {
@@ -859,5 +894,40 @@ $active-bg-color: #005072;
     
     .modal-backdrop.in {
        opacity: 1;
+    }
+
+    .wrapper-resources .secondary.mobile-filters-panel {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin-left: -350px;
+        padding: 0;
+        max-width: 250px;
+        background-color: #eee;
+
+        aside {
+            padding: 0 !important;
+        }
+
+        h3 {
+            position: relative;
+
+            .fa-close {
+                position: absolute;
+                top: 3px;
+                right: 3px;
+                padding: 1px 4px;
+                border: solid 2px white;
+                border-radius: 5px;
+            }
+        }
+
+        .fa {
+            margin-left: 10px !important;
+        }
+
+        p {
+            padding: 2px 10px;
+        }
     }
 }
