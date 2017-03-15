@@ -2402,7 +2402,7 @@ body.pushed { right: 75%; overflow: hidden; }
     font-size: 16px;
     border-top: 4px solid #71b800;
     display: inline-block; 
-    padding: 12px 12px 16px 12px; 
+    padding: 12px 0 16px 0; 
     margin: 0; 
     width: 100%; 
     background: #36424a; 
@@ -2441,6 +2441,28 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme footer.page-footer .fa {
     margin-right: 5px;
     color: #fff;
+}
+.alberta-theme #back-to-toc {
+    z-Index: 60000;
+    position: fixed;
+    display: block;
+    right: 20px;
+    bottom: 20px;
+    width: 48px;
+    height: 0;
+    margin: 0;
+    padding: 48px 0 0;
+    overflow: hidden;
+    border-radius: 100%;
+    background: url(/img/back-to-top.svg) center center no-repeat #0084a1;
+    line-height: 48px;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+.alberta-theme #back-to-toc:hover {
+    background-color: #005072;
 }
 
 .alberta-theme main > div:first-of-type { padding-top: 6px; }
