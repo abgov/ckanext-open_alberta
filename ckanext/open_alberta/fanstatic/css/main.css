@@ -2695,3 +2695,20 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
     border: none;
     color: #fff;
 }
+
+.search-date-input {
+    position: relative;
+}
+
+.search-date-input .add-on {
+    position: absolute;
+    left: 18px;
+    top: 14px;
+}
+
+.search-date-input #daterange-publication {
+    width: 100% !important;
+    padding: 0;
+    margin: 0;
+    padding-left: 25px;
+}
