@@ -27,20 +27,28 @@
 #}
 
 {% block subtitle %}{% endblock %}
+{% block main_div_classes %}gray{% endblock %}
+{% block content_tag_classes %}catalogue{%endblock %}
 
-{% block page_preprimary %}
+{% block pre_primary %}
     <h1>Catalogue</h1>
     <p>Find information in Alberta Government datasets and publications.</p>
 {% endblock %}
 
 {% block page_primary_action %}
   {% if h.check_access('package_create') %}
-    <div class="page_primary_action">
-        <a class="btn btn-primary" href="/inventory/new"><i class="icon-plus-sign-alt"></i> Add Inventory</a>
-        <a class="btn btn-primary" href="/dataset/new"><i class="icon-plus-sign-alt"></i> Add Dataset</a>
-        <a class="btn btn-primary" href="/opendata/new"><i class="icon-plus-sign-alt"></i> Add OpenData</a>
-        <a class="btn btn-primary" href="/publications/new"><i class="icon-plus-sign-alt"></i> Add Publication</a>
-        <a class="btn btn-primary" href="/documentation/new"><i class="icon-plus-sign-alt"></i> Add Documentation</a>
+    <div class="page_primary_action dropdown">
+        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+            <i class="icon-plus-sign-alt"></i> Add...
+        </button>
+        <button class="btn btn-primary" id="show-filters">Filters</button>
+        <div class="dropdown-menu">
+            <a class="btn btn-primary dropdown-item" href="/inventory/new">Inventory</a>
+            <a class="btn btn-primary dropdown-item" href="/dataset/new">Dataset</a>
+            <a class="btn btn-primary dropdown-item" href="/opendata/new">OpenData</a>
+            <a class="btn btn-primary dropdown-item" href="/publications/new">Publication</a>
+            <a class="btn btn-primary dropdown-item" href="/documentation/new">Documentation</a>
+        </div>
     </div>
   {% endif %}
   {% snippet 'snippets/small_search.html' %}
@@ -73,7 +81,7 @@
 
 {% block secondary_content %}
   {% if not dataset_type in facets_hide %}
-      <h3>Filter Results</h3>
+    <h3 class="filters-header">Filter Results <span class="fa fa-close"></span></h3>
   {% endif %}
   
   {% set facets = visible_facets[dataset_type] if dataset_type in visible_facets else c.facet_titles %}
@@ -85,6 +93,7 @@
   {% resource 'open_alberta/daterangepicker.js' %}
   {% resource 'open_alberta/daterangepicker-bs3.css' %}
   {% resource 'open_alberta/daterangepicker-module.js' %}
+  {% resource 'open_alberta/js/resources.js' %}
 
   {# This <section> is the date-range picker widget in the sidebar. #}
   {% if dataset_type in pubdate_facets %}

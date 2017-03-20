@@ -10,6 +10,7 @@ from errors import ConfigError
 from datetime import date
 from dateutil import parser
 import logging
+import locale
 
 
 def fetch_feed(feed_url, number_of_entries=1):
@@ -68,6 +69,7 @@ def topics(max=-1):
     results = search(data_dict={'sort': 'package_count desc',
                                 'type': 'topics',
                                 'all_fields': True})
+    results = sorted(results, key=lambda item: item['title'])
     return results[:max] if max > 0 else results
 
 
