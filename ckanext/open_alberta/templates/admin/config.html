@@ -6,3 +6,8 @@
         <input type="hidden" name="menu_items" value='{{ data.menu_items }}'>
     {% endif %}
 {% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% resource 'open_alberta/js/admin.config.js' %}
+{% endblock %}
