@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg id="icon-search"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="36" 
+	height="36" 
+	viewBox="0 0 48 48" 
+	preserveAspectRatio="xMinYMax meet"
+	version="1.1">
+	
+	<defs>
+		<linearGradient id="gradient-glare" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" style="stop-color: rgb(255, 255, 255); stop-opacity: 1;" />
+			<stop offset="90%" style="stop-color: rgb(255, 255, 255); stop-opacity: 0;" />
+		</linearGradient>
+	</defs>
+	
+	<path fill="#999" d="M22 26 L44 48 L48 44 L26 22 Z" />
+	<path fill="#999" d="M0 20 A20 20 0 1 1 40 20 A20 20 0 1 1 0 20 Z" />
+	<path fill="#ccc" d="M4 20 A16 16 0 1 1 36 20 A16 16 0 1 1 4 20 Z" />
+	<path fill="url(#gradient-glare)" d="M7 15 A13 10 0 1 1 33 15 A13 12 0 1 1 7 15 Z" />	
+</svg>

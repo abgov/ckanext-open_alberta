@@ -1,5 +1,15 @@
 <div class="page-top-bg">
   <div class="container-fluid">
+    <div class="row">
+      <div class="hidden-xs col-sm-12 col-md-8 nopadding">
+      
+      </div>
+      <div class="col-xs-12 col-md-4 nopadding">
+        {% snippet "snippets/social.html" %}
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
       <h2>{{ g.site_title}}</h2>
       <p>Search {{ h.total_package_count() }} Alberta Government resources</p>
       <form method="get" action="/dataset" _lpchecked="1">

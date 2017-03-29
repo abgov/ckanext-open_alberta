@@ -5,7 +5,14 @@
   <div class="page-top-bg">
     <div class="page-top container-fluid">
       <div class="flash-messages">{% block flash %} {{ super() }} {% endblock %}</div>
-      <div class="toolbar">{% block toolbar %} {{ super() }} {% endblock %}</div>
+      <div class="toolbar row">
+        <div class="hidden-xs col-sm-12 col-md-8 nopadding">
+          {% block toolbar %} {{ super() }} {% endblock %}
+        </div>
+        <div class="col-xs-12 col-md-4 nopadding">
+            {% snippet "snippets/social.html" %}
+        </div>
+      </div>
       <div class="page-preprimary">{% block pre_primary %}{% endblock %}</div>
     </div>
   </div>
