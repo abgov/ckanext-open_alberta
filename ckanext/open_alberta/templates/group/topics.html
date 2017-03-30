@@ -1,7 +1,7 @@
 {% extends 'group/index.html' %}
 
 {% block subtitle %}{{ _('Topics') }}{% endblock %}
-
+{% block main_div_classes %}gray{% endblock %}
 {% block content_tag_classes %}no-sidebar{% endblock %}
 
 {% block breadcrumb_content %}
@@ -10,22 +10,15 @@
 
 {% block page_primary_action %}{% endblock %}
 
-{% block page_preprimary %}
+{% block pre_primary %}
     <h1>Topics</h1>
     <p>Browse Alberta Government resources by topic</p>
 {% endblock %}
 
 {% block primary_content_inner %}
     <div class="row topics">
-        <div class="inner">
-            <h3>Resource Topics</h3>
-        {% for topic in h.topics() %}
-            <div class="topic{% if loop.index is divisibleby 4 %} fourth{% endif %}">
-                <h3><a href="/topics/{{ topic.name }}">{{ topic.title }}</a></h3>
-                <p> {{ topic.description }}</p>
-            </div>
-        {% endfor %}
-        </div>
+        <h2>Resource Topics</h2>
+        {% snippet 'snippets/topics.html', limit=-1 %}
     </div>
 
 {% endblock %}

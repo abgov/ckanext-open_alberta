@@ -1,32 +1,39 @@
-    <div class="row header">
-        <div class="col-xs-12">
-            <h2>{{ g.site_title}}</h2>
-            <p>Search {{ h.total_package_count() }} Alberta Government resources
-            <form method="get" action="/dataset" _lpchecked="1">
-                <div class="input-group input-group-lg search">
-                    <input type="search" class="form-control" name="q" value="" autocomplete="on"
-                           placeholder="{{ _('Search government information for...')}}">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default">
-                            <span class="fa fa-search"></span>
-                            <span class="sr-only">Search</span>
-                        </button>
-                    </span>
-                </div>
-            </form>
-        </div>
+<div class="page-top-bg">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="hidden-xs col-sm-12 col-md-8 nopadding">
+      
+      </div>
+      <div class="col-xs-12 col-md-4 nopadding">
+        {% snippet "snippets/social.html" %}
+      </div>
     </div>
-    <div class="row topics">
-        <h3>Browse Resources by Topic</h3>
-        <div class="inner">
-        {% for grp in h.topics(12) %}
-            <div class="topic{% if loop.index is divisibleby 4 %} fourth{% endif %}">
-                <h3><a href="/topics/{{ grp.name }}">{{ grp.title }}</a></h3>
-                <p> {{ grp.description }}</p>
-            </div>
-        {% endfor %}
+  </div>
+  <div class="container-fluid">
+      <h2>{{ g.site_title}}</h2>
+      <p>Search {{ h.total_package_count() }} Alberta Government resources</p>
+      <form method="get" action="/dataset" _lpchecked="1">
+        <div class="input-group input-group-lg search">
+          <input type="search" class="form-control" name="q" value="" autocomplete="on"
+                 placeholder="{{ _('Search government information for...')}}">
+          <span class="input-group-btn">
+            <button class="btn btn-default">
+              <span class="fa fa-search"></span>
+              <span class="sr-only">Search</span>
+            </button>
+          </span>
+        </div>
+      </form>
+    </div>
+</div>
+<div class="page-main-bg">
+    <div id="content" class="container-fluid">
+        <div class="row topics">
+            <h2>Browse Resources by Topic</h2>
+            {% snippet 'snippets/topics.html', limit=12 %}
             <div class="see-all">
                 <a class="btn btn-default" href="/topics">View all topics</a>
             </div>
         </div>
     </div>
+</div>

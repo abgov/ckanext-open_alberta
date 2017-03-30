@@ -2,7 +2,11 @@
 
 {% block header_wrapper %}
 {% block header_account %}
+<div class="system-notice">
+    <i class="fa fa-info-circle"></i>Internal Data Discovery Project Status: Content entered will now be retained. Testing and development of IDDP is ongoing at this time and your feedback is encouraged. Please click <a href="https://exts2.aep.alberta.ca/IRMS/Pages/IRMS-Informatics.aspx">here</a> to learn more.
+</div>
 <header class="account-masthead">
+  <div class="container-fluid">
     {% block header_account_container_content %}
         {% if c.userobj %}
         <div class="account avatar authed" data-module="me" data-me="{{ c.userobj.id }}">
@@ -49,6 +53,7 @@
         {% endif %} 
         </div>
     {% endblock %}
+  </div>
 </header>
 <div class="header-bg">
     <div class="container-fluid header">
@@ -74,14 +79,13 @@
                 <!-- End Responsive buttons -->
                 <!-- Search bar -->
                 <div class="col-xs-12 col-sm-5 text-right">
-                    <div class="search">
                         <form action="/dataset" role="search">
-                            <div class="input-group input-group-lg">
-                                <input class="form-control" type="search"  name="q" value="" autocomplete="on" placeholder="{{ _('Search All Resources')}}" />
-                                <span class="input-group-btn"><button class="btn btn-default"><span class="fa fa-search"></span><span class="sr-only">Search</span></button></span>
+                            <div class="input-group input-group-lg search">
+                                <label for="top-search-input" class="sr-only">{{_('Search all resources')}}</label>
+                                <input class="form-control" type="search"  name="q" value="" autocomplete="on" placeholder="{{ _('Search all Resources')}}" id="top-search-input"/>
+                                <a href="#" alt="Search"></a>
                             </div>
                         </form>
-                    </div>
                 </div>
                 <!-- End Search bar -->
             </header>
@@ -105,6 +109,7 @@
             </ul>
         </div>
     </div>
+    <div class="nav-bottom"></div>
 </nav>
 
 {% endblock %}

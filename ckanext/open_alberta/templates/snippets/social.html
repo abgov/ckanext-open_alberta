@@ -1,0 +1,25 @@
+<ul class="social unstyled visible-md visible-lg">
+    <li>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.alberta.ca/index.aspx" target="_share">
+            <i class="fa fa-facebook"></i><span class="sr-only">Facebook</span>
+        </a>
+    </li>
+    <li>
+        <a href="https://twitter.com/home?status=https://www.alberta.ca/index.aspx" target="_share">
+            <i class="fa fa-twitter"></i><span class="sr-only">Twitter</span>
+        </a>
+    </li>
+    <li>
+        <a href="https://linkedin.com/shareArticle?mini=true&url=https://www.alberta.ca/index.aspx&summary=Government%20of%20Alberta&source=www.alberta.ca" target="_share">
+            <i class="fa fa-linkedin"></i><span class="sr-only">LinkedIn</span>
+        </a>
+    </li>
+    <li>
+        <a href="mailto:&subject=Government%20of%20Alberta&body={{request.url }}">
+            <i class="fa fa-envelope"></i><span class="sr-only">Email</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ h.url(controller='feed', action='custom', q=c.q) }}"><i class="fa fa-rss"></i><span class="sr-only">RSS</span></a>
+    </li>
+</ul>
