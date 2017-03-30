@@ -3,7 +3,7 @@
  * The base CSS is alberta.ca.css
  */
 
-$screen-xs: 40em;
+$screen-xs: 768px;
 $menu-color: #77b800;
 $menu-active-color: #478800;
 $menu-height: 30px;
@@ -33,6 +33,21 @@ $active-bg-color: #005072;
     font-family: lato, sans-serif;
     font-size: 1.6em;
 
+    .page-top-bg {
+        background: #fff;
+        padding-bottom: 30px;
+    }
+
+    .page-main-bg {
+        background-color: #fff;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    [role=main].gray .page-main-bg {
+        background-color: #d1d4d3;
+    }
+
     // overrides
     table td {
         border: 0px;
@@ -50,15 +65,11 @@ $active-bg-color: #005072;
         margin-left: 5px;
     }
 
-    div[role=main] {
-        background: url(/img/homepage-bg.jpg) top left repeat;
-    }
-
     .wrapper-main {
         padding: 0 15px;
     }
 
-    .wrapper-package-read {
+    #content.package-read {
         .page-header {
             margin: 0;
             border: none;
@@ -101,16 +112,6 @@ $active-bg-color: #005072;
         }
     }
 
-    .page-preprimary {
-        & > :last-child {
-            margin-bottom: 30px;
-        }
-
-        @include screen-sm() {
-            padding: 0 15px;
-        }
-    }
-
     .logo a {
         background: url(/img/AlbertaLogoWhiteV.svg) no-repeat center center;
         background-size: 120px 51px;
@@ -127,29 +128,45 @@ $active-bg-color: #005072;
     }
 
     #content {
-        background-color: #fff;
         padding-top: 0;
+        padding-left: 30px;
+        padding-right: 30px;
+
+        > .row {
+            background: #fff;
+            padding-top: 0;
+        }
 
         .primary {
             float: right;
+            padding-top: 10px;
 
             > article {
-                padding: 0 15px;
+                padding: 0;
 
                 .topics {
-                    margin: 0 -15px;
+                    margin: 0 -15px 20px;
                 }
             }
         }
-
 
         &.no-sidebar .primary {
             width: 100%;
             float: none;
         }
 
+        &.no-sidebar .secondary {
+            display: none;
+        }
+    }
+
         .secondary {
             float: left;
+            padding: 0;
+
+            @include screen-sm() {
+                display: none;
+            }
 
             aside {
                 border: dotted 1px #ccc;
@@ -189,6 +206,7 @@ $active-bg-color: #005072;
                         margin-left: 5px;
                         color: #808080;
                         cursor: pointer;
+                        font-size: 1.1em;
 
                         &:hover {
                             color: #000;
@@ -198,13 +216,13 @@ $active-bg-color: #005072;
 
                 li.nav-item {
                     font-size: 0.9em;
-                    /*margin: 0 -5px;*/
+                    margin: 0;
                     padding: 5px 10px;
                     border-bottom: dotted 1px #ccc;
 
                     a {
-                        margin: -5px -5px;
-                        padding: 5px;
+                        margin: -5px -10px;
+                        padding: 5px 5px 5px 10px;
                     }
                 }
 
@@ -227,6 +245,23 @@ $active-bg-color: #005072;
 
         &.no-sidebar .secondary {
             display: none;
+        }
+
+    #content.catalogue {
+        input {
+            border: solid 1px auto;
+        }
+
+        .secondary {
+            padding: 5px;
+
+            aside {
+                padding: 0;
+            }
+
+            h3 .fa-close {
+                display: none;
+            }
         }
     }
 
@@ -261,7 +296,7 @@ $active-bg-color: #005072;
 
         .search button {
             background: #fff;
-            color: #606060;
+            color: #ccc;
 
             &:hover, &:focus {
                 color: #000;
@@ -269,11 +304,7 @@ $active-bg-color: #005072;
         }
     }
 
-    #content > div {
-        padding-top: 0; /* turn off 30px from alberta.css */
-    }
-
-    .home {
+    .homepage {
         .header {
             background: #fff;
             margin: auto 0;
@@ -302,60 +333,64 @@ $active-bg-color: #005072;
     }
 
     .topics {
-        background: #d1d4d3;
-        padding: 15px 15px 30px 15px;
-        border-top: dotted 1px $light-border-color;
-        margin: auto 0;
+        background: #fff;
+        padding: 0;
+        margin-bottom:  0;
 
-        .inner {
-            background: #fff;
-            padding-bottom: 15px;
+        >h2 {
+            padding-left: 19px;
+            margin: 20px 0 15px !important;
+        }
+
+        .topic {
+            width: 33%;
+            float: left;
             overflow: hidden;
+            padding: 4px 19px 2000px 19px;
+            margin-bottom: -2000px;
 
-            >h3 {
-                padding-left: 15px;
-            }
+            h3 {
+                font-size: 24px;
+                margin: 5px 0 10px;
 
-            .topic {
-                width: 33%;
-                float: left;
-                margin-bottom: -500em;
-                padding-bottom: 500em;
-
-                h3, p {
-                    margin: 10px;
-                }
-
-                /* Items have different height so stuff in the last row will render in a random column.
-                   Clears force starting the row in column 1 */
-                @media screen and (min-width: 50em) {
-                    &.fourth {
-                        clear: left;
-                    }
-                }
-
-                @media screen and (max-width: 50em) {
-                    width: 50%;
-                    &:nth-child(odd) {
-                        clear: left;
-                    }
-                }
-                @media screen and (max-width: 30em) {
-                    width: 100%;
+                a {
+                    text-decoration: underline;
                 }
             }
 
+            p {
+                margin-bottom: 15px;
+            }
 
-            .see-all {
-                clear: both;
-
-                .btn {
-                    text-transform: uppercase;
-                    display: block;
-                    width: 10em;
-                    margin: 0 auto;
-                    margin-top: 15px;
+            /* Items have different height so stuff in the last row will render in a random column.
+               Clears force starting the row in column 1 */
+            @media screen and (min-width: 768px) {
+                &.fourth {
+                    clear: left;
                 }
+            }
+
+            @media screen and (max-width: 768px) {
+                width: 50%;
+                &:nth-child(even) {
+                    clear: left;
+                }
+            }
+
+            @media screen and (max-width: 500px) {
+                width: 100%;
+            }
+        }
+
+        .see-all {
+            clear: both;
+            padding: 30px 0;
+
+            .btn {
+                text-transform: uppercase;
+                display: block;
+                width: 10em;
+                margin: 0 auto;
             }
         }
     }
@@ -370,6 +405,8 @@ $active-bg-color: #005072;
         background-color: $menu-color; 
         border: none; 
         min-height: $menu-height;
+        margin-left: -15px;
+        margin-right: -15px;
     }
 
     .navbar-toggle { 
@@ -525,7 +562,8 @@ $active-bg-color: #005072;
         }
     }
 
-    .wrapper-resources {
+    .catalogue {
+        position: relative;
         div.primary {
             position: relative;
         }
@@ -544,65 +582,14 @@ $active-bg-color: #005072;
         font-size: 0.8em;
     }
 
-/*    .left-sidebar {
-        padding: 0 !important;
-        border: 1px solid #dddddd;
-        font-size: 0.9em;
-
-        aside.secondary {
-            padding: 10px;
-        }
-
-        section {
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 1.5em;
-        }
-
-        h2 {
-            font-size: 1.3em;
-        }
-
-        h3 {
-            background-color: #58595b;
-            color: #fff;
-            margin: 0 auto;
-            padding: 8px 17px;
-            font-size: 1.2em;
-        }
-
-        h4 {
-            background-color: #dddddd;
-            color: #58595b;
-            padding: 8px 8px 8px 17px;
-            margin: 0 auto;
-            font-size: 1.0em;
-
-            i.fa {
-                margin-left: 8px;
-                float: right;
-                cursor: pointer;
-                color: #58595b;
-            }
-
-            .fa:hover {
-                color: #101010;
-            }
-        }
-
-        section li a {
-            font-size: 0.9em;
-            color: #58595b;
-            border-top: 1px dashed #c7c8ca;
-        }
-
-        section p {
-            padding: 8px;
+    .dropdown-menu {
+        padding: 2px 5px 5px;
+        a.btn {
+            display: block;
+            width: 12em;
+            margin-top: 3px;
         }
     }
-*/
 
     .dropdown-menu {
         padding: 2px 5px 5px;
@@ -869,6 +856,7 @@ $active-bg-color: #005072;
             top: 5px;
             left: 0;
             margin-left: 5px;
+            font-size: 1em;
         }
 
         input {
@@ -896,23 +884,30 @@ $active-bg-color: #005072;
        opacity: 1;
     }
 
-    .wrapper-resources .secondary.mobile-filters-panel {
-        position: absolute;
+    .mobile-filters-panel {
+        position: fixed;
         left: 0;
-        top: 0;
+        top: 10px;
         margin-left: -350px;
+        z-index: 100;
         padding: 0;
-        max-width: 250px;
+        padding-bottom: 20px;
+        max-width: 85%;
         background-color: #eee;
+        overflow-y: auto;
+        height: 100%;
+        display: none;
 
         aside {
             padding: 0 !important;
+            width: 100%;
         }
 
         h3 {
             position: relative;
 
             .fa-close {
+                visibility: visible;
                 position: absolute;
                 top: 3px;
                 right: 3px;
@@ -923,7 +918,9 @@ $active-bg-color: #005072;
         }
 
         .fa {
+            visibility: hidden;  /* temporary - hide until sorting doesn't work */
             margin-left: 10px !important;
+            cursor: pointer;
         }
 
         p {

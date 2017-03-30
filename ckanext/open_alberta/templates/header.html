@@ -3,6 +3,7 @@
 {% block header_wrapper %}
 {% block header_account %}
 <header class="account-masthead">
+  <div class="container-fluid">
     {% block header_account_container_content %}
         {% if c.userobj %}
         <div class="account avatar authed" data-module="me" data-me="{{ c.userobj.id }}">
@@ -49,6 +50,7 @@
         {% endif %} 
         </div>
     {% endblock %}
+  </div>
 </header>
 <div class="header-bg">
     <div class="container-fluid header">
