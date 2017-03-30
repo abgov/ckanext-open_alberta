@@ -10,66 +10,27 @@
   font-family: lato, sans-serif;
   font-size: 1.6em;
   /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
-  /*    .left-sidebar {
-        padding: 0 !important;
-        border: 1px solid #dddddd;
-        font-size: 0.9em;
-
-        aside.secondary {
-            padding: 10px;
-        }
-
-        section {
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 1.5em;
-        }
-
-        h2 {
-            font-size: 1.3em;
-        }
-
-        h3 {
-            background-color: #58595b;
-            color: #fff;
-            margin: 0 auto;
-            padding: 8px 17px;
-            font-size: 1.2em;
-        }
-
-        h4 {
-            background-color: #dddddd;
-            color: #58595b;
-            padding: 8px 8px 8px 17px;
-            margin: 0 auto;
-            font-size: 1.0em;
-
-            i.fa {
-                margin-left: 8px;
-                float: right;
-                cursor: pointer;
-                color: #58595b;
-            }
-
-            .fa:hover {
-                color: #101010;
-            }
-        }
-
-        section li a {
-            font-size: 0.9em;
-            color: #58595b;
-            border-top: 1px dashed #c7c8ca;
-        }
-
-        section p {
-            padding: 8px;
-        }
-    }
-*/
   /* Helpers */ }
+  #alberta-ca.IDDP .system-notice {
+    padding: 15px;
+    background: #c0d4e8;
+    background-image: linear-gradient(to bottom, #c0d4e8 1%, #88b8e8 54%, #358dea 100%);
+    color: #fff;
+    text-align: center; }
+    #alberta-ca.IDDP .system-notice i.fa-info-circle {
+      font-size: 18px;
+      margin-right: 5px; }
+    #alberta-ca.IDDP .system-notice a {
+      color: yellow; }
+  #alberta-ca.IDDP .page-top-bg {
+    background: #fff;
+    padding-bottom: 30px; }
+  #alberta-ca.IDDP .page-main-bg {
+    background-color: #fff;
+    padding-top: 20px;
+    padding-bottom: 20px; }
+  #alberta-ca.IDDP [role=main].gray .page-main-bg {
+    background-color: #d1d4d3; }
   #alberta-ca.IDDP table td {
     border: 0px; }
   #alberta-ca.IDDP .form-horizontal .form-group {
@@ -80,36 +41,32 @@
   #alberta-ca.IDDP .badge a.remove {
     color: white;
     margin-left: 5px; }
-  #alberta-ca.IDDP div[role=main] {
-    background: url(/img/homepage-bg.jpg) top left repeat; }
   #alberta-ca.IDDP .wrapper-main {
     padding: 0 15px; }
-  #alberta-ca.IDDP .wrapper-package-read .page-header {
+  #alberta-ca.IDDP #content.package-read .page-header {
     margin: 0;
     border: none; }
-  #alberta-ca.IDDP .wrapper-package-read .nav-tabs {
+  #alberta-ca.IDDP #content.package-read .nav-tabs {
     border: none; }
-  #alberta-ca.IDDP .wrapper-package-read .primary article {
+  #alberta-ca.IDDP #content.package-read .primary article {
     padding: 0; }
-  #alberta-ca.IDDP .wrapper-package-read tr:nth-child(even) {
+  #alberta-ca.IDDP #content.package-read tr:nth-child(even) {
     background: #ddd; }
-  #alberta-ca.IDDP .wrapper-package-read td {
+  #alberta-ca.IDDP #content.package-read td {
     padding: 3px 10px;
     border: dotted 1px #a0a0a0; }
-  #alberta-ca.IDDP .wrapper-package-read tr td:first-child {
+  #alberta-ca.IDDP #content.package-read tr td:first-child {
     text-transform: uppercase; }
-  #alberta-ca.IDDP .wrapper-package-read .page-footer {
+  #alberta-ca.IDDP #content.package-read .page-footer {
     margin: 20px auto;
     overflow: auto; }
-    #alberta-ca.IDDP .wrapper-package-read .page-footer a {
+    #alberta-ca.IDDP #content.package-read .page-footer a {
       margin-right: 30px; }
-    #alberta-ca.IDDP .wrapper-package-read .page-footer a:last-child {
+    #alberta-ca.IDDP #content.package-read .page-footer a:last-child {
       /* Download Metadata button */ }
       @media screen and (min-width: 25em) {
-        #alberta-ca.IDDP .wrapper-package-read .page-footer a:last-child {
+        #alberta-ca.IDDP #content.package-read .page-footer a:last-child {
           float: right; } }
-  #alberta-ca.IDDP .page-preprimary > :last-child {
-    margin-bottom: 30px; }
   #alberta-ca.IDDP .logo a {
     background: url(/img/AlbertaLogoWhiteV.svg) no-repeat center center;
     background-size: 120px 51px; }
@@ -120,69 +77,89 @@
     border-radius: 0;
     border: 1px solid #555; }
   #alberta-ca.IDDP #content {
-    background-color: #fff;
-    padding-top: 0; }
+    padding-top: 0;
+    padding-left: 30px;
+    padding-right: 30px; }
+    #alberta-ca.IDDP #content > .row {
+      background: #fff;
+      padding-top: 0; }
     #alberta-ca.IDDP #content .primary {
-      float: right; }
+      float: right;
+      padding-top: 10px; }
       #alberta-ca.IDDP #content .primary > article {
-        padding: 0 15px; }
+        padding: 0; }
         #alberta-ca.IDDP #content .primary > article .topics {
-          margin: 0 -15px; }
+          margin: 0 -15px 20px; }
     #alberta-ca.IDDP #content.no-sidebar .primary {
       width: 100%;
       float: none; }
-    #alberta-ca.IDDP #content .secondary {
-      float: left; }
-      #alberta-ca.IDDP #content .secondary aside {
-        border: dotted 1px #ccc;
-        padding: 15px;
-        /* TODO:
+    #alberta-ca.IDDP #content.no-sidebar .secondary {
+      display: none; }
+  #alberta-ca.IDDP .secondary {
+    float: left;
+    padding: 0; }
+    @media only screen and (max-width: 768px) {
+      #alberta-ca.IDDP .secondary {
+        display: none; } }
+    #alberta-ca.IDDP .secondary aside {
+      border: dotted 1px #ccc;
+      padding: 15px;
+      /* TODO:
                 &.filter-results {
                 }
                 */ }
-        #alberta-ca.IDDP #content .secondary aside section *:first-child {
-          margin-top: 0; }
-        #alberta-ca.IDDP #content .secondary aside section *:last-child {
-          margin-bottom: 0; }
-        #alberta-ca.IDDP #content .secondary aside h3 {
-          color: #fff;
-          background: #606060;
-          font-size: 1.2em;
-          margin: 0;
-          padding: 5px 10px; }
-        #alberta-ca.IDDP #content .secondary aside h4 {
-          color: #000;
-          background: #ccc;
-          font-size: 0.9em;
-          padding: 5px 10px;
-          margin: 0; }
-          #alberta-ca.IDDP #content .secondary aside h4.suggest {
-            text-align: center; }
-          #alberta-ca.IDDP #content .secondary aside h4 i.fa {
-            float: right;
-            margin-left: 5px;
-            color: #808080;
-            cursor: pointer; }
-            #alberta-ca.IDDP #content .secondary aside h4 i.fa:hover {
-              color: #000; }
-        #alberta-ca.IDDP #content .secondary aside li.nav-item {
-          font-size: 0.9em;
-          margin: 0 -5px;
-          padding: 5px 10px;
-          border-bottom: dotted 1px #ccc; }
-          #alberta-ca.IDDP #content .secondary aside li.nav-item a {
-            margin: -5px -5px;
-            padding: 5px; }
-        #alberta-ca.IDDP #content .secondary aside p.module-footer {
-          text-align: center;
-          font-size: 0.8em;
-          background: #ddd;
-          padding: 5px; }
-          #alberta-ca.IDDP #content .secondary aside p.module-footer a.show-less {
-            display: none; }
-      #alberta-ca.IDDP #content .secondary.no-padding {
-        padding: 0; }
-    #alberta-ca.IDDP #content.no-sidebar .secondary {
+      #alberta-ca.IDDP .secondary aside section *:first-child {
+        margin-top: 0; }
+      #alberta-ca.IDDP .secondary aside section *:last-child {
+        margin-bottom: 0; }
+      #alberta-ca.IDDP .secondary aside h3 {
+        color: #fff;
+        background: #606060;
+        font-size: 1.2em;
+        margin: 0;
+        padding: 5px 10px; }
+      #alberta-ca.IDDP .secondary aside h4 {
+        color: #000;
+        background: #ccc;
+        font-size: 0.9em;
+        padding: 5px 10px;
+        margin: 0; }
+        #alberta-ca.IDDP .secondary aside h4.suggest {
+          text-align: center; }
+        #alberta-ca.IDDP .secondary aside h4 i.fa {
+          float: right;
+          margin-left: 5px;
+          color: #808080;
+          cursor: pointer;
+          font-size: 1.1em; }
+          #alberta-ca.IDDP .secondary aside h4 i.fa:hover {
+            color: #000; }
+      #alberta-ca.IDDP .secondary aside li.nav-item {
+        font-size: 0.9em;
+        margin: 0;
+        padding: 5px 10px;
+        border-bottom: dotted 1px #ccc; }
+        #alberta-ca.IDDP .secondary aside li.nav-item a {
+          margin: -5px -10px;
+          padding: 5px 5px 5px 10px; }
+      #alberta-ca.IDDP .secondary aside p.module-footer {
+        text-align: center;
+        font-size: 0.8em;
+        background: #ddd;
+        padding: 5px; }
+        #alberta-ca.IDDP .secondary aside p.module-footer a.show-less {
+          display: none; }
+    #alberta-ca.IDDP .secondary.no-padding {
+      padding: 0; }
+  #alberta-ca.IDDP.no-sidebar .secondary {
+    display: none; }
+  #alberta-ca.IDDP #content.catalogue input {
+    border: solid 1px auto; }
+  #alberta-ca.IDDP #content.catalogue .secondary {
+    padding: 5px; }
+    #alberta-ca.IDDP #content.catalogue .secondary aside {
+      padding: 0; }
+    #alberta-ca.IDDP #content.catalogue .secondary h3 .fa-close {
       display: none; }
   #alberta-ca.IDDP .account-masthead {
     background-color: black;
@@ -204,74 +181,105 @@
       padding-right: 10px; }
   #alberta-ca.IDDP .header-bg {
     border-bottom: 0; }
-    #alberta-ca.IDDP .header-bg .search button {
-      background: #fff;
-      color: #606060; }
-      #alberta-ca.IDDP .header-bg .search button:hover, #alberta-ca.IDDP .header-bg .search button:focus {
-        color: #000; }
-  #alberta-ca.IDDP #content > div {
-    padding-top: 0;
-    /* turn off 30px from alberta.css */ }
-  #alberta-ca.IDDP .home .header {
+    #alberta-ca.IDDP .header-bg .search {
+      display: table;
+      border-collapse: separate;
+      width: 100%;
+      margin-bottom: 17px; }
+      #alberta-ca.IDDP .header-bg .search input[type=search] {
+        display: table-cell;
+        float: left;
+        transition: none; }
+      #alberta-ca.IDDP .header-bg .search a {
+        display: table-cell;
+        width: 48px;
+        background: #fff url(/img/search.svg) center center no-repeat; }
+      #alberta-ca.IDDP .header-bg .search a:hover {
+        background: #fff url(/img/search-hover.svg) center center no-repeat; }
+  #alberta-ca.IDDP .homepage .header {
     background: #fff;
     margin: auto 0;
     padding: 15px 15px 30px 15px; }
-  #alberta-ca.IDDP .home .search input {
+  #alberta-ca.IDDP .homepage .search input {
     border: 1px solid #ccc;
     border-right: none; }
-  #alberta-ca.IDDP .home .search .btn {
-    background: #555; }
-    #alberta-ca.IDDP .home .search .btn:hover {
+  #alberta-ca.IDDP .homepage .search .btn {
+    background: #555;
+    padding-top: 3px; }
+    #alberta-ca.IDDP .homepage .search .btn:hover {
       background: #333; }
-    #alberta-ca.IDDP .home .search .btn .fa-search {
+    #alberta-ca.IDDP .homepage .search .btn .fa-search {
+      color: #fff; }
+  #alberta-ca.IDDP ul.social {
+    margin: 10px 0 0;
+    font-size: 0;
+    text-align: right; }
+    #alberta-ca.IDDP ul.social li {
+      margin: 0 0 0 5px; }
+    #alberta-ca.IDDP ul.social a {
+      display: inline-block;
+      min-width: 48px;
+      min-height: 48px;
+      line-height: 48px;
+      font-size: 24px;
+      text-align: center;
+      padding: 0;
+      background: #d1d4d3;
+      color: #36424a; }
+    #alberta-ca.IDDP ul.social a:hover {
+      background: #36424a;
       color: #fff; }
   #alberta-ca.IDDP .topics {
-    background: #d1d4d3;
-    padding: 15px 15px 30px 15px;
-    border-top: dotted 1px #a0a0a0;
-    margin: auto 0; }
-    #alberta-ca.IDDP .topics .inner {
-      background: #fff;
-      padding-bottom: 15px;
-      overflow: hidden; }
-      #alberta-ca.IDDP .topics .inner > h3 {
-        padding-left: 15px; }
-      #alberta-ca.IDDP .topics .inner .topic {
-        width: 33%;
-        float: left;
-        margin-bottom: -500em;
-        padding-bottom: 500em;
-        /* Items have different height so stuff in the last row will render in a random column.
-                   Clears force starting the row in column 1 */ }
-        #alberta-ca.IDDP .topics .inner .topic h3, #alberta-ca.IDDP .topics .inner .topic p {
-          margin: 10px; }
-        @media screen and (min-width: 50em) {
-          #alberta-ca.IDDP .topics .inner .topic.fourth {
+    background: #fff;
+    padding: 0;
+    margin-bottom: 0; }
+    #alberta-ca.IDDP .topics > h2 {
+      padding-left: 19px;
+      margin: 20px 0 15px !important; }
+    #alberta-ca.IDDP .topics .topic {
+      width: 33%;
+      float: left;
+      overflow: hidden;
+      padding: 4px 19px 2000px 19px;
+      margin-bottom: -2000px;
+      /* Items have different height so stuff in the last row will render in a random column.
+               Clears force starting the row in column 1 */ }
+      #alberta-ca.IDDP .topics .topic h3 {
+        font-size: 24px;
+        margin: 5px 0 10px; }
+        #alberta-ca.IDDP .topics .topic h3 a {
+          text-decoration: underline; }
+      #alberta-ca.IDDP .topics .topic p {
+        margin-bottom: 15px; }
+      @media screen and (min-width: 768px) {
+        #alberta-ca.IDDP .topics .topic.fourth {
+          clear: left; } }
+      @media screen and (max-width: 768px) {
+        #alberta-ca.IDDP .topics .topic {
+          width: 50%; }
+          #alberta-ca.IDDP .topics .topic:nth-child(even) {
             clear: left; } }
-        @media screen and (max-width: 50em) {
-          #alberta-ca.IDDP .topics .inner .topic {
-            width: 50%; }
-            #alberta-ca.IDDP .topics .inner .topic:nth-child(odd) {
-              clear: left; } }
-        @media screen and (max-width: 30em) {
-          #alberta-ca.IDDP .topics .inner .topic {
-            width: 100%; } }
-      #alberta-ca.IDDP .topics .inner .see-all {
-        clear: both; }
-        #alberta-ca.IDDP .topics .inner .see-all .btn {
-          text-transform: uppercase;
-          display: block;
-          width: 10em;
-          margin: 0 auto;
-          margin-top: 15px; }
+      @media screen and (max-width: 500px) {
+        #alberta-ca.IDDP .topics .topic {
+          width: 100%; } }
+    #alberta-ca.IDDP .topics .see-all {
+      clear: both;
+      padding: 30px 0; }
+      #alberta-ca.IDDP .topics .see-all .btn {
+        text-transform: uppercase;
+        display: block;
+        width: 10em;
+        margin: 0 auto; }
   #alberta-ca.IDDP .responsive-buttons {
     height: 61px;
     margin-top: 10px;
     margin-bottom: 10px; }
   #alberta-ca.IDDP .navbar, #alberta-ca.IDDP .navbar-collapse {
-    background-color: #77b800;
+    background-color: #6a747d;
     border: none;
-    min-height: 30px; }
+    min-height: 30px;
+    margin-left: -15px;
+    margin-right: -15px; }
   #alberta-ca.IDDP .navbar-toggle {
     border-color: #000;
     padding: 5px;
@@ -279,6 +287,8 @@
   #alberta-ca.IDDP .navbar-header {
     margin-left: 15px; }
   #alberta-ca.IDDP .navbar {
+    background-color: #6a747d;
+    border-top: 8px solid #77b800;
     width: 100%;
     margin: 0;
     border-radius: 0; }
@@ -286,18 +296,25 @@
       list-style: none; }
     #alberta-ca.IDDP .navbar li {
       float: left; }
-    #alberta-ca.IDDP .navbar li.active {
-      font-weight: bold; }
+    @media screen and (min-width: 768px) {
+      #alberta-ca.IDDP .navbar a.active {
+        background-image: url(/img/subnav-active.png);
+        background-position: bottom center;
+        background-repeat: no-repeat; } }
+    #alberta-ca.IDDP .navbar a:visited {
+      background-color: #6a747d; }
     #alberta-ca.IDDP .navbar a {
-      color: #000;
+      color: #fff;
+      font-size: 18px;
       min-height: 30px;
-      padding: 5px 15px !important;
+      padding: 12px 15px !important;
       line-height: 30px; }
       #alberta-ca.IDDP .navbar a:hover {
-        color: #000;
-        background-color: #bbb; }
-      #alberta-ca.IDDP .navbar a.active {
-        background-color: #478800; }
+        background-color: #6a747d; }
+  #alberta-ca.IDDP .nav-bottom {
+    background: #eeeeee;
+    border-top: 3px solid #eeeeee;
+    border-bottom: 2px solid #a5a7aa; }
   #alberta-ca.IDDP .icon-bar {
     /* burger lines */
     background-color: #000; }
@@ -309,6 +326,9 @@
     margin-bottom: 0; }
   #alberta-ca.IDDP .dataset-content {
     position: relative; }
+  #alberta-ca.IDDP .dataset-search .search-submit {
+    line-height: 30px;
+    min-height: 32px; }
   #alberta-ca.IDDP .dataset-flag-wrapper {
     position: absolute;
     right: 0;
@@ -348,7 +368,7 @@
     cursor: pointer; }
     #alberta-ca.IDDP #field-image-upload::-webkit-file-upload-button {
       cursor: pointer; }
-  @media only screen and (max-width: 40em) {
+  @media only screen and (max-width: 768px) {
     #alberta-ca.IDDP .navbar {
       border: 2px solid #77B800;
       min-height: 0; }
@@ -374,7 +394,7 @@
       padding: 0;
       overflow: hidden;
       margin: 0; } }
-  @media only screen and (min-width: 40em) {
+  @media only screen and (min-width: 768px) {
     #alberta-ca.IDDP nav .collapse {
       display: block; }
     #alberta-ca.IDDP .navbar-header {
@@ -391,19 +411,39 @@
       /* do not display the last "/" */ }
   #alberta-ca.IDDP .nav-tabs {
     padding-left: 20px; }
-  #alberta-ca.IDDP .filter-toggle {
+  #alberta-ca.IDDP #show-filters {
     display: none; }
-    @media only screen and (max-width: 40em) {
-      #alberta-ca.IDDP .filter-toggle {
-        display: block;
-        width: 6em;
-        margin-bottom: 15px; } }
+    @media only screen and (max-width: 768px) {
+      #alberta-ca.IDDP #show-filters {
+        display: inline-block;
+        width: 6em; } }
+  #alberta-ca.IDDP .catalogue {
+    position: relative; }
+    #alberta-ca.IDDP .catalogue div.primary {
+      position: relative; }
+    #alberta-ca.IDDP .catalogue div.secondary {
+      background-color: #fff;
+      z-index: 5; }
   #alberta-ca.IDDP .filter-list {
     border-top: solid 1px #a0a0a0;
     border-bottom: solid 1px #a0a0a0;
     margin: 15px 0;
     padding: 15px 0;
     font-size: 0.8em; }
+  #alberta-ca.IDDP .dropdown-menu {
+    padding: 2px 5px 5px; }
+    #alberta-ca.IDDP .dropdown-menu a.btn {
+      display: block;
+      width: 12em;
+      margin-top: 3px; }
+  #alberta-ca.IDDP .dropdown-menu {
+    padding: 2px 5px 5px; }
+    #alberta-ca.IDDP .dropdown-menu a.btn {
+      display: block;
+      width: 12em;
+      margin-top: 3px; }
+  #alberta-ca.IDDP .wrapper-resources {
+    position: relative; }
   #alberta-ca.IDDP .control-medium input, #alberta-ca.IDDP .control-medium textarea, #alberta-ca.IDDP .control-medium select {
     min-width: 320px; }
   #alberta-ca.IDDP .control-full input, #alberta-ca.IDDP .control-full textarea, #alberta-ca.IDDP .control-full select {
@@ -470,28 +510,16 @@
   #alberta-ca.IDDP .pagination ul {
     overflow: auto;
     list-style-type: none;
-    padding: 0 15px 0; }
+    padding: 0;
+    font-size: 0; }
   #alberta-ca.IDDP .pagination li {
     list-style: none;
-    float: left;
-    margin-right: 0.5em; }
+    display: inline-block;
+    margin: 0; }
     #alberta-ca.IDDP .pagination li a {
-      display: block;
-      min-width: 2em;
-      text-align: center;
-      width: 100%;
-      border: solid 1px #666;
-      background: #dddddd;
-      color: black;
-      text-decoration: none; }
-      #alberta-ca.IDDP .pagination li a:hover {
-        border: solid 1px #666;
-        background: #005072;
-        color: #fff; }
-    #alberta-ca.IDDP .pagination li.active a {
-      border: solid 1px #666;
-      background: #005072;
-      color: #fff; }
+      display: block; }
+  #alberta-ca.IDDP .pagination li.active {
+    display: inline-block; }
   #alberta-ca.IDDP .block-wrapper {
     width: 100%; }
   #alberta-ca.IDDP .vertical-align-wrapper {
@@ -503,7 +531,8 @@
     margin-left: 0;
     padding-left: 0; }
     #alberta-ca.IDDP ul.unstyled li {
-      list-style: none; }
+      list-style: none;
+      display: inline-block; }
   #alberta-ca.IDDP .resource-items > :first-child {
     border-top: solid 1px #ddd; }
   #alberta-ca.IDDP .resource-items > :last-child {
@@ -554,7 +583,8 @@
       position: absolute;
       top: 5px;
       left: 0;
-      margin-left: 5px; }
+      margin-left: 5px;
+      font-size: 1em; }
     #alberta-ca.IDDP .left-icon-input input {
       padding-left: 25px; }
   #alberta-ca.IDDP section.date-range .wrapper {
@@ -567,3 +597,36 @@
     background-color: #e6e6e6; }
   #alberta-ca.IDDP .modal-backdrop.in {
     opacity: 1; }
+  #alberta-ca.IDDP .mobile-filters-panel {
+    position: fixed;
+    left: 0;
+    top: 10px;
+    margin-left: -350px;
+    z-index: 10000;
+    padding: 0;
+    padding-bottom: 20px;
+    max-width: 85%;
+    background-color: #eee;
+    overflow-y: auto;
+    height: 100%;
+    display: none; }
+    #alberta-ca.IDDP .mobile-filters-panel aside {
+      padding: 0 !important;
+      width: 100%; }
+    #alberta-ca.IDDP .mobile-filters-panel h3 {
+      position: relative; }
+      #alberta-ca.IDDP .mobile-filters-panel h3 .fa-close {
+        visibility: visible;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        padding: 1px 4px;
+        border: solid 2px white;
+        border-radius: 5px; }
+    #alberta-ca.IDDP .mobile-filters-panel .fa {
+      visibility: hidden;
+      /* temporary - hide until sorting doesn't work */
+      margin-left: 10px !important;
+      cursor: pointer; }
+    #alberta-ca.IDDP .mobile-filters-panel p {
+      padding: 2px 10px; }
