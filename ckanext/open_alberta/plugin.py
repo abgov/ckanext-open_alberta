@@ -116,18 +116,45 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
 # Replace Homepage drop-down select contents
 
 import ckan.controllers.admin as admin
+import ckan.controllers.home as home
 
 _orig_get_config_form_items = admin.AdminController._get_config_form_items
+_orig_home_index = home.HomeController.index
 
-def __patched__get_config_form_items(self):
-    ret = _orig_get_config_form_items(self)
-    for item in ret:
-        if item['name'] == 'ckan.homepage_style':
-            item['options'] = [{'value': '1', 'text': _('IDDP home page')},
-                               {'value': '2', 'text': _('OGP home page')}]
-            return ret
+def patch_ckan_admin_and_home_controllers():
+    def __patched__get_config_form_items(self):
+        ret = _orig_get_config_form_items(self)
+        for item in ret:
+            if item['name'] == 'ckan.homepage_style':
+                item['options'] = [{'value': '1', 'text': _('IDDP home page')},
+                                   {'value': '2', 'text': _('OGP home page')},
+                                   {'value': '301', 'text': _('Redirect Home Page to External Site')}]
+                break
+        ret.append({'name': 'ckan.abgov_301_url',
+                    'control': 'input',
+                    'label': _('Home Page URL'),
+                    'placeholder': _('Redirect URL')})
+        return ret
 
-admin.AdminController._get_config_form_items = __patched__get_config_form_items
+    def _index_or_redirect(self):
+        """ Overide CKAN home controller to allow for home page redirect.
+            The redirect happens when home page layout number is set to 301.
+            The url is saved by CKAN admin Config Options page (customized above).
+        """
+        from ckan.lib.app_globals import app_globals
+        from pylons.controllers.util import redirect
+        if app_globals.homepage_style == '301':
+            redirect(app_globals.abgov_301_url, code=301)
+        else:
+            return _orig_home_index(self)
+
+    # Monkey patch CKAN Admin controller helper
+    admin.AdminController._get_config_form_items = __patched__get_config_form_items
+    # Monkey patch CKAN home controller
+    home.HomeController.index = _index_or_redirect
+
+
+patch_ckan_admin_and_home_controllers()
 
 
 class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
@@ -174,7 +201,8 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
 
     def update_config_schema(self, schema):
         schema.update({
-            'menu_items': []
+            'menu_items': [],
+            'ckan.abgov_301_url': []
         })
         return schema
  
