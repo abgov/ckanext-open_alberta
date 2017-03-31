@@ -988,4 +988,14 @@ $active-bg-color: #005072;
             padding: 2px 10px;
         }
     }
+
+    .nav-facet.unstyled li {
+        display: block;
+    }
+
+    /* tempoary fix for styling issues caused by alberta.ca css changes */
+
+    .modal {
+        background: #fff;
+    }
 }
