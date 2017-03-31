@@ -1002,4 +1002,22 @@ $active-bg-color: #005072;
     .modal {
         background: #fff;
     }
+
+    .actions {
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
 }
