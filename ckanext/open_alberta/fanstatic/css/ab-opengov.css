@@ -10,7 +10,8 @@
   font-family: lato, sans-serif;
   font-size: 1.6em;
   /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
-  /* Helpers */ }
+  /* Helpers */
+  /* tempoary fix for styling issues caused by alberta.ca css changes */ }
   #alberta-ca.IDDP .system-notice {
     padding: 15px;
     background: #c0d4e8;
@@ -20,6 +21,8 @@
     #alberta-ca.IDDP .system-notice i.fa-info-circle {
       font-size: 18px;
       margin-right: 5px; }
+    #alberta-ca.IDDP .system-notice i.fa-external-link {
+      font-size: 75%; }
     #alberta-ca.IDDP .system-notice a {
       color: yellow; }
   #alberta-ca.IDDP .page-top-bg {
@@ -630,3 +633,7 @@
       cursor: pointer; }
     #alberta-ca.IDDP .mobile-filters-panel p {
       padding: 2px 10px; }
+  #alberta-ca.IDDP .nav-facet.unstyled li {
+    display: block; }
+  #alberta-ca.IDDP .modal {
+    background: #fff; }
