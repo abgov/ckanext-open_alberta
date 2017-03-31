@@ -637,3 +637,15 @@
     display: block; }
   #alberta-ca.IDDP .modal {
     background: #fff; }
+  #alberta-ca.IDDP .actions {
+    padding-top: 30px;
+    padding-bottom: 30px; }
+    #alberta-ca.IDDP .actions ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0; }
+    #alberta-ca.IDDP .actions li {
+      list-style: none;
+      display: inline-block;
+      margin-right: 5px; }
