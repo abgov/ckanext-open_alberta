@@ -17,7 +17,7 @@ $(function() {
 
     // Move the filters panel to the main column and shift it to the left so it's ready to slide in.
     // Mobile view only.
-    var mfp = $('.catalogue div.secondary').clone();
+    var mfp = $('.catalogue div.secondary').clone(true, true);
     mfp.prependTo('body')
        .addClass('mobile-filters-panel')
        .click(function(e) { 

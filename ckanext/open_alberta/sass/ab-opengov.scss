@@ -44,6 +44,10 @@ $active-bg-color: #005072;
             margin-right: 5px;
         }
 
+        i.fa-external-link {
+            font-size: 75%;
+        }
+
         a {
             color: yellow;
         }
@@ -987,5 +991,15 @@ $active-bg-color: #005072;
         p {
             padding: 2px 10px;
         }
+    }
+
+    .nav-facet.unstyled li {
+        display: block;
+    }
+
+    /* tempoary fix for styling issues caused by alberta.ca css changes */
+
+    .modal {
+        background: #fff;
     }
 }
