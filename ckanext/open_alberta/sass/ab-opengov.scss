@@ -858,7 +858,9 @@ $active-bg-color: #005072;
         border-right: none;
         position: relative;
 
-        >a.heading {
+        div.heading {
+            width: auto; 
+            word-wrap: break-word;
             margin-left: 35px;
         }
 

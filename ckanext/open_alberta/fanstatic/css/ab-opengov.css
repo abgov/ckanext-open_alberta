@@ -515,7 +515,9 @@
     border-bottom: dashed 1px #ddd;
     border-right: none;
     position: relative; }
-    #alberta-ca.IDDP .resource-item > a.heading {
+    #alberta-ca.IDDP .resource-item div.heading {
+      width: auto;
+      word-wrap: break-word;
       margin-left: 35px; }
     #alberta-ca.IDDP .resource-item i.rc-icon {
       color: #000;
