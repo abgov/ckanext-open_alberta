@@ -1,6 +1,7 @@
 import ckan.authz as authz
 import ckan.lib.helpers as h
-
+from pylons import config
+import ckan.plugins.toolkit as toolkit
 
 def is_authorized(action, context, data_dict=None):
     if context.get('ignore_auth'):
@@ -27,18 +28,17 @@ def is_authorized(action, context, data_dict=None):
         # access straight away
         if not getattr(auth_function, 'auth_allow_anonymous_access', False) \
            and not context.get('auth_user_obj'):
-            """
-            return {'success': False,
+            if toolkit.asbool(config.get('ckan.open_alberta.login_before_everything', False)):
+                """
+                Here we do not want to show not authorized. we want to
+                rediret to login url
+                """
+                return h.redirect_to("/user/login?came_from={0}".format(h.full_current_url()))
+            else:
+                return {'success': False,
                     'msg': '{0} requires an authenticated user'
                             .format(auth_function)
                    }
-            """
-            """
-            Here we do not want to show not authorized. we want to
-            rediret to login url
-            """
-            return h.redirect_to("/user/login?came_from={0}".format(h.full_current_url()))
-            
 
         return auth_function(context, data_dict)
     else:
