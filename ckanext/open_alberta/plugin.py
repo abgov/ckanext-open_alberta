@@ -178,7 +178,7 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
     Monkey patching here to override 
     the content type for download of package's metadata .
     """
-    ckan_api.ApiController._finish_ok = api._finish_ok
+    ckan_api.ApiController._finish_ok = api.download(ckan_api.ApiController._finish_ok)
     ckan_api.CONTENT_TYPES = api.CONTENT_TYPES
 
     """ IConfigurable """
