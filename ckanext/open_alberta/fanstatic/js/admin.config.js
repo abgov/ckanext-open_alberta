@@ -16,4 +16,12 @@ $(function() {
             urlfld.val('').parent().parent().hide();
         }
     });
+
+    var cb = $('#field-ckan-abgov-display-notice');
+    // A standard checkbox doesn't bind it's value to the checked state
+    cb.change(function() {
+         var me = $(this);
+         me.val(me.is(':checked')? 'True': 'False');
+       })
+      .prop('checked', cb.val()=='True');
 });

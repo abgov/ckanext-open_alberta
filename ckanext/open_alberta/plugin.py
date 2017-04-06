@@ -117,6 +117,7 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
 
 import ckan.controllers.admin as admin
 import ckan.controllers.home as home
+from ckan.lib.app_globals import app_globals
 
 _orig_get_config_form_items = admin.AdminController._get_config_form_items
 _orig_home_index = home.HomeController.index
@@ -134,6 +135,14 @@ def patch_ckan_admin_and_home_controllers():
                     'control': 'input',
                     'label': _('Home Page URL'),
                     'placeholder': _('Redirect URL')})
+        ret.append({'name': 'ckan.abgov_display_notice',
+                    'control': 'checkbox',
+                    'value': toolkit.asbool(app_globals.abgov_display_notice),
+                    'label': _('Display site notice')})
+        ret.append({'name': 'ckan.abgov_notice',
+                    'control': 'markdown',
+                    'label': _('Site notice'),
+                    'placeholder': _('Markdown syntax. Raw HTML is also suppported.')})
         return ret
 
     def _index_or_redirect(self):
@@ -141,7 +150,6 @@ def patch_ckan_admin_and_home_controllers():
             The redirect happens when home page layout number is set to 301.
             The url is saved by CKAN admin Config Options page (customized above).
         """
-        from ckan.lib.app_globals import app_globals
         from pylons.controllers.util import redirect
         if app_globals.homepage_style == '301':
             redirect(app_globals.abgov_301_url, code=301)
@@ -200,9 +208,12 @@ class Open_AlbertaPlugin(plugins.SingletonPlugin, DefaultGroupForm):
         toolkit.add_resource('fanstatic', 'open_alberta')
 
     def update_config_schema(self, schema):
+        from ckan.logic.validators import boolean_validator
         schema.update({
             'menu_items': [],
-            'ckan.abgov_301_url': []
+            'ckan.abgov_301_url': [],
+            'ckan.abgov_display_notice': [boolean_validator],
+            'ckan.abgov_notice': []
         })
         return schema
  
