@@ -40,6 +40,11 @@ def check_archive_date(archive_date=""):
 class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IRoutes, inherit=True)
     plugins.implements(plugins.IConfigurer, inherit=True)
+    plugins.implements(plugins.IConfigurable, inherit=False)
+
+    def configure(self, config):
+        from model import setup
+        setup()
 
     def update_config(self, config):
         config['ckan.resource_proxy_enabled'] = True
