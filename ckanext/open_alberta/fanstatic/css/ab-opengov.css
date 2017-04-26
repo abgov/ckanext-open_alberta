@@ -11,7 +11,8 @@
   font-size: 1.6em;
   /* Bootstrap burgerizes the menu at 768px - move that to 40em as we can't customize BS itself */
   /* Helpers */
-  /* tempoary fix for styling issues caused by alberta.ca css changes */ }
+  /* tempoary fix for styling issues caused by alberta.ca css changes */
+  /* make bootstrap selected-item style not be overridden by alberta.ca default link style causing blue-on-blue invisible text on dashboard news feed filter */ }
   #alberta-ca.IDDP .system-notice {
     padding: 15px;
     background: #c0d4e8;
@@ -649,3 +650,5 @@
       list-style: none;
       display: inline-block;
       margin-right: 5px; }
+  #alberta-ca.IDDP .nav-pills > li.active > a, #alberta-ca.IDDP .nav-pills > li.active > a:focus, #alberta-ca.IDDP .nav-pills > li.active > a:hover {
+    color: #fff; }
