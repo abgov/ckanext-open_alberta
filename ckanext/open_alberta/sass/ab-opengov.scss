@@ -1020,4 +1020,21 @@ $active-bg-color: #005072;
             margin-right: 5px;
         }
     }
+
+    /* make bootstrap selected-item style not be overridden by alberta.ca default link style causing blue-on-blue invisible text on dashboard news feed filter */
+    .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+        color: #fff;
+    }
+
+    .dashboard-page-heading {
+        margin-top: 0;
+    }
+
+    .dashboard-activity-column {
+        padding-right: 5px;
+
+        ul.activity {
+            list-style: none;
+        }
+    }
 }
