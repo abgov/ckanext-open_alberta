@@ -652,3 +652,7 @@
       margin-right: 5px; }
   #alberta-ca.IDDP .nav-pills > li.active > a, #alberta-ca.IDDP .nav-pills > li.active > a:focus, #alberta-ca.IDDP .nav-pills > li.active > a:hover {
     color: #fff; }
+  #alberta-ca.IDDP .dashboard-page-heading {
+    margin-top: 0; }
+  #alberta-ca.IDDP .dashboard-activity-column {
+    padding-right: 5px; }

@@ -1,0 +1,24 @@
+{% ckan_extends %}
+
+{% block primary_content_inner %}
+  <div data-module="dashboard">
+    <table>
+      <tr>
+        <td class="dashboard-activity-column">
+          <h2 class="page-heading dashboard-page-heading">
+            {% block page_heading %}
+              {{ _('News feed') }}
+            {% endblock %}
+            <small>{{ _("Activity from items that I'm following") }}</small>
+          </h2>
+          {% block activity_stream %}
+            {{ c.dashboard_activity_stream }}
+          {% endblock %}
+        </td>
+        <td>
+          {% snippet 'user/snippets/followee_dropdown.html', context=c.dashboard_activity_stream_context, followees=c.followee_list %}
+        </td>
+      </tr>
+    </table>
+  </div>
+{% endblock %}
