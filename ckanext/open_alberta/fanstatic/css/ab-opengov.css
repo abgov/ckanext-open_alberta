@@ -656,3 +656,5 @@
     margin-top: 0; }
   #alberta-ca.IDDP .dashboard-activity-column {
     padding-right: 5px; }
+    #alberta-ca.IDDP .dashboard-activity-column ul.activity {
+      list-style: none; }

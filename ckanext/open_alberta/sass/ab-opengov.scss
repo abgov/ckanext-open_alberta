@@ -1032,5 +1032,9 @@ $active-bg-color: #005072;
 
     .dashboard-activity-column {
         padding-right: 5px;
+
+        ul.activity {
+            list-style: none;
+        }
     }
 }
