@@ -50,7 +50,6 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
         config['ckan.resource_proxy_enabled'] = True
 
     def before_map(self, m):
-
         m.connect('suggest' ,'/suggest',
                     controller='ckanext.open_alberta.controller:SuggestController',
                     action='suggest_form')
@@ -66,6 +65,20 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
         m.connect('licence' ,'/licence',
                     controller='ckanext.open_alberta.controller:PagesController',
                     action='licence')
+
+        m.connect('dashboard_pages', '/dashboard/pages',
+                  controller='ckanext.open_alberta.controller:PagesController',
+                  action='dashboard_pages', ckan_icon='file')
+
+        m.connect('dashboard_edit_page', '/dashboard/pages/edit/{node_id}',
+                  controller='ckanext.open_alberta.controller:PagesController',
+                  action='dashboard_edit_page')
+
+        m.connect('dashboard_blog', '/dashboard/blog',
+                  controller='ckanext.open_alberta.controller:PagesController',
+                  action='dashboard_blog', ckan_icon='file')
+
+# TODO: all 301s to Drupal have to be removed
 
 # /content/government-alberta-open-information-and-open-data-policy > /policy
         m.redirect('/content/government-alberta-open-information-and-open-data-policy', 

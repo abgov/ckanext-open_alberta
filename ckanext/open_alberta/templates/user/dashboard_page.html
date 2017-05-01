@@ -1,0 +1,22 @@
+{% extends "user/dashboard.html" %}
+
+{% block page_primary_action %}
+{% endblock %}
+
+{% block primary_content_inner %}
+  {% if c.all_pages %}
+  <h2 class="hide-heading">Pages</h2>
+    <ul class="content-list page-list">
+    {% for pg in c.all_pages %}
+      <li><h3 class="package-header"><a href="/dashboard/pages/edit/{{ pg.node_id }}">{{ pg.title }}</a></h3></li>
+    {% else %}
+      <li><p class="no-data">No pages have been created yet.</p></li>
+    {% endfor %}
+    </ul>
+  {% elif c.page %}
+  <h2 class="hide-heading">Edit Page</h2>
+  ...
+  {% else %}
+    <p>Invalid usage of the template</p>
+  {% endif %}
+{% endblock %}

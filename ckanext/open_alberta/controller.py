@@ -20,6 +20,8 @@ from pylons import config
 from pylons.decorators import jsonify
 import ckan.lib.captcha as captcha
 
+import model
+
 unflatten = dictization_functions.unflatten
 
 _NOT_AUTHORIZED = _('Not authorized to see this page')
@@ -161,16 +163,29 @@ class PagesController(base.BaseController):
 
 
     def policy(self):
-
         return base.render('static-pages/policy/read.html')
 
     def licence(self):
-
         return base.render('static-pages/licence/read.html')
 
     def faq(self):
-
         return base.render('static-pages/faq/read.html')
+
+    def dashboard_pages(self):
+        c.all_pages = model.Pages.all_pages()
+        return base.render('user/dashboard_page.html')
+
+    def dashboard_edit_page(self, node_id):
+        if toolkit.request.method == 'POST':
+            # handle post...
+            pass
+        else:
+            c.page = model.Pages.get(node_id=node_id, content_type='page')
+            return base.render('user/dashboard_page.html')
+
+    def dashboard_blog(self):
+        c.user_blog_entries = model.Pages.all_user_blog_entries(base.c.user)
+        return base.render('user/dashboard_blog.html')
 
 
 class DashboardPackagesController(UserController):
