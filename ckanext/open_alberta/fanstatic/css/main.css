@@ -2712,3 +2712,20 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
     margin: 0;
     padding-left: 25px;
 }
+
+header.module-content.page-header {
+    display: none;
+}
+
+main.link-icons .page-title-box {
+    padding-left: 0;
+}
+
+.page-title-box h1 {
+    color: #0562a5;
+}
+
+main.link-icons .region.region-content {
+    margin-left: -15px;
+    margin-right: -15px;
+}
