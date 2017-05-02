@@ -19,6 +19,7 @@ from ckan.lib.base import BaseController
 from pylons import config
 from pylons.decorators import jsonify
 import ckan.lib.captcha as captcha
+from ckan.lib.render import TemplateNotFound
 
 import model
 
@@ -171,21 +172,14 @@ class PagesController(base.BaseController):
     def faq(self):
         return base.render('static-pages/faq/read.html')
 
-    def dashboard_pages(self):
-        c.all_pages = model.Pages.all_pages()
-        return base.render('user/dashboard_page.html')
-
-    def dashboard_edit_page(self, node_id):
-        if toolkit.request.method == 'POST':
-            # handle post...
-            pass
+    def static_serve(self, slug=None):
+        if slug is None:
+            return base.render('static-pages/interact.html')
         else:
-            c.page = model.Pages.get(node_id=node_id, content_type='page')
-            return base.render('user/dashboard_page.html')
-
-    def dashboard_blog(self):
-        c.user_blog_entries = model.Pages.all_user_blog_entries(base.c.user)
-        return base.render('user/dashboard_blog.html')
+            try:
+                return base.render('static-pages/%s.html' % (slug,))
+            except TemplateNotFound:
+                base.abort(404);
 
 
 class DashboardPackagesController(UserController):

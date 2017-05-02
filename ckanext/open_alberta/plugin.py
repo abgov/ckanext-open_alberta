@@ -66,18 +66,14 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
                     controller='ckanext.open_alberta.controller:PagesController',
                     action='licence')
 
-        m.connect('dashboard_pages', '/dashboard/pages',
+        m.connect('interact', '/interact',
                   controller='ckanext.open_alberta.controller:PagesController',
-                  action='dashboard_pages', ckan_icon='file')
-
-        m.connect('dashboard_edit_page', '/dashboard/pages/edit/{node_id}',
+                  action='static_serve')
+        
+        m.connect('interact_content', '/interact/{slug}',
                   controller='ckanext.open_alberta.controller:PagesController',
-                  action='dashboard_edit_page')
-
-        m.connect('dashboard_blog', '/dashboard/blog',
-                  controller='ckanext.open_alberta.controller:PagesController',
-                  action='dashboard_blog', ckan_icon='file')
-
+                  action='static_serve')
+        
 # TODO: all 301s to Drupal have to be removed
 
 # /content/government-alberta-open-information-and-open-data-policy > /policy
