@@ -40,12 +40,16 @@ def check_archive_date(archive_date=""):
 class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IRoutes, inherit=True)
     plugins.implements(plugins.IConfigurer, inherit=True)
+    plugins.implements(plugins.IConfigurable, inherit=False)
+
+    def configure(self, config):
+        from model import setup
+        setup()
 
     def update_config(self, config):
         config['ckan.resource_proxy_enabled'] = True
 
     def before_map(self, m):
-
         m.connect('suggest' ,'/suggest',
                     controller='ckanext.open_alberta.controller:SuggestController',
                     action='suggest_form')
@@ -61,6 +65,16 @@ class OpenAlbertaPagesPlugin(plugins.SingletonPlugin):
         m.connect('licence' ,'/licence',
                     controller='ckanext.open_alberta.controller:PagesController',
                     action='licence')
+
+        m.connect('interact', '/interact',
+                  controller='ckanext.open_alberta.controller:PagesController',
+                  action='static_serve')
+        
+        m.connect('interact_content', '/interact/{slug}',
+                  controller='ckanext.open_alberta.controller:PagesController',
+                  action='static_serve')
+        
+# TODO: all 301s to Drupal have to be removed
 
 # /content/government-alberta-open-information-and-open-data-policy > /policy
         m.redirect('/content/government-alberta-open-information-and-open-data-policy', 

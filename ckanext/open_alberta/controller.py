@@ -19,6 +19,9 @@ from ckan.lib.base import BaseController
 from pylons import config
 from pylons.decorators import jsonify
 import ckan.lib.captcha as captcha
+from ckan.lib.render import TemplateNotFound
+
+import model
 
 unflatten = dictization_functions.unflatten
 
@@ -161,16 +164,22 @@ class PagesController(base.BaseController):
 
 
     def policy(self):
-
         return base.render('static-pages/policy/read.html')
 
     def licence(self):
-
         return base.render('static-pages/licence/read.html')
 
     def faq(self):
-
         return base.render('static-pages/faq/read.html')
+
+    def static_serve(self, slug=None):
+        if slug is None:
+            return base.render('static-pages/interact.html')
+        else:
+            try:
+                return base.render('static-pages/%s.html' % (slug,))
+            except TemplateNotFound:
+                base.abort(404);
 
 
 class DashboardPackagesController(UserController):
