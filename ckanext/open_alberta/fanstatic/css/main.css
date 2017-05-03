@@ -1548,7 +1548,7 @@ tbody.collapse.in { display: table-row-group; }
 }
 
 header ul.social {
-    margin: 0;
+    margin: 10px 0 0;
     padding: 0;
     text-align: right;
     font-size: 0;
@@ -1559,20 +1559,22 @@ header .social li {
     padding: 0;
 }
 header .social h2 {
-    font-size: 16px;
+    font-size: 0;
     font-weight: 700;
     margin-right: 5px;
 }
 header .social a {
     display: inline-block;
-    width: 36px;
-    font-size: 14px;
+    min-width: 48px;
+    min-height: 48px;
+    font-size: 24px;
+    line-height: 48px;
     text-align: center;
     border-radius: 0;
     box-shadow: none;
     background: #d1d4d3;
     color: #36424a;
-    padding: 6px 12px 8px;
+    padding: 0;
 }
 header .social a:hover {
     background: #36424a;
@@ -2201,6 +2203,10 @@ body.pushed { right: 75%; overflow: hidden; }
     position: relative; 
     top: 2px; 
 }
+.alberta-theme header.site-header .local-nav-top nav ul li a .fa-lock {
+    margin-right: 10px;
+}
+
 .alberta-theme header.site-header .local-nav-sub { background: #eeeeee; border-top: 3px solid #eeeeee; border-bottom: 2px solid #a5a7aa; }
 .alberta-theme header.site-header .local-nav-sub ul li { float: left; margin-right: 24px; }
 @media screen and (max-width: 992px) { .alberta-theme header.site-header .local-nav-sub ul li { clear: both; padding: 0; height: 25px; }
@@ -2248,34 +2254,57 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme ul.topics li a { color: #000; line-height: 24px; margin-top: 12px; display: inline-block; text-decoration: none; max-width: 120%; min-width: 90%; }
 .alberta-theme ul.topics li a h2 { color: #000; font-size: 21px; line-height: 21px; display: inline-block; vertical-align: bottom; margin: 0 12px 0 0; border-bottom: 1px solid #000000; font-weight: 700; padding-bottom: 2px; margin-bottom: 6px; }
 .alberta-theme ul.topics li a p { color: #000; white-space: nowrap; line-height: 25px; vertical-align: bottom; margin: 0; max-width: 80%; overflow: hidden; text-overflow: ellipsis; }
-.alberta-theme .search-input { 
-    display: inline-block; 
-    width: 100%; 
-    position: relative; 
-    margin-top: 17px; 
+
+/* Adjust to have the same width as alberta.ca's container-fluid */
+.alberta-theme .container { width: auto; }
+@media screen and (min-width: 1042px) {
+    .alberta-theme .container { width: 992px; }
 }
-@media screen and (max-width:992px) {
-    .alberta-theme .search-input {
-        margin-top: 10px;
-        margin-left: -10px;
+
+.alberta-theme .search-input { 
+    display: table; 
+    border-collapse: separate;
+    width: 100%; 
+    margin-top: 17px; 
+    background: #fff;
+}
+@media screen and (max-width: 768px) {
+    .alberta-theme .search-input { 
+        margin-top: 0;
+        margin-bottom: 29px;
     }
 }
-.alberta-theme .search-input a.search-submit { display: block; position: absolute; right: 8px; top: 0; z-index: 100; }
-.alberta-theme .search-input a.search-submit i.fa-search { background-color: transparent; padding: 12px; font-size: 28px; height: 46px; position: relative; top: 1px; color: #ccc; }
-.alberta-theme .search-input a.search-submit:hover i.fa-search {
-    color: #444 !important;
-}
-.alberta-theme .search-input .top-search.form-control { 
-    position: relative; top: 0; 
-    right: 0; margin-right: auto; 
-    margin-left: auto; 
-    min-width: auto !important; 
-    width: 100%; 
-    height: 50px; 
+.alberta-theme .search-input input[type=text] {
+    display: table-cell;
+    float: left;
+    border: 2px solid #fff;
+    transition: none;
+    box-shadow: none;
+    height: 48px !important;
+    padding: 10px 16px;
     font-size: 18px; 
-    padding-right: 50px;
+    min-width: auto;
 }
-@media screen and (min-width: 992px) { .alberta-theme .search-input .top-search.form-control { max-width: 510px; float: right; } }
+.alberta-theme .search-input input[type=text]:hover {
+    border-color: #0080a4;
+    box-shadow: 0 0 3px #0080a4;
+}
+.alberta-theme .search-input a.search-submit { 
+    position: relative;
+    display: table-cell; 
+    right: auto !important; /* clear position: absolute, right: 8px from ab-opengov.css */
+    width: 1%;
+    z-index: 100; 
+}
+.alberta-theme .search-input a.search-submit i.top-search-img {
+    display: block;
+    min-height: 48px;
+    min-width: 48px;
+    background: url('/img/search.svg') no-repeat center center; 
+}
+.alberta-theme .search-input a.search-submit:hover i.top-search-img {
+    background: url('/img/search-hover.svg') no-repeat center center; 
+}
 .alberta-theme header.site-header { 
     position: relative; 
     background-color: #36424a !important;
@@ -2290,7 +2319,8 @@ body.pushed { right: 75%; overflow: hidden; }
     width: 131px;
     height: 61px;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-left: 14px;
     background: url('/img/AlbertaLogoWhiteV.svg') center center no-repeat;
     background-size: 120px 51px;
 }
@@ -2304,7 +2334,7 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme header.site-header #site-search input { padding: 6px 12px; font-size: 24px; color: #ccc; width: 100%; margin-right: 12px; height: 46px; border: 0; position: relative; top: 1px; }
 .alberta-theme header.site-header #site-search input:focus { color: #000; }
 .alberta-theme header.site-header .lead { color: #000; font-size: 21px; font-weight: 400; }
-.alberta-theme header.site-header #branding { margin-top: 2px; padding-top: 2px; padding-bottom: 12px; }
+.alberta-theme header.site-header #branding { margin-top: 2px; padding-top: 2px; }
 @media screen and (max-width: 992px) { .alberta-theme header.site-header #branding { text-align: center; } }
 .alberta-theme header.site-header nav#quick-nav { position: absolute; top: 0; right: 0; -webkit-transition: right 500ms; -o-transition: right 500ms; transition: right 500ms; }
 .alberta-theme header.site-header nav#quick-nav .mobile-menu-button { text-transform: uppercase; background: #000000; color: #ffffff; padding: 12px 24px; border: 0; position: fixed; top: 6px; right: 0%; cursor: pointer; white-space: nowrap; -webkit-transition: right 500ms; -o-transition: right 500ms; transition: right 500ms; z-index: 100; }
@@ -2372,7 +2402,7 @@ body.pushed { right: 75%; overflow: hidden; }
     font-size: 16px;
     border-top: 4px solid #71b800;
     display: inline-block; 
-    padding: 12px 12px 16px 12px; 
+    padding: 12px 0 16px 0; 
     margin: 0; 
     width: 100%; 
     background: #36424a; 
@@ -2411,6 +2441,28 @@ body.pushed { right: 75%; overflow: hidden; }
 .alberta-theme footer.page-footer .fa {
     margin-right: 5px;
     color: #fff;
+}
+.alberta-theme #back-to-toc {
+    z-Index: 60000;
+    position: fixed;
+    display: block;
+    right: 20px;
+    bottom: 20px;
+    width: 48px;
+    height: 0;
+    margin: 0;
+    padding: 48px 0 0;
+    overflow: hidden;
+    border-radius: 100%;
+    background: url(/img/back-to-top.svg) center center no-repeat #0084a1;
+    line-height: 48px;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+.alberta-theme #back-to-toc:hover {
+    background-color: #005072;
 }
 
 .alberta-theme main > div:first-of-type { padding-top: 6px; }
@@ -2642,4 +2694,21 @@ select, select.form-control, input.form-control { -webkit-transition: color 500m
     background-color: #6d9324;
     border: none;
     color: #fff;
+}
+
+.search-date-input {
+    position: relative;
+}
+
+.search-date-input .add-on {
+    position: absolute;
+    left: 18px;
+    top: 14px;
+}
+
+.search-date-input #daterange-publication {
+    width: 100% !important;
+    padding: 0;
+    margin: 0;
+    padding-left: 25px;
 }
